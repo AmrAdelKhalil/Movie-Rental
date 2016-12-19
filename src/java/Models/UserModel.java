@@ -34,9 +34,13 @@ public class UserModel {
                 creditCard = row.getString("creditCard");
             }
             
-            user.put("name", name);
-            user.put("email", email);
-            user.put("creditCard", creditCard);
+            if(email != null){
+                user.put("name", name);
+                user.put("email", email);
+                user.put("creditCard", creditCard);
+            }else{
+                user.put("Message","User not found");
+            }
             return user;
         } catch (SQLException ex) {
             Logger.getLogger(UserModel.class.getName()).log(Level.SEVERE, null, ex);
