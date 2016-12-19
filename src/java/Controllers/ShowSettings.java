@@ -18,9 +18,6 @@ public class ShowSettings extends HttpServlet {
             throws ServletException, IOException {
         
         HashMap<String, String> user = new UserModel().showSettings(Integer.parseInt(request.getParameter("id")));
-//           for (Map.Entry<String, String> e : user.entrySet()) {
-//              out.print(e.getKey()+ " "+ e.getValue()+"<br>");
-//           }
         
     }
 

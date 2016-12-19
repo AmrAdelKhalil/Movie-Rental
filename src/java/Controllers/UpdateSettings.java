@@ -21,8 +21,6 @@ public class UpdateSettings extends HttpServlet {
         String email = request.getParameter("email");
         String creditCard = request.getParameter("creditCard");
         new UserModel().updateSettings(id, name, email, password, creditCard);
-//            out.print(id+" "+name+" "+email+" "+password+" "+creditCard);
-//            out.print("hi");
     }
 
     @Override

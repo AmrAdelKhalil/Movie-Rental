@@ -28,7 +28,7 @@ public class UserModel {
             
             ResultSet row = p.executeQuery();
             
-            while(row.next()){
+            if(row.next()){
                 name = row.getString("name");
                 email = row.getString("email");
                 creditCard = row.getString("creditCard");

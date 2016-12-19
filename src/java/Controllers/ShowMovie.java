@@ -18,11 +18,7 @@ public class ShowMovie extends HttpServlet {
             throws ServletException, IOException {
 
         int id = Integer.parseInt(request.getParameter("id"));
-        HashMap<String,String> movie = new MovieModel().showMovie(id);
-//            for (Map.Entry<String, String> e : movie.entrySet()) {
-//                out.print(e.getKey()+ " "+ e.getValue()+"<br>");
-//            }
-        
+        HashMap<String,String> movie = new MovieModel().showMovie(id);        
     }
 
     @Override
