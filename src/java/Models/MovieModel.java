@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Models;
 
 import DBConnection.DBC;
@@ -14,10 +9,6 @@ import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- *
- * @author amr
- */
 public class MovieModel {
     
     public MovieModel(){
@@ -35,8 +26,7 @@ public class MovieModel {
         String query="Select * from Movie where id=?";
         try {
             PreparedStatement p = (PreparedStatement) con.prepareStatement(query);
-            p.setInt(id, 1);
-            
+            p.setInt(1, id);
             ResultSet row = p.executeQuery();
             
             while(row.next()){
