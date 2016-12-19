@@ -1,5 +1,6 @@
 package Controllers;
 
+import Models.UserModel;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -7,21 +8,23 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import Models.MovieModel;
-import java.util.HashMap;
-import java.util.Map;
 
-@WebServlet(name = "ShowMovie", urlPatterns = {"/ShowMovie"})
-public class ShowMovie extends HttpServlet {
+@WebServlet(name = "UpdateSettings", urlPatterns = {"/UpdateSettings"})
+public class UpdateSettings extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            HashMap<String,String> movie = new MovieModel().showMovie(Integer.parseInt(request.getParameter("id")));
-//            for (Map.Entry<String, String> e : movie.entrySet()) {
-//                out.print(e.getKey()+ " "+ e.getValue()+"<br>");
-//            }
+            
+            int id = Integer.parseInt(request.getParameter("id"));
+            String name = request.getParameter("name");
+            String password = request.getParameter("password");
+            String email = request.getParameter("email");
+            String creditCard = request.getParameter("creditCard");
+            new UserModel().updateSettings(id, name, email, password, creditCard);
+//            out.print(id+" "+name+" "+email+" "+password+" "+creditCard);
+//            out.print("hi");
         }
     }
 
