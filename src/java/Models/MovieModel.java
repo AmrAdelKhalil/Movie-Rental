@@ -29,7 +29,7 @@ public class MovieModel {
             p.setInt(1, id);
             ResultSet row = p.executeQuery();
             
-            while(row.next()){
+            if(row.next()){
                 name = row.getString("name");
                 description = row.getString("description");
                 img_url = row.getString("img_url");
@@ -50,6 +50,7 @@ public class MovieModel {
             movie.put("rate_sum", String.valueOf(rate_sum));
             movie.put("rate", String.valueOf(rate));
             movie.put("rate_count", String.valueOf(rate_count));
+            movie.put("id", String.valueOf(id));
             return movie;
         } catch (SQLException ex) {
             Logger.getLogger(MovieModel.class.getName()).log(Level.SEVERE, null, ex);

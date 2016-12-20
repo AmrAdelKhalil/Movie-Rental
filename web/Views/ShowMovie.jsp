@@ -1,3 +1,5 @@
+<%@page import="java.util.Map"%>
+<%@page import="java.util.HashMap"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html lang="en-US" xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
@@ -55,17 +57,31 @@
 				<div class="movie">
 					<div class="movie-image">
 						<a href="#"><img src="/Movie-Rental/images/movie2.jpg" alt="movie" /></a>
-                    </div>
-                    <div class="movie-details">
-                        <p>Spider Man</p>
-                        <ul>
-                            <li>category: Fantasy</li>
-                            <li>rate: 7.5</li>
-                            <li>renting price: $15 per/day</li>
-                            <li>duration: 1 hour/s and 28 minute/s</li>
-                        </ul>
-                        <input type="submit" name="rent" value="rent">
-                    </div>
+                                </div>
+                                <% HashMap<String, String> movie = (HashMap<String, String>)request.getAttribute("movie"); 
+                                   HashMap<String, String> staff = (HashMap<String, String>)request.getAttribute("staff");
+                                %> 
+                                <div class="movie-details">
+                                    <!--<p>Spider Man</p>-->
+                                    <p> <% out.print(movie.get("name")); %> </p>
+                                    <ul>
+                                        <li>category: <% out.print(movie.get("category")); %></li>
+                                        <li>rate: <% out.print(movie.get("rate")); %></li>
+                                        <li>renting price: $<% out.print(movie.get("renting_price_per_day")); %> per/day</li>
+                                        <li>duration: 
+                                            <%  
+                                                Double minutes = Double.parseDouble(movie.get("duration"));
+                                                int minutesPerHour = 60;
+                                                int hours = (int)(minutes/60);
+                                                out.print( hours+"h ");
+                                                minutes %= 60;
+                                                int integerMinutes = minutes.intValue();
+                                                out.print(integerMinutes+"minutes");
+                                             %>
+                                        </li>
+                                    </ul>
+                                    <input type="submit" name="rent" value="rent">
+                                </div>
 				</div>
 				<!-- end Movie -->
 					<div class="cl">&nbsp;</div>
@@ -83,7 +99,7 @@
 			
 			<div class="content">
 				<h4>Description</h4>
-				<p>The story start with a bit of a little spider which gives a amatuer powers of spiders, what is going to happen is what the movie trying to explain.</p>
+				<p><% out.print(movie.get("description")); %></p>
 			</div>
 		</div>
 		<!-- end NEWS -->
@@ -94,11 +110,13 @@
 			</div>
 			<div class="content">
 			    <div class="actors">
-                    <h4>Actors</h4>
-                    <h3>Jason Stathan:</h3> <br>
-                    <p> &nbsp; -the hero of the movie </p> <br>
-                    <h3>Cameron dyaz: </h3> <br>
-                    <p> &nbsp; -the one that the hero will love.</p>
+                                <h4>Actors</h4>
+                                <%
+                                    for(Map.Entry<String, String> e : staff.entrySet()){
+                                        out.print("<h3>"+e.getKey()+":</h3><br>");
+                                        out.print("<p> &nbsp; "+e.getValue()+"</p><br>");
+                                    }
+                                %>
 			    </div>
 			</div>
 			<div class="cl">&nbsp;</div>			
