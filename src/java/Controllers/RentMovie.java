@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 
 @WebServlet(name = "RentMovie", urlPatterns = {"/RentMovie"})
@@ -17,8 +18,10 @@ public class RentMovie extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        int userId = Integer.parseInt(request.getParameter("userId"));
-        int movieId = Integer.parseInt(request.getParameter("movieId"));
+        HttpSession session =request.getSession(true);
+        
+        int userId = (int) session.getAttribute("userId");
+        int movieId = (int) session.getAttribute("movieId");
         float rentPeriod = Float.parseFloat(request.getParameter("rentPeriod"));
         float totalPrice = Float.parseFloat(request.getParameter("totalPrice"));
         
