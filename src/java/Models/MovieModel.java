@@ -10,7 +10,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class MovieModel {
-    
+      int movieID=0;
     public MovieModel(){
         
     }
@@ -59,4 +59,55 @@ public class MovieModel {
         
         return null;
     }
+    
+    public void addMovie(HashMap<String,String>values) throws SQLException{
+         Connection connection=new DBC().getActiveConnection();
+            
+        String query="insert into movie (name,description,rate_sum,rate_count,rate,img_url,duration,"+
+                "renting_price_per_day,category) values(?,?,0,0,0,?,?,?,?)";            
+        java.sql.PreparedStatement stmt=connection.prepareStatement(query);
+        stmt.setString(1, values.get("movieName"));
+        stmt.setString(2, values.get("description"));
+        stmt.setString(3, "http://www.foxmovies.com/movies/x-men-apocalypse");
+        stmt.setString(4, values.get("duration"));
+        stmt.setString(5, values.get("price"));
+        stmt.setString(6, values.get("category"));
+        stmt.executeUpdate();
+
+        query="SELECT LAST_INSERT_ID()";
+        stmt=connection.prepareStatement(query);
+        ResultSet res=stmt.executeQuery();
+        res.next();
+        movieID=res.getInt(1);
+        
+        connection.close();
+    }
+    
+    public void addMovieStaff(HashMap<String,String>movieStaff,int number) throws SQLException
+    {   
+        Connection connection=new DBC().getActiveConnection();
+        String query="insert into staff_member (name,role) values(?,?)",
+                query1="SELECT LAST_INSERT_ID()",
+                query2="insert into movie_staff (idMovie,idStaff) values(?,?)";
+        int lastMember;
+        ResultSet res;
+        for(int i=0;i<number;i++)
+        {
+            java.sql.PreparedStatement stmt=connection.prepareStatement(query);
+            stmt.setString(1, movieStaff.get("name"+i));
+            stmt.setString(2, movieStaff.get("role"+i));
+            stmt.executeUpdate();
+
+            stmt=connection.prepareStatement(query1);
+            res=stmt.executeQuery();
+            res.next();
+            lastMember=res.getInt(1);
+            stmt=connection.prepareStatement(query2);
+            stmt.setInt(1, movieID);
+            stmt.setInt(2, lastMember);
+            stmt.executeUpdate();
+        }
+        connection.close();
+    }
+    
 }
