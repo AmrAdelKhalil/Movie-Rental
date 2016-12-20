@@ -1,5 +1,8 @@
+<<<<<<< HEAD
 <%@page import="java.util.Map"%>
 <%@page import="java.util.HashMap"%>
+=======
+>>>>>>> master
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html lang="en-US" xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
@@ -57,6 +60,7 @@
 				<div class="movie">
 					<div class="movie-image">
 						<a href="#"><img src="/Movie-Rental/images/movie2.jpg" alt="movie" /></a>
+<<<<<<< HEAD
                                 </div>
                                 <% HashMap<String, String> movie = (HashMap<String, String>)request.getAttribute("movie"); 
                                    HashMap<String, String> staff = (HashMap<String, String>)request.getAttribute("staff");
@@ -82,6 +86,19 @@
                                     </ul>
                                     <input type="submit" name="rent" value="rent">
                                 </div>
+=======
+                    </div>
+                    <div class="movie-details">
+                        <p>Spider Man</p>
+                        <ul>
+                            <li>category: Fantasy</li>
+                            <li>rate: 7.5</li>
+                            <li>renting price: $15 per/day</li>
+                            <li>duration: 1 hour/s and 28 minute/s</li>
+                        </ul>
+                        <input type="submit" name="rent" value="rent">
+                    </div>
+>>>>>>> master
 				</div>
 				<!-- end Movie -->
 					<div class="cl">&nbsp;</div>
@@ -99,7 +116,11 @@
 			
 			<div class="content">
 				<h4>Description</h4>
+<<<<<<< HEAD
 				<p><% out.print(movie.get("description")); %></p>
+=======
+				<p>The story start with a bit of a little spider which gives a amatuer powers of spiders, what is going to happen is what the movie trying to explain.</p>
+>>>>>>> master
 			</div>
 		</div>
 		<!-- end NEWS -->
@@ -110,6 +131,7 @@
 			</div>
 			<div class="content">
 			    <div class="actors">
+<<<<<<< HEAD
                                 <h4>Actors</h4>
                                 <%
                                     for(Map.Entry<String, String> e : staff.entrySet()){
@@ -117,6 +139,13 @@
                                         out.print("<p> &nbsp; "+e.getValue()+"</p><br>");
                                     }
                                 %>
+=======
+                    <h4>Actors</h4>
+                    <h3>Jason Stathan:</h3> <br>
+                    <p> &nbsp; -the hero of the movie </p> <br>
+                    <h3>Cameron dyaz: </h3> <br>
+                    <p> &nbsp; -the one that the hero will love.</p>
+>>>>>>> master
 			    </div>
 			</div>
 			<div class="cl">&nbsp;</div>			
