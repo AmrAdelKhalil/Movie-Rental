@@ -2,6 +2,7 @@ package Models;
 
 import DBConnection.DBC;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -71,15 +72,17 @@ public class UserModel {
         return false;
     }
     
-    public boolean rentMovie(int userId, int movieId, float rentPeriod, float totalPrice){
+    public boolean rentMovie(int userId, int movieId, Date startDate, Date endDate, float totalPrice){
         Connection con = DBC.getActiveConnection();
-        String query="insert into movie_user_rent (idUser, idMovie, rent_period, total_price) values (?, ?, ?, ?);";
+        String query="insert into movie_user_rent (idUser, idMovie, total_price, startDate, endDate) values (?, ?, ?, ?, ?);";
         try {
             PreparedStatement p = (PreparedStatement) con.prepareStatement(query);
             p.setInt(1, userId);
             p.setInt(2, movieId);
-            p.setFloat(3, rentPeriod);
-            p.setFloat(4, totalPrice);
+            p.setFloat(3, totalPrice);
+            p.setDate(4, startDate);
+            p.setDate(5, endDate);
+            
             p.executeUpdate();
             DBC.closeConnection();
             return true;
@@ -91,33 +94,20 @@ public class UserModel {
         return false;
     }
     
-    public boolean extendRentingMovie(int userId, int movieId, float extendedPeriod, float extendedPrice){
+    public boolean extendRentingMovie(int userId, int movieId, Date startDate, Date endDate, float totalPrice){
         try {
-            
-            float oldPeriod = 0 , oldPrice = 0;
-            Connection con = DBC.getActiveConnection();
-            String query="Select * from movie_user_rent where idUser=? and idMovie=?";
-            
-            PreparedStatement p = (PreparedStatement) con.prepareStatement(query);
-            p.setInt(1, userId);
-            p.setInt(2, movieId);
-            
-            ResultSet row = p.executeQuery();
-            
-            if(row.next()){
-                oldPeriod = row.getFloat("rent_period");
-                oldPrice = row.getFloat("total_price");
-                
-                query="update movie_user_rent set rent_period= ? , total_price = ? where idUser = ? and idMovie = ? ;";
-                p = (PreparedStatement) con.prepareStatement(query);
-                p.setFloat(1, oldPeriod+extendedPeriod);
-                p.setFloat(2, oldPrice+extendedPrice);
-                p.setInt(3, userId);
-                p.setInt(4, movieId);
+                Connection con = DBC.getActiveConnection();
+
+                String query="update movie_user_rent set startDate= ? , endDate = ? , total_price = ? where idUser = ? and idMovie = ? ;";
+                PreparedStatement p = (PreparedStatement) con.prepareStatement(query);
+                p.setDate(1, startDate);
+                p.setDate(2, endDate);
+                p.setFloat(3, totalPrice);
+                p.setInt(4, userId);
+                p.setInt(5, movieId);
                 p.executeUpdate();
                 DBC.closeConnection();
                 return true;
-            }
         } catch (SQLException ex) {
             Logger.getLogger(UserModel.class.getName()).log(Level.SEVERE, null, ex);
         }

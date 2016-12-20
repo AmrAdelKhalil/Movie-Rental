@@ -3,6 +3,11 @@ package Controllers;
 import Models.UserModel;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -16,26 +21,42 @@ public class ExtendRentingMovie extends HttpServlet {
 
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, ParseException {
         
         HttpSession session =request.getSession(true);
-        
+        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+
         int userId = (int) session.getAttribute("userId");
         int movieId = (int) session.getAttribute("movieId");
-        float extendedPeriod = Float.parseFloat(request.getParameter("rentPeriod"));
-        float extendedPrice = Float.parseFloat(request.getParameter("totalPrice"));
+        Date startDate = (Date) formatter.parse(request.getParameter("startDate"));
+        Date endDate = (Date) formatter.parse(request.getParameter("endDate"));
+        float totalPrice = Float.parseFloat(request.getParameter("totalPrice"));
         
         UserModel user = new UserModel();
-        user.extendRentingMovie(userId, movieId, extendedPeriod, extendedPrice);
+        user.extendRentingMovie(userId, movieId, startDate, endDate, totalPrice);
     }
 
     
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (ParseException ex) {
+            Logger.getLogger(ExtendRentingMovie.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
-
+    
+     @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        try {
+            processRequest(request, response);
+        } catch (ParseException ex) {
+            Logger.getLogger(RentMovie.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
     
     @Override
     public String getServletInfo() {
