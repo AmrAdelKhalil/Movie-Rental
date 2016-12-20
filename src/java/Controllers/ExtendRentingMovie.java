@@ -3,9 +3,8 @@ package Controllers;
 import Models.UserModel;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Date;
+import java.sql.SQLException;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -13,7 +12,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 
 @WebServlet(name = "ExtendRentingMovie", urlPatterns = {"/ExtendRentingMovie"})
@@ -21,19 +19,14 @@ public class ExtendRentingMovie extends HttpServlet {
 
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, ParseException {
-        
-        HttpSession session =request.getSession(true);
-        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
-
-        int userId = (int) session.getAttribute("userId");
-        int movieId = (int) session.getAttribute("movieId");
-        Date startDate = (Date) formatter.parse(request.getParameter("startDate"));
-        Date endDate = (Date) formatter.parse(request.getParameter("endDate"));
-        float totalPrice = Float.parseFloat(request.getParameter("totalPrice"));
+            throws ServletException, IOException, SQLException {
+        int userId = Integer.parseInt(request.getParameter("userId"));
+        int movieId = Integer.parseInt(request.getParameter("movieId"));
+        int extendedPeriod = Integer.parseInt(request.getParameter("rentPeriod"));
+        float extendedPrice = Float.parseFloat(request.getParameter("totalPrice"));
         
         UserModel user = new UserModel();
-        user.extendRentingMovie(userId, movieId, startDate, endDate, totalPrice);
+        user.extendRentingMovie(userId, movieId, extendedPeriod, extendedPrice);
     }
 
     
@@ -42,21 +35,21 @@ public class ExtendRentingMovie extends HttpServlet {
             throws ServletException, IOException {
         try {
             processRequest(request, response);
-        } catch (ParseException ex) {
+        } catch (SQLException ex) {
             Logger.getLogger(ExtendRentingMovie.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
-     @Override
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
             processRequest(request, response);
-        } catch (ParseException ex) {
-            Logger.getLogger(RentMovie.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(ExtendRentingMovie.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     
     @Override
     public String getServletInfo() {

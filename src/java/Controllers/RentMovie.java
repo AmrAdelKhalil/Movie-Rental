@@ -7,6 +7,7 @@ import java.io.PrintWriter;
 import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -28,8 +29,16 @@ public class RentMovie extends HttpServlet {
         
         int userId = (int) session.getAttribute("userId");
         int movieId = (int) session.getAttribute("movieId");
-        Date startDate = (Date) formatter.parse(request.getParameter("startDate"));
-        Date endDate = (Date) formatter.parse(request.getParameter("endDate"));
+        int rentPeriod = Integer.parseInt(request.getParameter("rentPeriod"));
+        java.util.Date utilDate = new java.util.Date();
+        Date startDate = new Date(utilDate.getTime());
+        
+        Calendar c = Calendar.getInstance(); 
+        c.setTime(utilDate); 
+        c.add(Calendar.DATE, rentPeriod);
+        utilDate = c.getTime();
+        Date endDate = new Date(utilDate.getTime());
+        
         float totalPrice = Float.parseFloat(request.getParameter("totalPrice"));
         
         UserModel user = new UserModel();
