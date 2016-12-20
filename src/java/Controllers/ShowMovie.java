@@ -16,13 +16,9 @@ public class ShowMovie extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            HashMap<String,String> movie = new MovieModel().showMovie(Integer.parseInt(request.getParameter("id")));
-//            for (Map.Entry<String, String> e : movie.entrySet()) {
-//                out.print(e.getKey()+ " "+ e.getValue()+"<br>");
-//            }
-        }
+
+        int id = Integer.parseInt(request.getParameter("id"));
+        HashMap<String,String> movie = new MovieModel().showMovie(id);        
     }
 
     @Override

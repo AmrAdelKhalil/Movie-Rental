@@ -16,13 +16,8 @@ public class ShowSettings extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-           HashMap<String, String> user = new UserModel().showSettings(Integer.parseInt(request.getParameter("id")));
-//           for (Map.Entry<String, String> e : user.entrySet()) {
-//              out.print(e.getKey()+ " "+ e.getValue()+"<br>");
-//           }
-        }
+        HashMap<String, String> user = new UserModel().showSettings(Integer.parseInt(request.getParameter("id")));
+        
     }
 
     @Override
