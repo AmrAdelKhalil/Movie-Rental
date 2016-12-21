@@ -3,6 +3,8 @@ package Controllers;
 import Models.UserModel;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.HashMap;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -20,7 +22,19 @@ public class UpdateSettings extends HttpServlet {
         String password = request.getParameter("password");
         String email = request.getParameter("email");
         String creditCard = request.getParameter("creditCard");
-        new UserModel().updateSettings(id, name, email, password, creditCard);
+        String newPassword = request.getParameter("newPassword");
+        
+        HashMap<String, String> user = null;
+        if(new UserModel().updateSettings(id, name, email, password, creditCard, newPassword)){
+            user = (HashMap<String, String>)new UserModel().showSettings(id);
+            request.setAttribute("user", user);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/Views/ShowSettings.jsp");
+            dispatcher.include(request, response);
+        }else{
+            request.setAttribute("user", user);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/Views/UpdateSettings.jsp");
+            dispatcher.include(request, response);
+        }
     }
 
     @Override
