@@ -5,12 +5,14 @@ import java.sql.PreparedStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class MovieModel {
-      int movieID=0;
+    int movieID=0;
+    static public String queryMovie="";
     public MovieModel(){
         
     }
@@ -111,27 +113,66 @@ public class MovieModel {
         }
         connection.close();
     }
-    public HashMap<Integer,HashMap<String,String> > returnMovies()
-   {  HashMap<Integer,HashMap<String,String> >result=new HashMap<Integer,HashMap<String,String> >();
+    public void seqQuerySearch(HashMap<String,String>values){
+        
+        String name="",quality="",category="",rating="",order="";
+        boolean prev=false;
+        
+        if(values.get("name").equals("")==false)
+        {
+            name="name like '%"+values.get("name")+"%' ";
+            prev=true;
+        }
+        
+        if(values.get("quality").equals("all")==false)
+        {
+            quality=(prev==true?" and":"")+ " quality like '%"+values.get("quality")+"%' ";
+            prev=true;
+        }
+        
+        if(values.get("category").equals("all")==false)
+        {
+            category=(prev==true?" and":"")+ " category like '%"+values.get("category")+"%' ";
+            prev=true;
+        }
+        if(values.get("rating").equals("all")==false)
+        {
+            rating=(prev==true?" and":"")+ " rate >= "+values.get("rating");
+            prev=true;
+        }
+        if(values.get("order_by").equals("all")==false)
+            order=" order by "+values.get("order_by")+(values.get("order_by").equals("name")?"":" DESC");
+        
+        queryMovie="select * from movie where "+name+quality+category+rating+order;
+    
+    }
+    
+    public ArrayList<HashMap<String,String> > returnMovies()
+    {  
+       ArrayList< HashMap<String,String> >result=new ArrayList<HashMap<String,String> >();
         try {
             Connection connection=new DBC().getActiveConnection();
-            String query="select * from movie";
-            PreparedStatement stmt=connection.prepareStatement(query);
+           if(queryMovie.equals(""))
+                queryMovie="select * from movie order by year desc";
+           System.out.print(queryMovie);
+            PreparedStatement stmt=connection.prepareStatement(queryMovie);
             ResultSet res=stmt.executeQuery();
           
             
             while(res.next())
             {
                 HashMap<String,String>curr=new HashMap<String,String>();
+                
                 curr.put("name",res.getString(2));
                 curr.put("rate",res.getString(6));
                 curr.put("img",res.getString(7));
-                result.put(res.getInt(1),curr);
+                result.add(curr);
             }
             connection.close();
         } catch (SQLException ex) {
             Logger.getLogger(MovieModel.class.getName()).log(Level.SEVERE, null, ex);
         }
+        queryMovie="";
         return result;
    }
    

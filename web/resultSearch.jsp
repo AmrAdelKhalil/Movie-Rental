@@ -1,3 +1,4 @@
+<%@page import="java.util.ArrayList"%>
 <%@page import="java.util.Map"%>
 <%@page import="java.util.Iterator"%>
 <%@page import="Models.MovieModel"%>
@@ -52,7 +53,7 @@
             
             <!-- Search -->
             <div class="form">
-                <form method="post" action="#" accept-charset="UTF-8">
+                <form method="post" action="SearchMovie" >
                     <input name="_token" type="hidden" value="#">
                     <div id="main-search-fields">
                         <div class="searchBar">
@@ -63,6 +64,9 @@
                                 <p style="padding-bottom:3px;">Quality:</p>
                                 <select name="quality">
                                 <option value="all">All</option>
+                                 <option value="280p">280p</option>
+                                 <option value="360p">360p</option>
+                                 <option value="480p">480p</option>
                                 <option value="720p">720p</option>
                                 <option value="1080p">1080p</option>
                                 <option value="3D">3D</option>
@@ -122,10 +126,10 @@
                                     <option value="oldest">Oldest</option>
                                     <option value="seeds">Seeds</option>
                                     <option value="peers">Peers</option>
-                                    <option value="year">Year</option>
-                                    <option value="rating">Rating</option>
+                                    <option  selected value="year">Year</option>
+                                    <option value="rate">Rating</option>
                                     <option value="likes">Likes</option>
-                                    <option value="alphabetical">Alphabetical</option>
+                                    <option value="name">Alphabetical</option>
                                     <option value="downloads">Downloads</option>
                                 </select>
                             </div>
@@ -142,9 +146,9 @@
             
             <!-- end Search -->
             <%
-                HashMap<Integer,HashMap<String,String> >result=new MovieModel().returnMovies();
-                Iterator it = result.entrySet().iterator();
-                while (it.hasNext()) {
+                ArrayList<HashMap<String,String> >result=new MovieModel().returnMovies();
+              
+                for(int i=0;i<result.size();i++) {
                     int countcolumn=6;
             %>
                 <!-- Box -->
@@ -153,9 +157,9 @@
                                 <h2>LATEST TRAILERS</h2>
                                 <p class="text-right"><a href="#">See all</a></p>
                         </div>
-                     <% while(countcolumn-- > 0 && it.hasNext()){
-                          Map.Entry pair = (Map.Entry)it.next();
-                          HashMap<String,String>curr=(HashMap<String,String>)pair.getValue();
+                     <% for(;countcolumn > 0 && i<result.size();i++,countcolumn--){
+                         
+                          HashMap<String,String>curr=(HashMap<String,String>)result.get(i);
                          
                      %>
                         <!-- Movie -->
@@ -173,7 +177,7 @@
                                 </div>
                         </div>
                         <!-- end Movie -->
-                        <%}%>
+                        <% }%>
                     
                         <div class="cl">&nbsp;</div>
                 </div>
@@ -181,7 +185,7 @@
 
 
 
-                <%}%>
+                <%i--;}%>
 		</div>
 		<!-- end Content -->
 
