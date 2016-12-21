@@ -64,14 +64,16 @@ public class MovieModel {
          Connection connection=new DBC().getActiveConnection();
             
         String query="insert into movie (name,description,rate_sum,rate_count,rate,img_url,duration,"+
-                "renting_price_per_day,category) values(?,?,0,0,0,?,?,?,?)";            
+                "renting_price_per_day,category,year,quality) values(?,?,0,0,0,?,?,?,?,?,?)";            
         java.sql.PreparedStatement stmt=connection.prepareStatement(query);
         stmt.setString(1, values.get("movieName"));
         stmt.setString(2, values.get("description"));
-        stmt.setString(3, "http://www.foxmovies.com/movies/x-men-apocalypse");
+        stmt.setString(3, "/Movie-Rental/images/movie6.jpg");
         stmt.setString(4, values.get("duration"));
         stmt.setString(5, values.get("price"));
         stmt.setString(6, values.get("category"));
+        stmt.setString(7, values.get("year"));
+        stmt.setString(8, values.get("quality"));
         stmt.executeUpdate();
 
         query="SELECT LAST_INSERT_ID()";
@@ -109,5 +111,28 @@ public class MovieModel {
         }
         connection.close();
     }
-    
+    public HashMap<Integer,HashMap<String,String> > returnMovies()
+   {  HashMap<Integer,HashMap<String,String> >result=new HashMap<Integer,HashMap<String,String> >();
+        try {
+            Connection connection=new DBC().getActiveConnection();
+            String query="select * from movie";
+            PreparedStatement stmt=connection.prepareStatement(query);
+            ResultSet res=stmt.executeQuery();
+          
+            
+            while(res.next())
+            {
+                HashMap<String,String>curr=new HashMap<String,String>();
+                curr.put("name",res.getString(2));
+                curr.put("rate",res.getString(6));
+                curr.put("img",res.getString(7));
+                result.put(res.getInt(1),curr);
+            }
+            connection.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(MovieModel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return result;
+   }
+   
 }

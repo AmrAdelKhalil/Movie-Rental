@@ -16,7 +16,7 @@ public class ShowMovie extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        
         int id = Integer.parseInt(request.getParameter("id"));
         HashMap<String,String> movie = new MovieModel().showMovie(id);        
     }

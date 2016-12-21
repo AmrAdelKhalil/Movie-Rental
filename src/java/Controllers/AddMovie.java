@@ -15,22 +15,28 @@ import javax.servlet.http.HttpServletResponse;
 
 
 @WebServlet(name = "addMovie", urlPatterns = {"/addMovie"})
-public class addMovie extends HttpServlet {
+public class AddMovie extends HttpServlet {
 
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-      
+       
         try  {
-         HashMap<String,String>values=new HashMap();
+            HashMap<String,String>values=new HashMap<String,String>();
             values.put("movieName", request.getParameter("movieName"));
             values.put("category",request.getParameter("category"));
             values.put("description",request.getParameter("description"));
             values.put("duration", request.getParameter("duration"));
             values.put("price", request.getParameter("price"));
+            values.put("year", request.getParameter("year"));
+            if(request.getParameter("quality").equals("Quality"))
+                values.put("quality", "All");
+            else
+                values.put("quality",request.getParameter("quality"));
             MovieModel movie=new MovieModel();
             movie.addMovie(values);
             
-            HashMap<String,String>movieStaff=new HashMap();
+            HashMap<String,String>movieStaff=new HashMap<String,String>();
             int number=Integer.parseInt(request.getParameter("Number"));
             for(int i=0;i<number;i++)
             {
@@ -42,7 +48,7 @@ public class addMovie extends HttpServlet {
             response.sendRedirect("addMovie.jsp");
         
         } catch (SQLException ex) {
-            Logger.getLogger(addMovie.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AddMovie.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -51,16 +57,15 @@ public class addMovie extends HttpServlet {
             throws ServletException, IOException {
         processRequest(request, response);
     }
-
-    @Override
+@Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }
 
+    
     @Override
     public String getServletInfo() {
         return "Short description";
     }
-
 }
