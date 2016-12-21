@@ -16,7 +16,6 @@ public class ShowSettings extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
         HashMap<String, String> user = new UserModel().showSettings(Integer.parseInt(request.getParameter("id")));
         
     }

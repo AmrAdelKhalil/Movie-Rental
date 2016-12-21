@@ -14,7 +14,7 @@ public class UpdateSettings extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       
+
         int id = Integer.parseInt(request.getParameter("id"));
         String name = request.getParameter("name");
         String password = request.getParameter("password");
