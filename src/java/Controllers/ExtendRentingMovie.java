@@ -20,6 +20,7 @@ public class ExtendRentingMovie extends HttpServlet {
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
+        
         int userId = Integer.parseInt(request.getParameter("userId"));
         int movieId = Integer.parseInt(request.getParameter("movieId"));
         int extendedPeriod = Integer.parseInt(request.getParameter("rentPeriod"));

@@ -81,7 +81,28 @@
                                              %>
                                         </li>
                                     </ul>
-                                    <input type="submit" name="rent" value="rent">
+                                    
+                                      <%
+                                          request.setAttribute("movieId", movie.get("id"));
+                                          request.setAttribute("totalPrice", movie.get("renting_price_per_day"));
+                                          boolean currentRent = Boolean.parseBoolean(movie.get("currentRent"));
+                                          boolean isRent = Boolean.parseBoolean(movie.get("isRent"));
+                                          if(!currentRent){
+                                      %>
+                                      <input class="rent" type="text" name="rentPeriod">
+                                      <% } 
+                                          if(!currentRent && isRent) {
+                                      %>
+                                      <form action="RentMovie" >
+                                      <input type="submit" name="rent" value="rent">		                          <input type="submit" name="rent" value="rent">
+                                      </form>
+                                      <% } 
+                                       else if (!currentRent) {   
+                                      %>
+                                      <form action="ExtendRentingMovie" >
+                                      <input type="submit" name="rent" value="rent">		                          <input type="submit" name="rent" value="rent">
+                                      </form>
+                                     <% } %>
                                 </div>
 				</div>
 				<!-- end Movie -->
