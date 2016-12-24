@@ -44,7 +44,6 @@ public class Login extends HttpServlet {
             HashMap<String, String> map = user.login(email, password);
             session.setAttribute("userId", Integer.parseInt(map.get("userId")));
             session.setAttribute("name", map.get("name"));
-            session.setAttribute("isAdmin", false);
         
             
         }

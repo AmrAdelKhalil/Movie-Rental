@@ -11,6 +11,7 @@
 		<link rel="stylesheet" href="css/ie6.css" type="text/css" media="all" />
 	<![endif]-->
 	<script type="text/javascript" src="/Movie-Rental/assets/js/jquery-1.4.2.min.js"></script>
+        <script type="text/javascript" src="/Movie-Rental/assets/js/jquery-3.1.1.min.js"></script>
 	<script type="text/javascript" src="/Movie-Rental/assets/js/jquery-func.js"></script>
 
 </head>
@@ -56,19 +57,20 @@
 						    <input type="text" placeholder="E-Mail" name="email" required>
 
 						    <label><b>Password</b></label>
-						    <input type="password" placeholder="Password" name="password" required>
+						    <input id="password" type="password" placeholder="Password" name="password" required>
 						    
 						    <label><b>Confirm Password</b></label>
-						    <input type="password" placeholder="Confirm Password" name="password" required>
+						    <input id="confirm_password" type="password" placeholder="Confirm Password" name="password" required>
 						    
 						    <label id="credit"><b>Credit Card</b></label>
+                                                    <div id="wrongcode" style="color: red; display: none;">Wrong Activation Code! </div>
 						    <input id="creditin" type="text" placeholder="Credit Card" name="credit" required>
                                                     <br>
                                                         
                                                     <input id="admin" type="checkbox" name="isAdmin"> Register as admin
 
 						    <div class="container" style="background-color:#f1f1f1">
-						    <button type="submit">Sign Up</button>
+						    <button id="signupbtn" type="submit">Sign Up</button>
 						    	<button type="button" onclick="document.getElementById('signup').style.display='none'" class="cancelbtn">Cancel</button>
 						    	
 						    </div>
@@ -245,16 +247,34 @@
 <!-- end Shell -->
     <script>
         $(document).ready(function(){
+            
             $("#admin").click(function(){
-                if($("#admin").attr('checked')){
+                if($("#admin").is(':checked')){
                     $("#credit").html("<label><b>Activation Code</b></label>");
                     $("#creditin").attr("placeholder", "Activation Code");
                 }
                 else{
                     $("#credit").html("<label><b>Credit Card</b></label>");
                     $("#creditin").attr("placeholder", "Credit Card");
+                    $("#signupbtn").prop('disabled', false);
+                    $("#wrongcode").hide();
                 }
             });
+            
+            $("#creditin").keyup(function(){
+               var code = $(this).val();
+               
+               if(code == "0000" && $("#admin").is(':checked')){
+                   $("#signupbtn").prop('disabled', false);
+                   $("#wrongcode").hide();
+               }
+               else {
+                   if($("#admin").is(':checked')){
+                        $("#wrongcode").show();
+                        $("#signupbtn").prop('disabled', true);
+                    }
+               }
+            }); 
         });
         
     </script>

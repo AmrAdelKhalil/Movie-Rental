@@ -40,7 +40,6 @@ public class SignUp extends HttpServlet {
             String credit = request.getParameter("credit");
             user.signUp(name, email, password, credit);
             user.login(email, password);
-            session.setAttribute("isAdmin", false);
             
         }
         
