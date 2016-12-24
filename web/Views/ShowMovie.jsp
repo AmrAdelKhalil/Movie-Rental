@@ -161,6 +161,7 @@
                                       <input type="submit" value="extend renting">
                                       </form>
                                      <% } %>
+                                     <% if( request.getSession().getAttribute("isAdmin") != null ){ %>
                                      <form action="/Movie-Rental/Views/updateMovie.jsp" method="post">
                                          <input type="hidden" value=<%=movie.get("id")%> name="movieId">
                                          <input type="submit" name="" value="updateMovie"></form>
@@ -168,6 +169,8 @@
                                     <form action="/Movie-Rental/Views/UpdateStaff.jsp" method="post">
                                          <input type="hidden" value=<%=movie.get("id")%> name="movieId">
                                          <input type="submit" name="" value="updateStaff"></form>
+                                         
+                                     <%}%>
                                 </div>
 				</div>
 				<!-- end Movie -->
