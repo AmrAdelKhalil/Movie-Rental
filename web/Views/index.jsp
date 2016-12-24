@@ -20,6 +20,10 @@
 	<div id="header">
 		<h1 id="logo"><a href="/Movie-Rental/Views/index.jsp">Movie Hunter</a></h1>
 		<!-- Registeration -->
+                <% 
+                    HttpSession currentSession =request.getSession(true);
+                    if(currentSession.getAttribute("userId") == null){
+                %>
 		<div id="registeration">
 			<ul>
 				<li><button onclick="document.getElementById('login').style.display='block'" >Login</button></li>
@@ -71,19 +75,16 @@
 			    </div>
 			</ul>
 		</div>
-		<!-- Navigation -->
-		<div id="navigation">
-			<ul>
-			    <li><a class="active" href="#">HOME</a></li>
-			    <li><a href="#">NEWS</a></li>
-			    <li><a href="#">IN THEATERS</a></li>
-			    <li><a href="#">COMING SOON</a></li>
-			    <li><a href="#">CONTACT</a></li>
-			    <li><a href="#">ADVERTISE</a></li>
-			</ul>
+		<%} else { %>
+                    <div id="registeration">
+			
+				<br>
+                                <a class="user-data" href="#"> <%=currentSession.getAttribute("name") %></a>
+                                <a class="user-data" href="/Movie-Rental/ShowSettings?id=<%=request.getSession().getAttribute("userId") %>"> Settings</a>
+				<a class="user-data" href="/Movie-Rental/logout"> Logout</a>	
 		</div>
-		<!-- end Navigation -->
-		
+                <% }%>
+
 		<!-- Sub-menu -->
 		<div id="sub-navigation">
 			<div id="search">

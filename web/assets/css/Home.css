@@ -33,7 +33,7 @@ h4 { font-size:14px; color:#f3b12b; font-weight:bold; }
 h1#logo { position:absolute; top:37px; left:0; }
 h1#logo a { float:left; width:239px; height:49px; background:url('/Movie-Rental/images//logo.gif') no-repeat 0 0; font-size: 0; line-height: 0; text-indent: -4000px; }
 
-#navigation { float:right; clear:right; padding-top:28px; padding-bottom:47px; }
+#navigation { float:right; clear:right; padding-top:5px; padding-bottom:5px; }
 #navigation ul { list-style:none; }
 #navigation ul li { float:left; display:inline; padding-left:29px;  }
 #navigation ul li a { font-size:14px; font-weight:bold; color:#fff; text-decoration:none; }
@@ -179,3 +179,15 @@ h1#logo a { float:left; width:239px; height:49px; background:url('/Movie-Rental/
        width: 100%;
     }
 }
+
+
+.user-data {	margin-left : 10px }
+
+.social { float:right; width:215px; padding-top:11px; }
+.social span { float:left; display:inline; font-size:10px; color:#9f9f9f; line-height:16px; padding-right:5px; }
+.social ul { list-style:none; }
+.social ul li { float:left; display:inline; width:16px; padding-right:2px;  }
+.social ul li a { float:left; display:inline; width:16px; height:16px; background:url('images/social.gif') no-repeat 0 0; font-size: 0; line-height: 0; text-indent: -4000px; }
+.social ul li a.facebook { background-position:-18px 0; }
+.social ul li a.vimeo { background-position:-36px 0; }
+.social ul li a.rss { background-position:-54px 0; }

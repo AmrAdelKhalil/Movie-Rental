@@ -33,6 +33,7 @@ public class UpdateMovie extends HttpServlet {
         request.setAttribute("id", request.getParameter("id"));
         RequestDispatcher dispatcher = request.getRequestDispatcher("ShowMovie");
         dispatcher.forward(request, response);
+
     }
 
   
