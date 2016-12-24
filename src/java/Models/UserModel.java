@@ -71,6 +71,8 @@ public class UserModel {
             p.setString(3, newPassword);
             p.setString(4, creditCard);
             p.executeUpdate();
+            DBC.closeConnection();
+        
             return true;
         } catch (SQLException ex) {
             Logger.getLogger(UserModel.class.getName()).log(Level.SEVERE, null, ex);

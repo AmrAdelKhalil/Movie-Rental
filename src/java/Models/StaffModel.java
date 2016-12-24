@@ -31,7 +31,8 @@ public class StaffModel {
             while(result.next()){
                 staff_members.put(result.getString("name"), result.getString("role"));
             }
-            
+            DBC.closeConnection();
+        
             return staff_members;
             
         } catch (SQLException ex) {

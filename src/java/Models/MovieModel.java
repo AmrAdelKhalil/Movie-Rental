@@ -51,6 +51,7 @@ public class MovieModel {
             movie.put("rate", String.valueOf(rate));
             movie.put("rate_count", String.valueOf(rate_count));
             movie.put("id", String.valueOf(id));
+            DBC.closeConnection();
             return movie;
         } catch (SQLException ex) {
             Logger.getLogger(MovieModel.class.getName()).log(Level.SEVERE, null, ex);
