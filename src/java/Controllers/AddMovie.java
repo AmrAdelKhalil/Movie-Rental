@@ -24,6 +24,7 @@ public class AddMovie extends HttpServlet {
         try  {
             HashMap<String,String>values=new HashMap<String,String>();
             values.put("movieName", request.getParameter("movieName"));
+            values.put("imgUrl", request.getParameter("imgUrl"));
             values.put("category",request.getParameter("category"));
             values.put("description",request.getParameter("description"));
             values.put("duration", request.getParameter("duration"));
