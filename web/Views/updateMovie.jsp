@@ -16,6 +16,7 @@
 <div id="shell">
 	<!-- Header -->
 	<div id="header">
+
 		<h1 id="logo"><a href="/Movie-Rental/Views/index.jsp">Movie Hunter</a></h1>
 		<!-- Registeration -->
                 <% 
@@ -30,6 +31,7 @@
 				    <div class="container">
 				      <label><b>Username</b></label>
 				      <input type="text" placeholder="Enter Email" name="email" required>
+
 
 				      <label><b>Password</b></label>
 				      <input type="password" placeholder="Enter Password" name="password" required>
@@ -54,6 +56,19 @@
 						    <label><b>E-Mail</b></label>
 						    <input type="text" placeholder="E-Mail" name="email" required>
 
+<<<<<<< HEAD
+            <!-- Navigation -->
+            <div id="navigation">
+            </div>
+            <!-- end Navigation -->
+
+            <!-- Sub-menu -->
+            <div id="sub-navigation">
+                <div id="search">
+                </div>
+            </div>
+            <!-- end Sub-Menu -->
+=======
 						    <label><b>Password</b></label>
 						    <input type="password" placeholder="Password" name="password" required>
 						    
@@ -82,6 +97,7 @@
 				<a class="user-data" href="/Movie-Rental/logout"> Logout</a>	
 		</div>
                 <% }%>
+>>>>>>> master
 
 		<!-- Sub-menu -->
 		<div id="sub-navigation">
@@ -95,11 +111,15 @@
 
         <div ng-app="myApp" ng-controller="controller">
             <%
-                HashMap<String,String> values=new MovieModel().getValues("5"); //id movie;
+                HashMap<String,String> values=new MovieModel().getValues(request.getParameter("movieId")); //id movie;
                  
             %>
             <form mtehod="post" action="/Movie-Rental/UpdateMovie">
+<<<<<<< HEAD
+                <input type="hidden" name="id" value=<%=request.getParameter("movieId")%> >
+=======
                 
+>>>>>>> master
                 <input type="text" name="movieName" placeholder="Movie Name" value= <%=values.get("name")%> >
                 <input type="text" name="category" placeholder="Category" value=<%= values.get("category")%> >
                 <input type="text" name="description" placeholder="Description for Movie" value=<%= values.get("description")%> >
@@ -117,6 +137,9 @@
                       <option <%= values.get("3D")%> value="3D">3D</option>
                   </select>
                     <br/>
+<<<<<<< HEAD
+                    <br/>
+=======
                 <label>Number Of Staff</label>
                 <input type="number" name="Number" ng-init="currNumber=<%= values.get("number")%>" ng-model="currNumber" min=0 >
                 <ul>
@@ -130,6 +153,7 @@
                     </li>
                    
                 </ul>
+>>>>>>> master
                 
                 <input type="submit" name="submit" value="Update Movie" style="width:10%;">
             </form>
