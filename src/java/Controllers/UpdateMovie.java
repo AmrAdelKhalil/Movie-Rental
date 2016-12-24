@@ -20,13 +20,16 @@ public class UpdateMovie extends HttpServlet {
         values.put("name",request.getParameter("movieName"));
         values.put("category",request.getParameter("category"));
         values.put("description",request.getParameter("description"));
+        values.put("imgUrl", request.getParameter("imgUrl"));
         values.put("duration",request.getParameter("duration"));
         values.put("price",request.getParameter("price"));
         values.put("year",request.getParameter("year"));
         values.put("quality",request.getParameter("quality"));
+        
         MovieModel movie= new MovieModel();
         movie.updateMovie(values);
-        response.sendRedirect("/Views/updateMovie.jsp");
+        
+        response.sendRedirect("/Movie-Rental/Views/index.jsp");
 
     }
 
