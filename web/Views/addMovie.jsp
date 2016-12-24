@@ -12,10 +12,6 @@
 <div id="shell">
 	<!-- Header -->
 	<div id="header">
-<<<<<<< HEAD
-            <h1 id="logo"><a href="/Movie-Rental/Views/index.jsp">Movie Hunter</a></h1>
-            <div class="social">
-=======
 		<h1 id="logo"><a href="/Movie-Rental/Views/index.jsp">Movie Hunter</a></h1>
 		<!-- Registeration -->
                 <% 
@@ -30,7 +26,6 @@
 				    <div class="container">
 				      <label><b>Username</b></label>
 				      <input type="text" placeholder="Enter Email" name="email" required>
->>>>>>> master
 
 				      <label><b>Password</b></label>
 				      <input type="password" placeholder="Enter Password" name="password" required>
@@ -55,44 +50,30 @@
 						    <label><b>E-Mail</b></label>
 						    <input type="text" placeholder="E-Mail" name="email" required>
 
-            <!-- Navigation -->
-            <div id="navigation">
-              
-            </div>
-            <!-- end Navigation -->
+						    <label><b>Password</b></label>
+						    <input type="password" placeholder="Password" name="password" required>
+						    
+						    <label><b>Confirm Password</b></label>
+						    <input type="password" placeholder="Confirm Password" name="password" required>
+						    
+						    <label><b>Credit Card</b></label>
+						    <input type="text" placeholder="Credit Card" name="credit" required>
 
-            <!-- Sub-menu -->
-            <div id="sub-navigation">
-              
-                <div id="search">
-              
-                </div>
-            </div>
-
-                        <label><b>Password</b></label>
-                        <input type="password" placeholder="Password" name="password" required>
-
-                        <label><b>Confirm Password</b></label>
-                        <input type="password" placeholder="Confirm Password" name="password" required>
-
-                        <label><b>Credit Card</b></label>
-                        <input type="text" placeholder="Credit Card" name="credit" required>
-
-                        <div class="container" style="background-color:#f1f1f1">
-                        <button type="submit">Sign Up</button>
-                            <button type="button" onclick="document.getElementById('signup').style.display='none'" class="cancelbtn">Cancel</button>
-
-                        </div>
-            </dir>
-    </form>
-</div>
+						    <div class="container" style="background-color:#f1f1f1">
+						    <button type="submit">Sign Up</button>
+						    	<button type="button" onclick="document.getElementById('signup').style.display='none'" class="cancelbtn">Cancel</button>
+						    	
+						    </div>
+			    		</dir>
+			    	</form>
+			    </div>
 			</ul>
 		</div>
 		<%} else { %>
                     <div id="registeration">
 			
 				<br>
-                                <a class="user-data" href="#"> <%=currentSession.getAttribute("name") %></a>
+                                <a class="user-data" href="/Movie-Rental/ShowSettings?id=<%=request.getSession().getAttribute("userId") %>"> <%=currentSession.getAttribute("name") %></a>
                                 <a class="user-data" href="/Movie-Rental/ShowSettings?id=<%=request.getSession().getAttribute("userId") %>"> Settings</a>
 				<a class="user-data" href="/Movie-Rental/logout"> Logout</a>	
 		</div>
