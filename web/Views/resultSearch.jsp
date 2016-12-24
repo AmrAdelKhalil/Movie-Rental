@@ -19,21 +19,14 @@
 <div id="shell">
 	<!-- Header -->
 	<div id="header">
-		<h1 id="logo"><a href="#">Movie Hunter</a></h1>
+		<h1 id="logo"><a href="/Movie-Rental/Views/index.jsp">Movie Hunter</a></h1>
 		<div class="social">
 			
 		</div>
 		
 		<!-- Navigation -->
 		<div id="navigation">
-			<ul>
-			    <li><a class="active" href="#">HOME</a></li>
-			    <li><a href="#">NEWS</a></li>
-			    <li><a href="#">IN THEATERS</a></li>
-			    <li><a href="#">COMING SOON</a></li>
-			    <li><a href="#">CONTACT</a></li>
-			    <li><a href="#">ADVERTISE</a></li>
-			</ul>
+			
 		</div>
 		<!-- end Navigation -->
 		
@@ -53,7 +46,7 @@
             
             <!-- Search -->
             <div class="form">
-                <form method="post" action="SearchMovie" >
+                <form method="post" action="/Movie-Rental/SearchMovie" >
                     <input name="_token" type="hidden" value="#">
                     <div id="main-search-fields">
                         <div class="searchBar">
@@ -122,15 +115,9 @@
                             <div class="selects-container selects-container-last">
                                 <p style="padding-bottom:3px;">Order By:</p>
                                 <select name="order_by">
-                                    <option value="latest">Latest</option>
-                                    <option value="oldest">Oldest</option>
-                                    <option value="seeds">Seeds</option>
-                                    <option value="peers">Peers</option>
                                     <option  selected value="year">Year</option>
                                     <option value="rate">Rating</option>
-                                    <option value="likes">Likes</option>
                                     <option value="name">Alphabetical</option>
-                                    <option value="downloads">Downloads</option>
                                 </select>
                             </div>
                             
@@ -154,8 +141,7 @@
                 <!-- Box -->
                 <div class="box">
                         <div class="head">
-                                <h2>LATEST TRAILERS</h2>
-                                <p class="text-right"><a href="#">See all</a></p>
+                               
                         </div>
                      <% for(;countcolumn > 0 && i<result.size();i++,countcolumn--){
                          
@@ -163,7 +149,7 @@
                          
                      %>
                         <!-- Movie -->
-                        <form action="/Movie-Rental/ShoMovie">
+                        
                             <input type="hidden" name="id" value=<%= curr.get("id")%>>
                             <div class="movie">
                                     <div class="movie-image">
@@ -175,10 +161,13 @@
                                     <div class="rating">
                                             <p>RATING</p>
                                             <span ><%=" : "+curr.get("rate")%></span>
-                                            <span class="comments">12</span>
+                                    <form action="/Movie-Rental/ShowMovie">
+                                        <input type="text" name="id" value="<%= curr.get("id")%>" style="display: none;">
+                                        <input type="submit" value="show" style="width: 50px;">
+                                    </form>
                                     </div>
                             </div>
-                        </form>
+                          
                         <!-- end Movie -->
                         <% }%>
                     
