@@ -1,42 +1,36 @@
 package Controllers;
 
-import Models.UserModel;
+import Models.MovieModel;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.HashMap;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
+@WebServlet(name = "UpdateMovie", urlPatterns = {"/UpdateMovie"})
+public class UpdateMovie extends HttpServlet {
 
-@WebServlet(name = "SignUp", urlPatterns = {"/SignUp"})
-public class SignUp extends HttpServlet {
-
-    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        
-        String name = request.getParameter("name");
-        String email = request.getParameter("email");
-        String password = request.getParameter("password");
-        
-        String credit = request.getParameter("credit");
-        HttpSession session = request.getSession(true);
-        session.setAttribute("name", name);
-        session.setAttribute("password", password);
-        session.setAttribute("email", email);
-        session.setAttribute("credit", credit);
-        
-        UserModel user = new UserModel();
-        user.signUp(name, email, password, credit);
-        user.login(email, password);
-        response.sendRedirect("Views/newjsp.jsp");
+       
+        HashMap<String,String>values=new HashMap<String,String>();
+        values.put("name",request.getParameter("movieName"));
+        values.put("category",request.getParameter("category"));
+        values.put("description",request.getParameter("description"));
+        values.put("duration",request.getParameter("duration"));
+        values.put("price",request.getParameter("price"));
+        values.put("year",request.getParameter("year"));
+        values.put("quality",request.getParameter("quality"));
+        MovieModel movie= new MovieModel();
+        movie.updateMovie(values);
+        response.sendRedirect("/Views/updateMovie.jsp");
+
     }
 
-    
+  
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -50,7 +44,7 @@ public class SignUp extends HttpServlet {
         processRequest(request, response);
     }
 
-   
+    
     @Override
     public String getServletInfo() {
         return "Short description";

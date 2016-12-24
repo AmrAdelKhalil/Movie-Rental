@@ -30,6 +30,7 @@ public class UserModel {
             
             ResultSet row = p.executeQuery();
             if (row.next()){
+                user.put("userId", String.valueOf(row.getInt("id")));
                 user.put("name", row.getString("name"));
                 user.put("email", row.getString("email"));
                 user.put("password", row.getString("password"));
@@ -73,10 +74,10 @@ public class UserModel {
     public HashMap<String, String> showSettings(int id){
         
         HashMap<String,String> user = new HashMap<>();
-        String name="", email="", creditCard="";        
+        String name="", email="", creditCard="", password="";        
         
         Connection con = DBC.getActiveConnection();
-        String query="Select * from User where id=?";
+        String query="Select * from user where id=?";
         try {
             PreparedStatement p = (PreparedStatement) con.prepareStatement(query);
             p.setInt(1, id);
@@ -88,6 +89,7 @@ public class UserModel {
                 name = row.getString("name");
                 email = row.getString("email");
                 creditCard = row.getString("creditCard");
+                password = row.getString("password");
             }
             
 
@@ -95,9 +97,12 @@ public class UserModel {
                 user.put("name", name);
                 user.put("email", email);
                 user.put("creditCard", creditCard);
+                user.put("id", String.valueOf(id));
+                user.put("password", password);
             }else{
                 user.put("Message","User not found");
             }
+            DBC.closeConnection();
             return user;
         } catch (SQLException ex) {
             Logger.getLogger(UserModel.class.getName()).log(Level.SEVERE, null, ex);
@@ -107,18 +112,24 @@ public class UserModel {
         return null;
     }
     
-    public boolean updateSettings(int id, String name, String email, String password, String creditCard){
+    public boolean updateSettings(int id, String name, String email, String password, String creditCard, String newPassword){
         
+        HashMap<String, String> user = new UserModel().showSettings(id);
+        if(!user.get("password").equals(password)){
+           return false; 
+        }
         Connection con = DBC.getActiveConnection();
-        String query="update User set name= ? , email = ? , password = ? , creditCard = ? where id = ? ;";
+        String query="update user set name= ? , email = ? , password = ? , creditCard = ? where id = ? ;";
         try {
             PreparedStatement p = (PreparedStatement) con.prepareStatement(query);
             p.setInt(5, id);
             p.setString(1, name);
             p.setString(2, email);
-            p.setString(3, password);
+            p.setString(3, newPassword);
             p.setString(4, creditCard);
             p.executeUpdate();
+            DBC.closeConnection();
+        
             return true;
         } catch (SQLException ex) {
             Logger.getLogger(UserModel.class.getName()).log(Level.SEVERE, null, ex);
