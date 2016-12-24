@@ -61,8 +61,11 @@
 						    <label><b>Confirm Password</b></label>
 						    <input type="password" placeholder="Confirm Password" name="password" required>
 						    
-						    <label><b>Credit Card</b></label>
-						    <input type="text" placeholder="Credit Card" name="credit" required>
+						    <label id="credit"><b>Credit Card</b></label>
+						    <input id="creditin" type="text" placeholder="Credit Card" name="credit" required>
+                                                    <br>
+                                                        
+                                                    <input id="admin" type="checkbox" name="isAdmin"> Register as admin
 
 						    <div class="container" style="background-color:#f1f1f1">
 						    <button type="submit">Sign Up</button>
@@ -240,6 +243,22 @@
 	<!-- end Footer -->
 </div>
 <!-- end Shell -->
+    <script>
+        $(document).ready(function(){
+            $("#admin").click(function(){
+                if($("#admin").attr('checked')){
+                    $("#credit").html("<label><b>Activation Code</b></label>");
+                    $("#creditin").attr("placeholder", "Activation Code");
+                }
+                else{
+                    $("#credit").html("<label><b>Credit Card</b></label>");
+                    $("#creditin").attr("placeholder", "Credit Card");
+                }
+            });
+        });
+        
+    </script>
+
 <script>
 		var modal1 = document.getElementById('login');
 		var modal2 = document.getElementById('signup');
