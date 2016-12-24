@@ -7,9 +7,8 @@
 	<title>Movie Hunter</title>
 	<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
 	<link rel="stylesheet" href="/Movie-Rental/assets/css/Home.css" type="text/css" media="all" />
-	<!--[if IE 6]>
-		<link rel="stylesheet" href="css/ie6.css" type="text/css" media="all" />
-	<![endif]-->
+	<link rel="stylesheet" href="/Movie-Rental/assets/css/style.css"  media="all" />
+            
 	<script type="text/javascript" src="/Movie-Rental/assets/js/jquery-1.4.2.min.js"></script>
         <script type="text/javascript" src="/Movie-Rental/assets/js/jquery-3.1.1.min.js"></script>
 	<script type="text/javascript" src="/Movie-Rental/assets/js/jquery-func.js"></script>
@@ -20,8 +19,12 @@
 <div id="shell">
 	<!-- Header -->
 	<div id="header">
-		<h1 id="logo"><a href="#">Movie Hunter</a></h1>
+		<h1 id="logo"><a href="/Movie-Rental/Views/index.jsp">Movie Hunter</a></h1>
 		<!-- Registeration -->
+                <% 
+                    HttpSession currentSession =request.getSession(true);
+                    if(currentSession.getAttribute("userId") == null){
+                %>
 		<div id="registeration">
 			<ul>
 				<li><button onclick="document.getElementById('login').style.display='block'" >Login</button></li>
@@ -79,34 +82,20 @@
 			    </div>
 			</ul>
 		</div>
-		<!-- Navigation -->
-		<div id="navigation">
-			<ul>
-			    <li><a class="active" href="#">HOME</a></li>
-			    <li><a href="#">NEWS</a></li>
-			    <li><a href="#">IN THEATERS</a></li>
-			    <li><a href="#">COMING SOON</a></li>
-			    <li><a href="#">CONTACT</a></li>
-			    <li><a href="#">ADVERTISE</a></li>
-			</ul>
+		<%} else { %>
+                    <div id="registeration">
+			
+				<br>
+                                <a class="user-data" href="#"> <%=currentSession.getAttribute("name") %></a>
+                                <a class="user-data" href="/Movie-Rental/ShowSettings?id=<%=request.getSession().getAttribute("userId") %>"> Settings</a>
+				<a class="user-data" href="/Movie-Rental/logout"> Logout</a>	
 		</div>
-		<!-- end Navigation -->
-		
+                <% }%>
+
 		<!-- Sub-menu -->
 		<div id="sub-navigation">
-			<ul>
-			    <li><a href="#">SHOW ALL</a></li>
-			    <li><a href="#">LATEST TRAILERS</a></li>
-			    <li><a href="#">TOP RATED</a></li>
-			    <li><a href="#">MOST COMMENTED</a></li>
-			</ul>
 			<div id="search">
-				<form action="home_submit" method="get" accept-charset="utf-8">
-					<label for="search-field">SEARCH</label>					
-					<input type="text" name="search field" value="Enter search here" id="search-field" title="Enter search here" class="blink search-field"  />
-					<input type="submit" value="GO!" class="search-button" />
-				</form>
-			</div>
+					</div>
 		</div>
 		<!-- end Sub-Menu -->
 		
@@ -118,7 +107,93 @@
 		<!-- Content -->
 		<div id="content">
 
-			
+			<!-- Search -->
+            <div class="form">
+                <form method="post" action="/Movie-Rental/SearchMovie" >
+                    <input name="_token" type="hidden" value="#">
+                    <div id="main-search-fields">
+                        <div class="searchBar">
+                            <p style="padding-bottom:3px;">Search Term:</p>
+                            <input name="keyword" autocomplete="off" type="search">
+                            <br>
+                            <div class="selects-container">
+                                <p style="padding-bottom:3px;">Quality:</p>
+                                <select name="quality">
+                                <option value="all">All</option>
+                                 <option value="280p">280p</option>
+                                 <option value="360p">360p</option>
+                                 <option value="480p">480p</option>
+                                <option value="720p">720p</option>
+                                <option value="1080p">1080p</option>
+                                <option value="3D">3D</option>
+                            </select>
+                            </div>
+                            <div class="selects-container">
+                                <p style="padding-bottom:3px;">Type:</p>
+                                <select name="genre">
+                                    <option value="all">All</option>
+                                    <option value="action">Action</option>
+                                    <option value="adventure">Adventure</option>
+                                    <option value="animation">Animation</option>
+                                    <option value="biography">Biography</option>
+                                    <option value="comedy">Comedy</option>
+                                    <option value="crime">Crime</option>
+                                    <option value="documentary">Documentary</option>
+                                    <option value="drama">Drama</option>
+                                    <option value="family">Family</option>
+                                    <option value="fantasy">Fantasy</option>
+                                    <option value="film-noir">Film-Noir</option>
+                                    <option value="game-show">Game-Show</option>
+                                    <option value="history">History</option>
+                                    <option value="horror">Horror</option>
+                                    <option value="music">Music</option>
+                                    <option value="musical">Musical</option>
+                                    <option value="mystery">Mystery</option>
+                                    <option value="news">News</option>
+                                    <option value="reality-tv">Reality-TV</option>
+                                    <option value="romance">Romance</option>
+                                    <option value="sci-fi">Sci-Fi</option>
+                                    <option value="sport">Sport</option>
+                                    <option value="talk-show">Talk-Show</option>
+                                    <option value="thriller">Thriller</option>
+                                    <option value="war">War</option>
+                                    <option value="western">Western</option>
+                                </select>
+                            </div>
+                            <div class="selects-container">
+                                <p style="padding-bottom:3px;">Rating:</p>
+                                <select name="rating">
+                                    <option value="0">All</option>
+                                    <option value="9">9+</option>
+                                    <option value="8">8+</option>
+                                    <option value="7">7+</option>
+                                    <option value="6">6+</option>
+                                    <option value="5">5+</option>
+                                    <option value="4">4+</option>
+                                    <option value="3">3+</option>
+                                    <option value="2">2+</option>
+                                    <option value="1">1+</option>
+                                </select>
+                            </div>
+                            <div class="selects-container selects-container-last">
+                                <p style="padding-bottom:3px;">Order By:</p>
+                                <select name="order_by">
+                                    <option  selected value="year">Year</option>
+                                    <option value="rate">Rating</option>
+                                    <option value="name">Alphabetical</option>
+                                </select>
+                            </div>
+                            
+                            
+                        </div>
+                    </div>
+                        
+                    <div id="main-search-btn">
+                        <input class="button-green-download2-big" type="submit" value="Search">
+                    </div>
+                </form>
+            </div>
+            
 			<!-- end Search -->
             <%
                 ArrayList<HashMap<String, String>> result = new MovieModel().returnMovies();
@@ -173,57 +248,7 @@
 		</div>
 		<!-- end Content -->
 
-		<!-- NEWS -->
-		<div id="news">
-			<div class="head">
-				<h3>NEWS</h3>
-				<p class="text-right"><a href="#">See all</a></p>
-			</div>
-			
-			<div class="content">
-				<p class="date">12.04.09</p>
-				<h4>Disney's A Christmas Carol</h4>
-				<p>&quot;Disney's A Christmas Carol,&quot; a multi-sensory thrill ride re-envisioned by Academy Award&reg;-winning filmmaker Robert Zemeckis, captures... </p>
-				<a href="#">Read more</a>
-			</div>
-			<div class="content">
-				<p class="date">11.04.09</p>
-				<h4>Where the Wild Things Are</h4>
-				<p>Innovative director Spike Jonze collaborates with celebrated author Maurice Sendak to bring one of the most beloved books of all time to the big screen in &quot;Where the Wild Things Are,&quot;...</p>
-				<a href="#">Read more</a>
-			</div>
-			<div class="content">
-				<p class="date">10.04.09</p>
-				<h4>The Box</h4>
-				<p>Norma and Arthur Lewis are a suburban couple with a young child who receive an anonymous gift bearing fatal and irrevocable consequences.</p>
-				<a href="#">Read more</a>
-			</div>
-		</div>
-		<!-- end NEWS -->
-		
-		<!-- Coming -->
-		<div id="coming">
-			<div class="head">
-				<h3>COMING SOON<strong>!</strong></h3>
-				<p class="text-right"><a href="#">See all</a></p>
-			</div>
-			<div class="content">
-				<h4>The Princess and the Frog </h4>
-					<a href="#"><img src="/Movie-Rental/images/coming-soon1.jpg" alt="coming soon" /></a>
-				<p>Walt Disney Animation Studios presents the musical "The Princess and the Frog," an animated comedy set in the great city of New Orleans...</p>
-				<a href="#">Read more</a>
-			</div>
 			<div class="cl">&nbsp;</div>
-			<div class="content">
-				<h4>The Princess and the Frog </h4>
-					<a href="#"><img src="/Movie-Rental/images/coming-soon2.jpg" alt="coming soon" /></a>
-				<p>Walt Disney Animation Studios presents the musical "The Princess and the Frog," an animated comedy set in the great city of New Orleans...</p>
-				<a href="#">Read more</a>
-			</div>
-			
-		</div>
-		<!-- end Coming -->
-		<div class="cl">&nbsp;</div>
 	</div>
 	<!-- end Main -->
 
