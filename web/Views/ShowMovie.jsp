@@ -160,7 +160,12 @@
                                       <input class="rent" type="text" name="rentPeriod">
                                       <input type="submit" value="extend renting">
                                       </form>
-                                     <% } %>
+                                      <% } else if (currentRent && movie.get("startDate") != null) {%>
+                                      <h2> You are renting this movie from </h2>
+                                      <h2> <%= movie.get("startDate")%> to </h2>
+                                      <h2> <%= movie.get("endDate")%> </h2>
+                                      
+                                      <% } %>
                                      <% if( request.getSession().getAttribute("isAdmin") != null ){ %>
                                      <form action="/Movie-Rental/Views/updateMovie.jsp" method="post">
                                          <input type="hidden" value=<%=movie.get("id")%> name="movieId">
