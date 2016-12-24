@@ -27,14 +27,16 @@
 				<div id="login" class="modal">  
 				  <form class="modal-content animate" action="../Login" method="GET">
 				    <div class="container">
-				      <label><b>Username</b></label>
-				      <input type="text" placeholder="Enter Email" name="email" required>
+                                        <label><b>Username</b></label>
+                                        <input type="text" placeholder="Enter Email" name="email" required>
 
-				      <label><b>Password</b></label>
-				      <input type="password" placeholder="Enter Password" name="password" required>
+                                        <label><b>Password</b></label>
+                                        <input type="password" placeholder="Enter Password" name="password" required>
 				        
-				      <button type="submit">Login</button>
-				      <input type="checkbox" checked="checked"> Remember me
+                                        <button type="submit">Login</button>
+                                        <input type="checkbox"> Remember me
+                                        <br>
+                                        <input type="checkbox" name="isAdmin"> Login as admin
 				    </div>
 
 				    <div class="container" style="background-color:#f1f1f1">
@@ -239,14 +241,9 @@
 </div>
 <!-- end Shell -->
 <script>
-		// Get the modal
 		var modal1 = document.getElementById('login');
 		var modal2 = document.getElementById('signup');
-		// When the user clicks anywhere outside of the modal, close it
 		window.onclick = function(event) {
-			// console.log("inside function");
-			// console.log(modal);
-			//console.log(event.target);
 		    if (event.target == modal1) {
 		        modal1.style.display = "none";
 		    }
