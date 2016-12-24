@@ -11,31 +11,28 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet(name = "UpdateMovie", urlPatterns = {"/UpdateMovie"})
-public class UpdateMovie extends HttpServlet {
+@WebServlet(name = "UpdateStaff", urlPatterns = {"/UpdateStaff"})
+public class UpdateStaff extends HttpServlet {
 
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       
-        HashMap<String,String>values=new HashMap<String,String>();
-        values.put("name",request.getParameter("movieName"));
-        values.put("category",request.getParameter("category"));
-        values.put("description",request.getParameter("description"));
-        values.put("imgUrl", request.getParameter("imgUrl"));
-        values.put("duration",request.getParameter("duration"));
-        values.put("price",request.getParameter("price"));
-        values.put("year",request.getParameter("year"));
-        values.put("quality",request.getParameter("quality"));
-        
-        MovieModel movie= new MovieModel();
-        movie.updateMovie(values);
-        response.setContentType("text/html");
+             HashMap<String,String>movieStaff=new HashMap<String,String>();
+            int number=Integer.parseInt(request.getParameter("Number"));
+            for(Integer i=0;i<number;i++)
+            {   
+                movieStaff.put("id"+i.toString(), request.getParameter("id"+i.toString()));
+                movieStaff.put("name"+i.toString(), request.getParameter("memberName"+i.toString()));
+                movieStaff.put("role"+i.toString(), request.getParameter("role"+i.toString()));
+            }
+            MovieModel movie=new MovieModel();
+           movie.updateStaff(movieStaff,number);
+             response.setContentType("text/html");
         request.setAttribute("id", request.getParameter("id"));
         RequestDispatcher dispatcher = request.getRequestDispatcher("ShowMovie");
         dispatcher.forward(request, response);
     }
-
-  
+    
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

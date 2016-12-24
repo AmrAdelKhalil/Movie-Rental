@@ -97,7 +97,9 @@
                                       <input type="hidden" name="totalPrice" value="<%= movie.get("renting_price_per_day") %>">
                                       <input class="rent" type="text" name="rentPeriod">
                                       <input type="submit" value="rent">
+                                           
                                       </form>
+                                      
                                       <% } 
                                        else if (!currentRent) {   
                                       %>
@@ -108,6 +110,13 @@
                                       <input type="submit" value="extend renting">
                                       </form>
                                      <% } %>
+                                     <form action="/Movie-Rental/Views/updateMovie.jsp" method="post">
+                                         <input type="hidden" value=<%=movie.get("id")%> name="movieId">
+                                         <input type="submit" name="" value="updateMovie"></form>
+                             
+                                    <form action="/Movie-Rental/Views/UpdateStaff.jsp" method="post">
+                                         <input type="hidden" value=<%=movie.get("id")%> name="movieId">
+                                         <input type="submit" name="" value="updateStaff"></form>
                                 </div>
 				</div>
 				<!-- end Movie -->

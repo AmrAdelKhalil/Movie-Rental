@@ -44,11 +44,11 @@
 
         <div ng-app="myApp" ng-controller="controller">
             <%
-                HashMap<String,String> values=new MovieModel().getValues("5"); //id movie;
+                HashMap<String,String> values=new MovieModel().getValues(request.getParameter("movieId")); //id movie;
                  
             %>
             <form mtehod="post" action="/Movie-Rental/UpdateMovie">
-                
+                <input type="hidden" name="id" value=<%=request.getParameter("movieId")%> >
                 <input type="text" name="movieName" placeholder="Movie Name" value= <%=values.get("name")%> >
                 <input type="text" name="category" placeholder="Category" value=<%= values.get("category")%> >
                 <input type="text" name="description" placeholder="Description for Movie" value=<%= values.get("description")%> >
@@ -66,19 +66,7 @@
                       <option <%= values.get("3D")%> value="3D">3D</option>
                   </select>
                     <br/>
-                <label>Number Of Staff</label>
-                <input type="number" name="Number" ng-init="currNumber=<%= values.get("number")%>" ng-model="currNumber" min=0 >
-                <ul>
-                    
-                     <li ng-repeat="i in total(currNumber) track by $index">
- >
-                        <input type="text" name="memberName{{i}}" placeholder="Member Name" value=<%=values.get("name")%>>
-                        <input type="text" name="role{{i}}" placeholder="Role" value=""  >
-                        <label>------------------------------------------------------------------------------------</label>
-                       
-                    </li>
-                   
-                </ul>
+                    <br/>
                 
                 <input type="submit" name="submit" value="Update Movie" style="width:10%;">
             </form>
