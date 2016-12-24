@@ -21,7 +21,11 @@ public class ShowMovie extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session =request.getSession(true);
         int id = Integer.parseInt(request.getParameter("id"));
-        int userId = (int) session.getAttribute("userId");
+        int userId = -1;
+        if (session.getAttribute("userId") != null){
+            userId = (int) session.getAttribute("userId");
+        }
+        
         MovieModel movieModel = new MovieModel();
         HashMap<String,String> movie = movieModel.showMovie(id, userId); 
         HashMap<String,String> movie_staff = new StaffModel().getStaff(id);
