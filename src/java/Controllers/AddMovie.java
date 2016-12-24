@@ -24,6 +24,8 @@ public class AddMovie extends HttpServlet {
         try  {
             HashMap<String,String>values=new HashMap<String,String>();
             values.put("movieName", request.getParameter("movieName"));
+            values.put("imgUrl", request.getParameter("imgUrl"));
+
             values.put("category",request.getParameter("category"));
             values.put("description",request.getParameter("description"));
             values.put("duration", request.getParameter("duration"));
@@ -45,7 +47,7 @@ public class AddMovie extends HttpServlet {
             }
             
            movie.addMovieStaff(movieStaff,number);
-            response.sendRedirect("/Views/addMovie.jsp");
+            response.sendRedirect("/Movie-Rental/Views/index.jsp");
         
         } catch (IOException ex) {
             Logger.getLogger(AddMovie.class.getName()).log(Level.SEVERE, null, ex);

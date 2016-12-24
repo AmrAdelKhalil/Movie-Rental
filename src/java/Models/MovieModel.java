@@ -14,6 +14,7 @@ import java.util.logging.Logger;
 
 public class MovieModel {
     static int movieID=0;
+   
     HashMap<String,String>currDataMovie=new  HashMap<String,String>();
     static public String queryMovie="";
     public MovieModel(){
@@ -48,6 +49,7 @@ public class MovieModel {
                 quality = row.getString("quality");
             }
             
+            if (userId != -1){
             query="Select * from movie_user_rent where idUser=? and idMovie=?";
             p = (PreparedStatement) con.prepareStatement(query);
             p.setInt(1, userId);
@@ -69,6 +71,10 @@ public class MovieModel {
                     currentRent = true;
                 }
             }
+        }else{
+            isRent = false;
+            currentRent = true;
+        }
             
             movie.put("name", name);
             movie.put("description", description);
@@ -105,7 +111,8 @@ public class MovieModel {
         PreparedStatement stmt=connection.prepareStatement(query);
         stmt.setString(1, values.get("movieName"));
         stmt.setString(2, values.get("description"));
-        stmt.setString(3, "/Movie-Rental/images/movie6.jpg");
+
+        stmt.setString(3, values.get("imgUrl"));
         stmt.setString(4, values.get("duration"));
         stmt.setString(5, values.get("price"));
         stmt.setString(6, values.get("category"));
@@ -207,9 +214,10 @@ public class MovieModel {
           
             
             while(res.next())
-            {
+            {  
                 HashMap<String,String>curr=new HashMap<String,String>();
-                
+
+                curr.put("id", res.getString("id"));
                 curr.put("name",res.getString(2));
                 curr.put("rate",res.getString(6));
                 curr.put("img",res.getString(7));
@@ -243,6 +251,8 @@ public class MovieModel {
              result.put("name", "'" + res.getString("name") + "'" );
              result.put("category", "'" + res.getString("category") + "'" );
              result.put("description", "'" + res.getString("description") + "'" );
+
+             result.put("imgUrl", "'" + res.getString("img_url") + "'" );
              result.put("duration",res.getString("duration"));
              result.put("price",res.getString("renting_price_per_day"));
              result.put("year",res.getString("year"));
@@ -277,9 +287,8 @@ public class MovieModel {
     }
     
     public void updateMovie(HashMap<String,String>values)
-    {   
-        
-            String name="",quality="",category="",duration="",year="",price="",description="";
+    {       
+            String name="",quality="",category="",duration="",year="",price="",description="",imgUrl="";
             boolean prev=false;
             if(values.get("name").equals(currDataMovie.get("name"))==false)
             {
@@ -292,6 +301,10 @@ public class MovieModel {
             }   if(values.get("description").equals(currDataMovie.get("description"))==false)
             {
                 description=(prev==true?" , ":"")+" description='"+values.get("description")+"'";
+                prev=true;
+            }   if(values.get("imgUrl").equals(currDataMovie.get("imgUrl"))==false)
+            {
+                imgUrl=(prev==true?" , ":"")+" img_url='"+values.get("imgUrl")+"'";
                 prev=true;
             }   if(values.get("duration").equals(currDataMovie.get("duration"))==false)
             {
@@ -310,7 +323,7 @@ public class MovieModel {
                 quality=(prev==true?" , ":"")+" quality='"+values.get("quality")+"'";
                 prev=true;
             }  
-            queryMovie="update movie set "+name+category+description+duration+
+            queryMovie="update movie set "+name+category+description+imgUrl+duration+
                     price+year+quality+" where id="+((Integer)movieID).toString();
        try { 
             Connection con = DBC.getActiveConnection();
