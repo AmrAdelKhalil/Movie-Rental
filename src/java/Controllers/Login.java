@@ -5,6 +5,7 @@
  */
 package Controllers;
 
+import Models.AdminModel;
 import Models.UserModel;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -26,15 +27,28 @@ public class Login extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String email = request.getParameter("email");
         String password = request.getParameter("password");
-        HttpSession session =request.getSession(true);
+        String isAdmin = request.getParameter("isAdmin");
         
-        UserModel user = new UserModel();
-        HashMap<String, String> map = user.login(email, password);
-        session.setAttribute("userId", Integer.parseInt(map.get("userId")));
-        session.setAttribute("name", map.get("name"));
-        session.setAttribute("credit", map.get("credit"));
+        HttpSession session = request.getSession(true);
         session.setAttribute("email", email);
-        session.setAttribute("password", password);
+        
+        if(isAdmin.equals("on")){
+            AdminModel admin = new AdminModel();
+            HashMap<String,String> map = admin.login(email, password);
+            session.setAttribute("userId", Integer.parseInt(map.get("userId")));
+            session.setAttribute("name", map.get("name"));
+            session.setAttribute("isAdmin", true);
+            
+        }else{
+            UserModel user = new UserModel();
+            HashMap<String, String> map = user.login(email, password);
+            session.setAttribute("userId", Integer.parseInt(map.get("userId")));
+            session.setAttribute("name", map.get("name"));
+        
+            
+        }
+        
+        
         
         response.sendRedirect("Views/newjsp.jsp");
         

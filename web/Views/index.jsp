@@ -10,6 +10,7 @@
 	<link rel="stylesheet" href="/Movie-Rental/assets/css/style.css"  media="all" />
             
 	<script type="text/javascript" src="/Movie-Rental/assets/js/jquery-1.4.2.min.js"></script>
+        <script type="text/javascript" src="/Movie-Rental/assets/js/jquery-3.1.1.min.js"></script>
 	<script type="text/javascript" src="/Movie-Rental/assets/js/jquery-func.js"></script>
 
 </head>
@@ -30,14 +31,16 @@
 				<div id="login" class="modal">  
 				  <form class="modal-content animate" action="../Login" method="GET">
 				    <div class="container">
-				      <label><b>Username</b></label>
-				      <input type="text" placeholder="Enter Email" name="email" required>
+                                        <label><b>Username</b></label>
+                                        <input type="text" placeholder="Enter Email" name="email" required>
 
-				      <label><b>Password</b></label>
-				      <input type="password" placeholder="Enter Password" name="password" required>
+                                        <label><b>Password</b></label>
+                                        <input type="password" placeholder="Enter Password" name="password" required>
 				        
-				      <button type="submit">Login</button>
-				      <input type="checkbox" checked="checked"> Remember me
+                                        <button type="submit">Login</button>
+                                        <input type="checkbox"> Remember me
+                                        <br>
+                                        <input type="checkbox" name="isAdmin"> Login as admin
 				    </div>
 
 				    <div class="container" style="background-color:#f1f1f1">
@@ -57,16 +60,20 @@
 						    <input type="text" placeholder="E-Mail" name="email" required>
 
 						    <label><b>Password</b></label>
-						    <input type="password" placeholder="Password" name="password" required>
+						    <input id="password" type="password" placeholder="Password" name="password" required>
 						    
 						    <label><b>Confirm Password</b></label>
-						    <input type="password" placeholder="Confirm Password" name="password" required>
+						    <input id="confirm_password" type="password" placeholder="Confirm Password" name="password" required>
 						    
-						    <label><b>Credit Card</b></label>
-						    <input type="text" placeholder="Credit Card" name="credit" required>
+						    <label id="credit"><b>Credit Card</b></label>
+                                                    <div id="wrongcode" style="color: red; display: none;">Wrong Activation Code! </div>
+						    <input id="creditin" type="text" placeholder="Credit Card" name="credit" required>
+                                                    <br>
+                                                        
+                                                    <input id="admin" type="checkbox" name="isAdmin"> Register as admin
 
 						    <div class="container" style="background-color:#f1f1f1">
-						    <button type="submit">Sign Up</button>
+						    <button id="signupbtn" type="submit">Sign Up</button>
 						    	<button type="button" onclick="document.getElementById('signup').style.display='none'" class="cancelbtn">Cancel</button>
 						    	
 						    </div>
@@ -263,15 +270,44 @@
 	<!-- end Footer -->
 </div>
 <!-- end Shell -->
+    <script>
+        $(document).ready(function(){
+            
+            $("#admin").click(function(){
+                if($("#admin").is(':checked')){
+                    $("#credit").html("<label><b>Activation Code</b></label>");
+                    $("#creditin").attr("placeholder", "Activation Code");
+                }
+                else{
+                    $("#credit").html("<label><b>Credit Card</b></label>");
+                    $("#creditin").attr("placeholder", "Credit Card");
+                    $("#signupbtn").prop('disabled', false);
+                    $("#wrongcode").hide();
+                }
+            });
+            
+            $("#creditin").keyup(function(){
+               var code = $(this).val();
+               
+               if(code == "0000" && $("#admin").is(':checked')){
+                   $("#signupbtn").prop('disabled', false);
+                   $("#wrongcode").hide();
+               }
+               else {
+                   if($("#admin").is(':checked')){
+                        $("#wrongcode").show();
+                        $("#signupbtn").prop('disabled', true);
+                    }
+               }
+            }); 
+        });
+        
+    </script>
+
 <script>
-		// Get the modal
 		var modal1 = document.getElementById('login');
 		var modal2 = document.getElementById('signup');
-		// When the user clicks anywhere outside of the modal, close it
 		window.onclick = function(event) {
-			// console.log("inside function");
-			// console.log(modal);
-			//console.log(event.target);
 		    if (event.target == modal1) {
 		        modal1.style.display = "none";
 		    }
