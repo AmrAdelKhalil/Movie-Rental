@@ -3,9 +3,11 @@ package Models;
 import DBConnection.DBC;
 import java.sql.PreparedStatement;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -15,13 +17,13 @@ public class MovieModel {
         
     }
     
-    public HashMap<String,String> showMovie(int id){
+    public HashMap<String,String> showMovie(int id, int userId){
         
         HashMap<String,String> movie = new HashMap<>();
         String name="", description="", img_url="", duration="", renting_price_per_day="", category="", year="", quality="";
         double rate_sum = 0.0, rate = 0.0, rate_count = 0.0;
-        
-        
+        boolean isRent = true, currentRent= false;
+        Date endDate; 
         Connection con = DBC.getActiveConnection();
         String query="Select * from movie where id=?";
         try {
@@ -43,6 +45,28 @@ public class MovieModel {
                 quality = row.getString("quality");
             }
             
+            query="Select * from movie_user_rent where idUser=? and idMovie=?";
+            p = (PreparedStatement) con.prepareStatement(query);
+            p.setInt(1, userId);
+            p.setInt(2, id);
+            
+            row = p.executeQuery();
+            
+            if(row.next()){
+                endDate = row.getDate("endDate");
+                java.util.Date utilDate = new java.util.Date();
+                Date currentDate = new Date(utilDate.getTime());
+                if (currentDate.getTime() > endDate.getTime()){
+                    long diff = currentDate.getTime() - endDate.getTime();
+                    long diffDays = TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
+                    if (diffDays < 7 ){
+                        isRent = false;
+                    }
+                }else{
+                    currentRent = true;
+                }
+            }
+            
             movie.put("name", name);
             movie.put("description", description);
             movie.put("img_url", img_url);
@@ -55,8 +79,10 @@ public class MovieModel {
             movie.put("id", String.valueOf(id));
             movie.put("year", year);
             movie.put("quality", quality);
+            movie.put("isRent", String.valueOf(isRent));
+            movie.put("currentRent", String.valueOf(currentRent));
             DBC.closeConnection();
-            System.out.println(movie.get("name"));
+
             return movie;
         } catch (SQLException ex) {
             Logger.getLogger(MovieModel.class.getName()).log(Level.SEVERE, null, ex);
