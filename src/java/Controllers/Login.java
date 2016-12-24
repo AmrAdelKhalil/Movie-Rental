@@ -30,7 +30,7 @@ public class Login extends HttpServlet {
         
         UserModel user = new UserModel();
         HashMap<String, String> map = user.login(email, password);
-        
+        session.setAttribute("userId", map.get("userId"));
         session.setAttribute("name", map.get("name"));
         session.setAttribute("credit", map.get("credit"));
         session.setAttribute("email", email);
