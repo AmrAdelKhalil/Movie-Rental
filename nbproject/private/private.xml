@@ -4,10 +4,14 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
 
-            <file>file:/E:/NetBeans/Movie-Rental/web/assets/angular.js</file>
-            <file>file:/E:/NetBeans/Movie-Rental/src/java/Controllers/UpdateMovie.java</file>
-            <file>file:/E:/NetBeans/Movie-Rental/src/java/Models/MovieModel.java</file>
-            <file>file:/E:/NetBeans/Movie-Rental/web/updateMovie.jsp</file>
+            <file>file:/E:/FCI-CU/Acadimic%20years/Forth%20year/First%20Term/Internet%20Appliction/Project/Implimintation/Movie-Rental/src/java/Controllers/ExtendRentingMovie.java</file>
+            <file>file:/E:/FCI-CU/Acadimic%20years/Forth%20year/First%20Term/Internet%20Appliction/Project/Implimintation/Movie-Rental/src/java/DBConnection/DBC.java</file>
+            <file>file:/E:/FCI-CU/Acadimic%20years/Forth%20year/First%20Term/Internet%20Appliction/Project/Implimintation/Movie-Rental/web/Views/ShowMovie.jsp</file>
+            <file>file:/E:/FCI-CU/Acadimic%20years/Forth%20year/First%20Term/Internet%20Appliction/Project/Implimintation/Movie-Rental/src/java/Controllers/ShowMovie.java</file>
+            <file>file:/E:/FCI-CU/Acadimic%20years/Forth%20year/First%20Term/Internet%20Appliction/Project/Implimintation/Movie-Rental/src/java/Controllers/RentMovie.java</file>
+            <file>file:/E:/FCI-CU/Acadimic%20years/Forth%20year/First%20Term/Internet%20Appliction/Project/Implimintation/Movie-Rental/src/java/Models/UserModel.java</file>
+            <file>file:/E:/FCI-CU/Acadimic%20years/Forth%20year/First%20Term/Internet%20Appliction/Project/Implimintation/Movie-Rental/src/java/Models/MovieModel.java</file>
+            <file>file:/E:/FCI-CU/Acadimic%20years/Forth%20year/First%20Term/Internet%20Appliction/Project/Implimintation/Movie-Rental/web/assets/css/ShowMovie.css</file>
 
         </group>
     </open-files>
