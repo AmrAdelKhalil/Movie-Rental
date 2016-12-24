@@ -23,7 +23,7 @@ public class UserModel {
         String name="", email="", creditCard="", password="";        
         
         Connection con = DBC.getActiveConnection();
-        String query="Select * from User where id=?";
+        String query="Select * from user where id=?";
         try {
             PreparedStatement p = (PreparedStatement) con.prepareStatement(query);
             p.setInt(1, id);
@@ -46,6 +46,7 @@ public class UserModel {
             }else{
                 user.put("Message","User not found");
             }
+            DBC.closeConnection();
             return user;
         } catch (SQLException ex) {
             Logger.getLogger(UserModel.class.getName()).log(Level.SEVERE, null, ex);
@@ -62,7 +63,7 @@ public class UserModel {
            return false; 
         }
         Connection con = DBC.getActiveConnection();
-        String query="update User set name= ? , email = ? , password = ? , creditCard = ? where id = ? ;";
+        String query="update user set name= ? , email = ? , password = ? , creditCard = ? where id = ? ;";
         try {
             PreparedStatement p = (PreparedStatement) con.prepareStatement(query);
             p.setInt(5, id);

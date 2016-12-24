@@ -18,12 +18,12 @@ public class MovieModel {
     public HashMap<String,String> showMovie(int id){
         
         HashMap<String,String> movie = new HashMap<>();
-        String name="", description="", img_url="", duration="", renting_price_per_day="", category="";
+        String name="", description="", img_url="", duration="", renting_price_per_day="", category="", year="", quality="";
         double rate_sum = 0.0, rate = 0.0, rate_count = 0.0;
         
         
         Connection con = DBC.getActiveConnection();
-        String query="Select * from Movie where id=?";
+        String query="Select * from movie where id=?";
         try {
             PreparedStatement p = (PreparedStatement) con.prepareStatement(query);
             p.setInt(1, id);
@@ -39,6 +39,8 @@ public class MovieModel {
                 rate_sum = row.getDouble("rate_sum");
                 rate = row.getDouble("rate");
                 rate_count = row.getDouble("rate_count");
+                year = row.getString("year");
+                quality = row.getString("quality");
             }
             
             movie.put("name", name);
@@ -51,7 +53,10 @@ public class MovieModel {
             movie.put("rate", String.valueOf(rate));
             movie.put("rate_count", String.valueOf(rate_count));
             movie.put("id", String.valueOf(id));
+            movie.put("year", year);
+            movie.put("quality", quality);
             DBC.closeConnection();
+            System.out.println(movie.get("name"));
             return movie;
         } catch (SQLException ex) {
             Logger.getLogger(MovieModel.class.getName()).log(Level.SEVERE, null, ex);

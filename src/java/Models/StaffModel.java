@@ -20,11 +20,11 @@ public class StaffModel {
         HashMap<String, String> staff_members = new HashMap<>();
         
         Connection con = DBC.getActiveConnection();
-        String query="select name, role from Staff_member INNER JOIN Movie_staff ON Staff_member.id = Movie_staff.idStaff WHERE Movie_staff.idMovie = ?;";
+        String query="select name, role from staff_member INNER JOIN movie_staff ON staff_member.id = movie_staff.idStaff WHERE movie_staff.idMovie = ?;";
         
         try {
             PreparedStatement p = (PreparedStatement) con.prepareStatement(query);
-            p.setInt(idMovie, 1);
+            p.setInt(1, idMovie);
             
             ResultSet result = p.executeQuery();
             

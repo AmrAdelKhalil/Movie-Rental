@@ -58,7 +58,8 @@
 					<div class="movie-image">
 						<a href="#"><img src="/Movie-Rental/images/movie2.jpg" alt="movie" /></a>
                                 </div>
-                                <% HashMap<String, String> movie = (HashMap<String, String>)request.getAttribute("movie"); 
+                                <% 
+                                   HashMap<String, String> movie = (HashMap<String, String>)request.getAttribute("movie"); 
                                    HashMap<String, String> staff = (HashMap<String, String>)request.getAttribute("staff");
                                 %> 
                                 <div class="movie-details">
@@ -113,6 +114,7 @@
 			    <div class="actors">
                                 <h4>Actors</h4>
                                 <%
+                                    
                                     for(Map.Entry<String, String> e : staff.entrySet()){
                                         out.print("<h3>"+e.getKey()+":</h3><br>");
                                         out.print("<p> &nbsp; "+e.getValue()+"</p><br>");
