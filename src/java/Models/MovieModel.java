@@ -209,9 +209,9 @@ public class MovieModel {
             
             while(res.next())
             {  
-                Integer id=res.getInt("id");
                 HashMap<String,String>curr=new HashMap<String,String>();
-                curr.put("id",id.toString());
+
+                curr.put("id", res.getString("id"));
                 curr.put("name",res.getString(2));
                 curr.put("rate",res.getString(6));
                 curr.put("img",res.getString(7));
