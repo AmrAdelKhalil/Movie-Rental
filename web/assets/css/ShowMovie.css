@@ -137,6 +137,8 @@ h1#logo a { float:left; width:239px; height:49px; background:url('/Movie-Rental/
     border-radius: 7px;
 }
 
+
+
 .rating { float:left; width:152px; padding-top:8px; }
 .rating p { float:left; font-size:10px; color:#fff; font-weight:bold; }
 .rating .stars { float:left; width:60px; height:11px; background:url('/Movie-Rental/images/stars.gif') no-repeat 0 0; margin-left:2px;}
@@ -168,3 +170,13 @@ h1#logo a { float:left; width:239px; height:49px; background:url('/Movie-Rental/
 
 
 
+.rent{
+	width:20%;
+        height: 50dp;
+	border-radius:5px;
+	border:2px solid #ccc;
+	padding: 5px;
+	margin-bottom: 10px;
+	font-family: Arial;
+	font-weight: bold;
+}

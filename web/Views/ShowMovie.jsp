@@ -64,7 +64,10 @@
                             <li>renting price: $15 per/day</li>
                             <li>duration: 1 hour/s and 28 minute/s</li>
                         </ul>
+                        <form action="RentMovie" >
+                        <input class="rent" type="text" name="rentPeriod">
                         <input type="submit" name="rent" value="rent">
+                        </form>
                     </div>
 				</div>
 				<!-- end Movie -->
