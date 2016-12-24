@@ -15,7 +15,7 @@ public class logout extends HttpServlet {
             throws ServletException, IOException {
         request.getSession().setMaxInactiveInterval(0);
         request.getSession().invalidate();
-        response.sendRedirect("/Views/index.jsp");
+        response.sendRedirect("/Movie-Rental/Views/index.jsp");
     }
 
     @Override
