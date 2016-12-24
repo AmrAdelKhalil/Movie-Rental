@@ -12,6 +12,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 
 @WebServlet(name = "ExtendRentingMovie", urlPatterns = {"/ExtendRentingMovie"})
@@ -20,13 +21,19 @@ public class ExtendRentingMovie extends HttpServlet {
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
-        int userId = Integer.parseInt(request.getParameter("userId"));
-        int movieId = Integer.parseInt(request.getParameter("movieId"));
+        
+        HttpSession session =request.getSession(true);
+
+        int userId = (int) session.getAttribute("userId");
+        int movieId = Integer.parseInt((String) request.getAttribute("movieId"));
         int extendedPeriod = Integer.parseInt(request.getParameter("rentPeriod"));
-        float extendedPrice = Float.parseFloat(request.getParameter("totalPrice"));
+        float extendedPrice = Float.parseFloat((String) request.getAttribute("totalPrice"));
         
         UserModel user = new UserModel();
         user.extendRentingMovie(userId, movieId, extendedPeriod, extendedPrice);
+        
+        ShowMovie show = new ShowMovie();
+        show.processRequest(request, response);
     }
 
     
