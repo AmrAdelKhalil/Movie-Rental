@@ -31,6 +31,9 @@ public class ExtendRentingMovie extends HttpServlet {
         
         UserModel user = new UserModel();
         user.extendRentingMovie(userId, movieId, extendedPeriod, extendedPrice);
+        
+        ShowMovie show = new ShowMovie();
+        show.processRequest(request, response);
     }
 
     
