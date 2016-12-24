@@ -224,5 +224,19 @@
 	<!-- end Footer -->
 </div>
 <!-- end Shell -->
+<script>
+		var modal1 = document.getElementById('login');
+		var modal2 = document.getElementById('signup');
+
+		window.onclick = function(event) {
+
+		    if (event.target == modal1) {
+		        modal1.style.display = "none";
+		    }
+		    if(event.target == modal2){
+		    	modal2.style.display = "none";
+		    }
+		}
+	</script>
 </body>
 </html>
