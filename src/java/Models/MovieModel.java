@@ -88,31 +88,38 @@ public class MovieModel {
         DBC.closeConnection();
     }
     
-    public void addMovieStaff(HashMap<String,String>movieStaff,int number) throws SQLException
+    public void addMovieStaff(HashMap<String,String>movieStaff,int number) 
     {   
-        Connection connection= DBC.getActiveConnection();
-        String query="insert into staff_member (name,role) values(?,?)",
-                query1="SELECT LAST_INSERT_ID()",
-                query2="insert into movie_staff (idMovie,idStaff) values(?,?)";
-        int lastMember;
-        ResultSet res;
-        for(int i=0;i<number;i++)
-        {
-            java.sql.PreparedStatement stmt=connection.prepareStatement(query);
-            stmt.setString(1, movieStaff.get("name"+i));
-            stmt.setString(2, movieStaff.get("role"+i));
-            stmt.executeUpdate();
+        try{
+            Connection connection= DBC.getActiveConnection();
+            String query="insert into staff_member (name,role) values(?,?)",
+                    query1="SELECT LAST_INSERT_ID()",
+                    query2="insert into movie_staff (idMovie,idStaff) values(?,?)";
+            int lastMember;
+            ResultSet res;
+            for(int i=0;i<number;i++)
+            {
+                java.sql.PreparedStatement stmt=connection.prepareStatement(query);
+                stmt.setString(1, movieStaff.get("name"+i));
+                stmt.setString(2, movieStaff.get("role"+i));
+                stmt.executeUpdate();
 
-            stmt=connection.prepareStatement(query1);
-            res=stmt.executeQuery();
-            res.next();
-            lastMember=res.getInt(1);
-            stmt=connection.prepareStatement(query2);
-            stmt.setInt(1, movieID);
-            stmt.setInt(2, lastMember);
-            stmt.executeUpdate();
+                stmt=connection.prepareStatement(query1);
+                res=stmt.executeQuery();
+                res.next();
+                lastMember=res.getInt(1);
+                stmt=connection.prepareStatement(query2);
+                stmt.setInt(1, movieID);
+                stmt.setInt(2, lastMember);
+                stmt.executeUpdate();
+            }
+            DBC.closeConnection();
+       }catch (SQLException ex) {
+            Logger.getLogger(MovieModel.class.getName()).log(Level.SEVERE, null, ex);
+        
         }
-        DBC.closeConnection();
+       
+         DBC.closeConnection();
     }
     public void seqQuerySearch(HashMap<String,String>values){
         
