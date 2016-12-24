@@ -19,7 +19,7 @@ public class AddMovie extends HttpServlet {
 
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+           {
        
         try  {
             HashMap<String,String>values=new HashMap<String,String>();
@@ -45,9 +45,9 @@ public class AddMovie extends HttpServlet {
             }
             
            movie.addMovieStaff(movieStaff,number);
-            response.sendRedirect("addMovie.jsp");
+            response.sendRedirect("/Views/addMovie.jsp");
         
-        } catch (SQLException ex) {
+        } catch (IOException ex) {
             Logger.getLogger(AddMovie.class.getName()).log(Level.SEVERE, null, ex);
         }
     }

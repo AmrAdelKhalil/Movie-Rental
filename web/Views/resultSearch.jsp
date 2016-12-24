@@ -146,10 +146,10 @@
             
             <!-- end Search -->
             <%
-                ArrayList<HashMap<String,String> >result=new MovieModel().returnMovies();
-              
-                for(int i=0;i<result.size();i++) {
-                    int countcolumn=6;
+                ArrayList<HashMap<String, String>> result = new MovieModel().returnMovies();
+
+                    for (int i = 0; i < result.size(); i++) {
+                        int countcolumn=6;
             %>
                 <!-- Box -->
                 <div class="box">

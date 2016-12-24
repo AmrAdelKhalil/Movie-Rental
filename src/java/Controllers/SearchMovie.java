@@ -23,7 +23,7 @@ public class SearchMovie extends HttpServlet {
         values.put("order_by", request.getParameter("order_by"));
         MovieModel movie= new MovieModel();
         movie.seqQuerySearch(values);
-        response.sendRedirect("resultSearch.jsp");
+        response.sendRedirect("/Views/resultSearch.jsp");
             
     }
 
