@@ -3,16 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/amr/Desktop/Movie-Rental/web/Views/UpdateSettings.jsp</file>
-            <file>file:/home/amr/Desktop/Movie-Rental/src/java/Models/MovieModel.java</file>
-            <file>file:/home/amr/Desktop/Movie-Rental/src/java/Controllers/ShowSettings.java</file>
-            <file>file:/home/amr/Desktop/Movie-Rental/web/Views/ShowSettings.jsp</file>
-            <file>file:/home/amr/Desktop/Movie-Rental/src/java/Controllers/UpdateSettings.java</file>
-            <file>file:/home/amr/Desktop/Movie-Rental/src/java/Models/UserModel.java</file>
-            <file>file:/home/amr/Desktop/Movie-Rental/src/java/Models/StaffModel.java</file>
-            <file>file:/home/amr/Desktop/Movie-Rental/src/java/Controllers/beforeUpdateSettings.java</file>
-            <file>file:/home/amr/Desktop/Movie-Rental/src/java/Controllers/ShowMovie.java</file>
-            <file>file:/home/amr/Desktop/Movie-Rental/web/Views/ShowMovie.jsp</file>
+
+            <file>file:/E:/NetBeans/Movie-Rental/web/assets/angular.js</file>
+            <file>file:/E:/NetBeans/Movie-Rental/src/java/Controllers/UpdateMovie.java</file>
+            <file>file:/E:/NetBeans/Movie-Rental/src/java/Models/MovieModel.java</file>
+            <file>file:/E:/NetBeans/Movie-Rental/web/updateMovie.jsp</file>
+
         </group>
     </open-files>
 </project-private>
