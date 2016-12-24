@@ -29,7 +29,7 @@ public class SignUp extends HttpServlet {
         session.setAttribute("name", name);
         session.setAttribute("email", email);
         
-        if(isAdmin.equals("on")){
+        if(isAdmin != null && isAdmin.equals("on")){
             AdminModel admin = new AdminModel();
             admin.signUp(name, email, password);
             admin.login(email, password);

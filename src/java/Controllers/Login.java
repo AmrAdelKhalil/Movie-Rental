@@ -32,7 +32,8 @@ public class Login extends HttpServlet {
         HttpSession session = request.getSession(true);
         session.setAttribute("email", email);
         
-        if(isAdmin.equals("on")){
+        
+        if(isAdmin != null && isAdmin.equals("on")){
             AdminModel admin = new AdminModel();
             HashMap<String,String> map = admin.login(email, password);
             session.setAttribute("userId", Integer.parseInt(map.get("userId")));

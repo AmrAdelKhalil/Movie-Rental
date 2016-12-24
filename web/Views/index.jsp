@@ -29,7 +29,7 @@
 			<ul>
 				<li><button onclick="document.getElementById('login').style.display='block'" >Login</button></li>
 				<div id="login" class="modal">  
-				  <form class="modal-content animate" action="../Login" method="GET">
+				  <form class="modal-content animate" action="../Login" method="POST">
 				    <div class="container">
                                         <label><b>Username</b></label>
                                         <input type="text" placeholder="Enter Email" name="email" required>
@@ -63,7 +63,8 @@
 						    <input id="password" type="password" placeholder="Password" name="password" required>
 						    
 						    <label><b>Confirm Password</b></label>
-						    <input id="confirm_password" type="password" placeholder="Confirm Password" name="password" required>
+						    <div id="wrongpass" style="color: red; display: none;">Password does not match!!</div>
+                                                    <input id="confirm_password" type="password" placeholder="Confirm Password" name="password" required>
 						    
 						    <label id="credit"><b>Credit Card</b></label>
                                                     <div id="wrongcode" style="color: red; display: none;">Wrong Activation Code! </div>
@@ -285,6 +286,20 @@
                     $("#wrongcode").hide();
                 }
             });
+            
+            $("#confirm_password").keyup(function(){
+                var pass1 = $("#password").val();
+                var pass2 = $("#confirm_password").val();
+                if(pass1 !== pass2){
+                    $("#wrongpass").show();
+                    $("#signupbtn").prop('disabled', true);
+                }
+                else{
+                    $("#wrongpass").hide();
+                    $("#signupbtn").prop('disabled', false);
+                }
+            });
+            
             
             $("#creditin").keyup(function(){
                var code = $(this).val();
