@@ -4,6 +4,7 @@ import Models.AdminModel;
 import Models.UserModel;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.HashMap;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -31,15 +32,16 @@ public class SignUp extends HttpServlet {
         
         if(isAdmin != null && isAdmin.equals("on")){
             AdminModel admin = new AdminModel();
-            admin.signUp(name, email, password);
-            admin.login(email, password);
+            HashMap<String,String> map = admin.signUp(name, email, password);
             session.setAttribute("isAdmin", true);
+            session.setAttribute("userId", Integer.parseInt(map.get("userId")));
+            
         }
         else{    
             UserModel user = new UserModel();
             String credit = request.getParameter("credit");
-            user.signUp(name, email, password, credit);
-            user.login(email, password);
+            HashMap<String,String> map = user.signUp(name, email, password, credit);
+            session.setAttribute("userId", Integer.parseInt(map.get("userId")));
             
         }
         
