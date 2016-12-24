@@ -53,15 +53,17 @@
 			<div class="box">
 				<div class="head">
 				</div>
-				<!-- Movie -->
-				<div class="movie">
-					<div class="movie-image">
-						<a href="#"><img src="/Movie-Rental/images/movie2.jpg" alt="movie" /></a>
-                                </div>
                                 <% 
                                    HashMap<String, String> movie = (HashMap<String, String>)request.getAttribute("movie"); 
                                    HashMap<String, String> staff = (HashMap<String, String>)request.getAttribute("staff");
                                 %> 
+				<!-- Movie -->
+				<div class="movie">
+					<div class="movie-image">
+						<a href="#"><img src="<%= movie.get("img_url") %>" alt="movie" /></a>
+                                </div>
+                                <!--/Movie-Rental/images/movie2.jpg-->
+                                
                                 <div class="movie-details">
                                     <!--<p>Spider Man</p>-->
                                     <p> <% out.print(movie.get("name")); %> </p>
