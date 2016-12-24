@@ -85,7 +85,7 @@
                     <div id="registeration">
 			
 				<br>
-                                <a class="user-data" href="#"> <%=currentSession.getAttribute("name") %></a>
+                                <a class="user-data" href="/Movie-Rental/ShowSettings?id=<%=request.getSession().getAttribute("userId") %>"> <%=currentSession.getAttribute("name") %></a>
                                 <a class="user-data" href="/Movie-Rental/ShowSettings?id=<%=request.getSession().getAttribute("userId") %>"> Settings</a>
 				<a class="user-data" href="/Movie-Rental/logout"> Logout</a>	
 		</div>
