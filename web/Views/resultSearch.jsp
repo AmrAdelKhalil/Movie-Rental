@@ -163,19 +163,22 @@
                          
                      %>
                         <!-- Movie -->
-                        <div class="movie">
-                                <div class="movie-image">
-                                    <a href="#">
-                                        <span class="play"><span class="name"><%= curr.get("name")%></span>
-                                          
-                                        </span><img src=<%= curr.get("img")%> alt="movie" /></a>
-                                </div>
-                                <div class="rating">
-                                        <p>RATING</p>
-                                        <span ><%=" : "+curr.get("rate")%></span>
-                                        <span class="comments">12</span>
-                                </div>
-                        </div>
+                        <form action="/Movie-Rental/ShoMovie">
+                            <input type="hidden" name="id" value=<%= curr.get("id")%>>
+                            <div class="movie">
+                                    <div class="movie-image">
+                                        <a href="#">
+                                            <span class="play"><span class="name"><%= curr.get("name")%></span>
+
+                                            </span><img src=<%= curr.get("img")%> alt="movie" /></a>
+                                    </div>
+                                    <div class="rating">
+                                            <p>RATING</p>
+                                            <span ><%=" : "+curr.get("rate")%></span>
+                                            <span class="comments">12</span>
+                                    </div>
+                            </div>
+                        </form>
                         <!-- end Movie -->
                         <% }%>
                     
