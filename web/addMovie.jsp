@@ -59,9 +59,9 @@
 	<div ng-app="myApp" ng-controller="controller">
             <form method="post" action="addMovie">
                 <input type="text" name="movieName" placeholder="Movie Name" required>
-                    <input type="text" name="category" placeholder="Category" required>
+                <input type="text" name="category" placeholder="Category" required>
                 <input type="text" name="description" placeholder="Description for Movie">
-                    <input type="text" name="duration" placeholder="Duration in min" required>
+                <input type="text" name="duration" placeholder="Duration in min" required>
                 <input type="text" name="price" placeholder="Price Per Day" required>
                 <input type="text" name="year" placeholder="year of release" style="width:25%; display:inline-block;">
                 <select name="quality" required>

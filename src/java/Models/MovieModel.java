@@ -11,7 +11,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class MovieModel {
-    int movieID=0;
+    static int movieID=0;
+    HashMap<String,String>currDataMovie=new  HashMap<String,String>();
     static public String queryMovie="";
     public MovieModel(){
         
@@ -67,7 +68,7 @@ public class MovieModel {
             
         String query="insert into movie (name,description,rate_sum,rate_count,rate,img_url,duration,"+
                 "renting_price_per_day,category,year,quality) values(?,?,0,0,0,?,?,?,?,?,?)";            
-        java.sql.PreparedStatement stmt=connection.prepareStatement(query);
+        PreparedStatement stmt=connection.prepareStatement(query);
         stmt.setString(1, values.get("movieName"));
         stmt.setString(2, values.get("description"));
         stmt.setString(3, "/Movie-Rental/images/movie6.jpg");
@@ -154,7 +155,6 @@ public class MovieModel {
             Connection connection=new DBC().getActiveConnection();
            if(queryMovie.equals(""))
                 queryMovie="select * from movie order by year desc";
-           System.out.print(queryMovie);
             PreparedStatement stmt=connection.prepareStatement(queryMovie);
             ResultSet res=stmt.executeQuery();
           
@@ -176,4 +176,99 @@ public class MovieModel {
         return result;
    }
    
+    public HashMap<String,String> getValues(String idMovie)
+    {   
+        movieID=Integer.parseInt(idMovie);
+        
+        HashMap<String,String>result=new HashMap<String,String>();
+        Connection connection=new DBC().getActiveConnection();
+        queryMovie="select * from movie where id="+idMovie;
+             System.out.println(queryMovie);
+        try {
+             PreparedStatement stmt = connection.prepareStatement(queryMovie);
+             ResultSet res = stmt.executeQuery();
+             res.next();
+             System.out.println(res.getString("quality"));
+             result.put("name", "'" + res.getString("name") + "'" );
+             result.put("category", "'" + res.getString("category") + "'" );
+             result.put("description", "'" + res.getString("description") + "'" );
+             result.put("duration",res.getString("duration"));
+             result.put("price",res.getString("renting_price_per_day"));
+             result.put("year",res.getString("year"));
+             result.put(res.getString("quality"),"selected");
+             result.put("quality",res.getString("quality"));
+             queryMovie="select idStaff from movie_staff where idMovie="+idMovie;
+             stmt = connection.prepareStatement(queryMovie);
+             res = stmt.executeQuery();
+             Integer curr=0;
+         
+             while(res.next())
+             {
+                queryMovie="select name,role from staff_member where id="+res.getInt("idStaff");
+                stmt = connection.prepareStatement(queryMovie);
+                ResultSet res1 = stmt.executeQuery();
+                res1.next();
+                result.put("name"+curr.toString(),"'" + res1.getString("name") + "'" );
+                result.put("role"+curr.toString(),"'" + res1.getString("role") + "'" );
+                 System.out.println(result.get("name0"));
+                curr++;
+             }
+             
+             result.put("number",curr.toString());
+             connection.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(MovieModel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+      
+        currDataMovie=result;
+        queryMovie="";
+        return result;
+    }
+    
+    public void updateMovie(HashMap<String,String>values)
+    {   
+        
+            String name="",quality="",category="",duration="",year="",price="",description="";
+            boolean prev=false;
+              System.out.print(values.get("name"));
+            if(values.get("name").equals(currDataMovie.get("name"))==false)
+            {
+                name="name='"+values.get("name")+"'";
+                prev=true;
+            }   if(values.get("category").equals(currDataMovie.get("category"))==false)
+            {
+                category=(prev==true?" ,":"")+" category='"+values.get("category")+"'";
+                prev=true;
+            }   if(values.get("description").equals(currDataMovie.get("description"))==false)
+            {
+                description=(prev==true?" , ":"")+" description='"+values.get("description")+"'";
+                prev=true;
+            }   if(values.get("duration").equals(currDataMovie.get("duration"))==false)
+            {
+                duration=(prev==true?" ,":"")+" duration="+values.get("duration");
+                prev=true;
+            }   if(values.get("price").equals(currDataMovie.get("price"))==false)
+            {
+                price=(prev==true?" , ":"")+" renting_price_per_day="+values.get("price");
+                prev=true;
+            }   if(values.get("year").equals(currDataMovie.get("year"))==false)
+            {
+                year=(prev==true?" , ":"")+" year="+values.get("year");
+                prev=true;
+            }   if(values.get("quality").equals(currDataMovie.get("quality"))==false)
+            {
+                quality=(prev==true?" , ":"")+" quality='"+values.get("quality")+"'";
+                prev=true;
+            }  
+            queryMovie="update movie set "+name+category+description+duration+
+                    price+year+quality+" where id="+((Integer)movieID).toString();
+       try { 
+            Connection con = DBC.getActiveConnection();
+            PreparedStatement stmt = (PreparedStatement) con.prepareStatement(queryMovie);
+            System.out.print(queryMovie);
+            stmt.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(MovieModel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }

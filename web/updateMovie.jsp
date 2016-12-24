@@ -1,5 +1,8 @@
+<%@page import="Models.MovieModel"%>
 <%@page import="java.util.HashMap"%>
+<%@ page trimDirectiveWhitespaces="true" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html lang="en-US" xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 <head>
@@ -60,23 +63,34 @@
 
         <div ng-app="myApp" ng-controller="controller">
             <%
-                HashMap<String,String> values=new HashMap<String,String>();
-                
+                HashMap<String,String> values=new MovieModel().getValues("5"); //id movie;
+                 
             %>
-            <form mtehod="" action="">
-                <input type="text" name="movieName" placeholder="Movie Name" >
-                <input type="text" name="category" placeholder="Category">
-                <input type="text" name="description" placeholder="Description for Movie">
-                <input type="text" name="duration" placeholder="Duration in min">
-                <input type="text" name="price" placeholder="Price Per Day">
+            <form mtehod="post" action="UpdateMovie">
+                <input type="text" name="movieName" placeholder="Movie Name" value= <%=values.get("name")%> >
+                <input type="text" name="category" placeholder="Category" value=<%= values.get("category")%> >
+                <input type="text" name="description" placeholder="Description for Movie" value=<%= values.get("description")%> >
+                <input type="text" name="duration" placeholder="Duration in min" value=<%= values.get("duration")%> >
+                <input type="text" name="price" placeholder="Price Per Day" value=<%= values.get("price")%> >
+                <input type="text" name="year" placeholder="year of release" value=<%= values.get("year")%> style="width:25%; display:inline-block;">
+                <select name="quality" required>
+                      <option <%= values.get("all")%> value="all">Quality</option>
+                      <option <%= values.get("280p")%> value="280p">280p</option>
+                      <option <%= values.get("360p")%> value="360p">360p</option>
+                      <option <%= values.get("480p")%> value="480p">480p</option>
+                      <option <%= values.get("720p")%> value="720p">720p</option>
+                      <option <%= values.get("1080p")%> value="1080p">1080p</option>
+                      <option <%= values.get("3D")%> value="3D">3D</option>
+                  </select>
+                    <br/>
                 <label>Number Of Staff</label>
-                <input type="number" name="Number" ng-model="currNumber" min=0 >
+                <input type="number" name="Number" ng-init="currNumber=<%= values.get("number")%>" ng-model="currNumber" min=0 >
                 <ul>
-                        <li ng-repeat="i in total(currNumber) track by $index">
-                                <input type="text" name="memberName{{$index}}" placeholder="Member Name" >
-                                <input type="text" name="role{{$index}}" placeholder="Role">
-                                <label>------------------------------------------------------------------------------------</label>
-                        </li>
+                    <li ng-repeat="i in total(currNumber) track by $index">
+                        <input type="text" name="memberName{{i}}" placeholder="Member Name" value=<%= values.get("name{{$index}}") %> >
+                        <input type="text" name="role{{i}}" placeholder="Role" value="{{i}}"  >
+                        <label>------------------------------------------------------------------------------------</label>
+                    </li>
                 </ul>
                 <input type="submit" name="submit" value="Update Movie" style="width:10%;">
             </form>
