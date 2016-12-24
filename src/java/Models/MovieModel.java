@@ -64,7 +64,7 @@ public class MovieModel {
     }
     
     public void addMovie(HashMap<String,String>values) throws SQLException{
-         Connection connection=new DBC().getActiveConnection();
+         Connection connection= DBC.getActiveConnection();
             
         String query="insert into movie (name,description,rate_sum,rate_count,rate,img_url,duration,"+
                 "renting_price_per_day,category,year,quality) values(?,?,0,0,0,?,?,?,?,?,?)";            
@@ -85,12 +85,12 @@ public class MovieModel {
         res.next();
         movieID=res.getInt(1);
         
-        connection.close();
+        DBC.closeConnection();
     }
     
     public void addMovieStaff(HashMap<String,String>movieStaff,int number) throws SQLException
     {   
-        Connection connection=new DBC().getActiveConnection();
+        Connection connection= DBC.getActiveConnection();
         String query="insert into staff_member (name,role) values(?,?)",
                 query1="SELECT LAST_INSERT_ID()",
                 query2="insert into movie_staff (idMovie,idStaff) values(?,?)";
@@ -112,7 +112,7 @@ public class MovieModel {
             stmt.setInt(2, lastMember);
             stmt.executeUpdate();
         }
-        connection.close();
+        DBC.closeConnection();
     }
     public void seqQuerySearch(HashMap<String,String>values){
         
@@ -151,8 +151,9 @@ public class MovieModel {
     public ArrayList<HashMap<String,String> > returnMovies()
     {  
        ArrayList< HashMap<String,String> >result=new ArrayList<HashMap<String,String> >();
-        try {
-            Connection connection=new DBC().getActiveConnection();
+       Connection connection = DBC.getActiveConnection();
+       
+       try {
            if(queryMovie.equals(""))
                 queryMovie="select * from movie order by year desc";
             PreparedStatement stmt=connection.prepareStatement(queryMovie);
@@ -167,11 +168,13 @@ public class MovieModel {
                 curr.put("rate",res.getString(6));
                 curr.put("img",res.getString(7));
                 result.add(curr);
+                DBC.closeConnection();
             }
-            connection.close();
         } catch (SQLException ex) {
             Logger.getLogger(MovieModel.class.getName()).log(Level.SEVERE, null, ex);
+        
         }
+         DBC.closeConnection();
         queryMovie="";
         return result;
    }
@@ -181,7 +184,7 @@ public class MovieModel {
         movieID=Integer.parseInt(idMovie);
         
         HashMap<String,String>result=new HashMap<String,String>();
-        Connection connection=new DBC().getActiveConnection();
+        Connection connection=DBC.getActiveConnection();
         queryMovie="select * from movie where id="+idMovie;
              System.out.println(queryMovie);
         try {
@@ -215,11 +218,11 @@ public class MovieModel {
              }
              
              result.put("number",curr.toString());
-             connection.close();
+            DBC.closeConnection();
         } catch (SQLException ex) {
             Logger.getLogger(MovieModel.class.getName()).log(Level.SEVERE, null, ex);
         }
-      
+       DBC.closeConnection();
         currDataMovie=result;
         queryMovie="";
         return result;
@@ -230,7 +233,6 @@ public class MovieModel {
         
             String name="",quality="",category="",duration="",year="",price="",description="";
             boolean prev=false;
-              System.out.print(values.get("name"));
             if(values.get("name").equals(currDataMovie.get("name"))==false)
             {
                 name="name='"+values.get("name")+"'";
@@ -265,10 +267,11 @@ public class MovieModel {
        try { 
             Connection con = DBC.getActiveConnection();
             PreparedStatement stmt = (PreparedStatement) con.prepareStatement(queryMovie);
-            System.out.print(queryMovie);
             stmt.executeUpdate();
-        } catch (SQLException ex) {
+            DBC.closeConnection();
+       } catch (SQLException ex) {
             Logger.getLogger(MovieModel.class.getName()).log(Level.SEVERE, null, ex);
         }
+     DBC.closeConnection();
     }
 }

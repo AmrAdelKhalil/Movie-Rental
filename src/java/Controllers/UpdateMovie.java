@@ -24,7 +24,8 @@ public class UpdateMovie extends HttpServlet {
         values.put("price",request.getParameter("price"));
         values.put("year",request.getParameter("year"));
         values.put("quality",request.getParameter("quality"));
-        new MovieModel().updateMovie(values);
+        MovieModel movie= new MovieModel();
+        movie.updateMovie(values);
         response.sendRedirect("updateMovie.jsp");
 
     }
