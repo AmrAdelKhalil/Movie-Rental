@@ -25,9 +25,9 @@ public class ExtendRentingMovie extends HttpServlet {
         HttpSession session =request.getSession(true);
 
         int userId = (int) session.getAttribute("userId");
-        int movieId = Integer.parseInt((String) request.getAttribute("movieId"));
+        int movieId = Integer.parseInt(request.getParameter("id"));
         int extendedPeriod = Integer.parseInt(request.getParameter("rentPeriod"));
-        float extendedPrice = Float.parseFloat((String) request.getAttribute("totalPrice"));
+        float extendedPrice = Float.parseFloat(request.getParameter("totalPrice"));
         
         UserModel user = new UserModel();
         user.extendRentingMovie(userId, movieId, extendedPeriod, extendedPrice);
