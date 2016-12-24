@@ -21,7 +21,9 @@ public class ShowMovie extends HttpServlet {
         
         int id = Integer.parseInt(request.getParameter("id"));
         int userId = (int) session.getAttribute("userId");
-        HashMap<String,String> movie = new MovieModel().showMovie(id, userId);        
+        
+        MovieModel movieModel = new MovieModel();
+        HashMap<String,String> movie = movieModel.showMovie(id, userId);        
     }
 
     @Override

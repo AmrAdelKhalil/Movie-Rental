@@ -22,7 +22,7 @@ public class MovieModel {
         HashMap<String,String> movie = new HashMap<>();
         String name="", description="", img_url="", duration="", renting_price_per_day="", category="";
         double rate_sum = 0.0, rate = 0.0, rate_count = 0.0;
-        boolean isRent = true;
+        boolean isRent = true, currentRent= false;
         Date endDate; 
         Connection con = DBC.getActiveConnection();
         String query="Select * from Movie where id=?";
@@ -60,6 +60,8 @@ public class MovieModel {
                     if (diffDays < 7 ){
                         isRent = false;
                     }
+                }else{
+                    currentRent = true;
                 }
             }
             
@@ -73,6 +75,7 @@ public class MovieModel {
             movie.put("rate", String.valueOf(rate));
             movie.put("rate_count", String.valueOf(rate_count));
             movie.put("isRent", String.valueOf(isRent));
+            movie.put("currentRent", String.valueOf(currentRent));
             
             
             return movie;
