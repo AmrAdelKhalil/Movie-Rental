@@ -150,6 +150,7 @@ public class UserModel {
             p.setDate(4, startDate);
             p.setDate(5, endDate);
             
+            System.out.println("query:  "  + p.toString());
             p.executeUpdate();
             DBC.closeConnection();
             return true;
