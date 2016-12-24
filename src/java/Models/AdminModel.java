@@ -52,9 +52,11 @@ public class AdminModel {
         DBC.closeConnection();
         return null;
     }
-    public boolean signUp(String name, String email, String password){
+    public HashMap<String, String> signUp(String name, String email, String password){
         Connection con = DBC.getActiveConnection();
+        HashMap<String, String> user = new HashMap<>();
         String query = "insert into admin(name, email, password) values(?, ?, ?);";
+        String lastId = "SELECT LAST_INSERT_ID()";
         try {
 
             PreparedStatement p = con.prepareStatement(query);
@@ -62,15 +64,22 @@ public class AdminModel {
             p.setString(2, email);
             p.setString(3, password);
             p.executeUpdate();
+            p = con.prepareStatement(lastId);
+            ResultSet res = p.executeQuery();
+            res.next();
+            user.put("userId", String.valueOf(res.getInt(1)));
+            user.put("name", name);
+            user.put("email", email);
+            user.put("password", password);
             p.close();
             DBC.closeConnection();
-            return true;
+            return user;
             
         } catch (SQLException ex) {
             Logger.getLogger(UserModel.class.getName()).log(Level.SEVERE, null, ex);
         }
         DBC.closeConnection();
-        return false;
+        return null;
         
     }
     
