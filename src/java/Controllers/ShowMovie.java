@@ -17,10 +17,7 @@ public class ShowMovie extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-<<<<<<< HEAD
-=======
         HttpSession session =request.getSession(true);
->>>>>>> master
         
         int id = Integer.parseInt(request.getParameter("id"));
         int userId = (int) session.getAttribute("userId");
