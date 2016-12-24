@@ -30,6 +30,7 @@ public class UserModel {
             
             ResultSet row = p.executeQuery();
             if (row.next()){
+                user.put("userId", String.valueOf(row.getInt("id")));
                 user.put("name", row.getString("name"));
                 user.put("email", row.getString("email"));
                 user.put("password", row.getString("password"));
