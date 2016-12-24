@@ -1,3 +1,6 @@
+<%@page import="java.util.ArrayList"%>
+<%@page import="Models.MovieModel"%>
+<%@page import="java.util.HashMap"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html lang="en-US" xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 <head>
@@ -108,344 +111,57 @@
 		<!-- Content -->
 		<div id="content">
 
-			<!-- Box -->
-			<div class="box">
-				<div class="head">
-					<h2>LATEST TRAILERS</h2>
-					<p class="text-right"><a href="#">See all</a></p>
-				</div>
-
-				<!-- Movie -->
-				<div class="movie">
-					
-					<div class="movie-image">
-						
-						<a href="#"><span class="play"><span class="name">X-MAN</span></span><img src="/Movie-Rental/images/movie1.jpg" alt="movie" /></a>
-					</div>
-						
-					<div class="rating">
-						<p>RATING</p>
-						<div class="stars">
-							<div class="stars-in">
-								
-							</div>
-						</div>
-						<span class="comments">12</span>
-					</div>
-				</div>
-				<!-- end Movie -->
-				
-				<!-- Movie -->
-				<div class="movie">
-					<div class="movie-image">
-						<a href="#"><span class="play"><span class="name">SPIDER MAN 2</span></span><img src="/Movie-Rental/images/movie2.jpg" alt="movie" /></a>
-					</div>
-					<div class="rating">
-						<p>RATING</p>
-						<div class="stars">
-							<div class="stars-in">
-								
-							</div>
-						</div>
-						<span class="comments">12</span>
-					</div>
-				</div>
-				<!-- end Movie -->
-				
-				<!-- Movie -->
-				<div class="movie">
-					<div class="movie-image">
-						<a href="#"><span class="play"><span class="name">SPIDER MAN 3</span></span><img src="/Movie-Rental/images/movie3.jpg" alt="movie" /></a>
-					</div>
-					<div class="rating">
-						<p>RATING</p>
-						<div class="stars">
-							<div class="stars-in">
-								
-							</div>
-						</div>
-						<span class="comments">12</span>
-					</div>
-				</div>
-				<!-- end Movie -->
-				
-				<!-- Movie -->
-				<div class="movie">
-					<div class="movie-image">
-						<a href="#"><span class="play"><span class="name">VALKYRIE</span></span><img src="/Movie-Rental/images/movie4.jpg" alt="movie" /></a>
-					</div>
-					<div class="rating">
-						<p>RATING</p>
-						<div class="stars">
-							<div class="stars-in">
-								
-							</div>
-						</div>
-						<span class="comments">12</span>
-					</div>
-				</div>
-				<!-- end Movie -->
-				
-				<!-- Movie -->
-				<div class="movie">
-					<div class="movie-image">
-						<a href="#"><span class="play"><span class="name">GLADIATOR</span></span><img src="/Movie-Rental/images/movie5.jpg" alt="movie" /></a>
-					</div>
-					<div class="rating">
-						<p>RATING</p>
-						<div class="stars">
-							<div class="stars-in">
-								
-							</div>
-						</div>
-						<span class="comments">12</span>
-					</div>
-				</div>
-				<!-- end Movie -->
-				
-				<!-- Movie -->
-				<div class="movie last">
-					<div class="movie-image">
-						<a href="#"><span class="play"><span class="name">ICE AGE</span></span><img src="/Movie-Rental/images/movie6.jpg" alt="movie" /></a>
-					</div>
-					<div class="rating">
-						<p>RATING</p>
-						<div class="stars">
-							<div class="stars-in">
-								
-							</div>
-						</div>
-						<span class="comments">12</span>
-					</div>
-				</div>
-				<!-- end Movie -->
-				<div class="cl">&nbsp;</div>
-			</div>
-			<!-- end Box -->
 			
-			<!-- Box -->
-			<div class="box">
-				<div class="head">
-					<h2>TOP RATED</h2>
-					<p class="text-right"><a href="#">See all</a></p>
-				</div>
+			<!-- end Search -->
+            <%
+                ArrayList<HashMap<String, String>> result = new MovieModel().returnMovies();
 
-				<!-- Movie -->
-				<div class="movie">
-					<div class="movie-image">
-						<a href="#"><span class="play"><span class="name">TRANSFORMERS</span></span><img src="/Movie-Rental/images/movie7.jpg" alt="movie" /></a>
-					</div>	
-					<div class="rating">
-						<p>RATING</p>
-						<div class="stars">
-							<div class="stars-in">
-								
-							</div>
-						</div>
-						<span class="comments">12</span>
-					</div>
-				</div>
-				<!-- end Movie -->
-				
-				<!-- Movie -->
-				<div class="movie">
-					<div class="movie-image">
-						<a href="#"><span class="play"><span class="name">MAGNETO</span></span><img src="/Movie-Rental/images/movie8.jpg" alt="movie" /></a>
-					</div>
-					<div class="rating">
-						<p>RATING</p>
-						<div class="stars">
-							<div class="stars-in">
-								
-							</div>
-						</div>
-						<span class="comments">12</span>
-					</div>
-				</div>
-				<!-- end Movie -->
-				
-				<!-- Movie -->
-				<div class="movie">
-					<div class="movie-image">
-						<a href="#"><span class="play"><span class="name">KUNG FU PANDA</span></span><img src="/Movie-Rental/images/movie9.jpg" alt="movie" /></a>
-					</div>	
-					<div class="rating">
-						<p>RATING</p>
-						<div class="stars">
-							<div class="stars-in">
-								
-							</div>
-						</div>
-						<span class="comments">12</span>
-					</div>
-				</div>
-				<!-- end Movie -->
-				
-				<!-- Movie -->
-				<div class="movie">
-					<div class="movie-image">
-						<a href="#"><span class="play"><span class="name">EAGLE EYE</span></span><img src="/Movie-Rental/images/movie10.jpg" alt="movie" /></a>
-					</div>
-					<div class="rating">
-						<p>RATING</p>
-						<div class="stars">
-							<div class="stars-in">
-								
-							</div>
-						</div>
-						<span class="comments">12</span>
-					</div>
-				</div>
-				<!-- end Movie -->
-				
-				<!-- Movie -->
-				<div class="movie">
-					<div class="movie-image">
-						<a href="#"><span class="play"><span class="name">NARNIA</span></span><img src="/Movie-Rental/images/movie11.jpg" alt="movie" /></a>
-					</div>
-					<div class="rating">
-						<p>RATING</p>
-						<div class="stars">
-							<div class="stars-in">
-								
-							</div>
-						</div>
-						<span class="comments">12</span>
-					</div>
-				</div>
-				<!-- end Movie -->
-				
-				<!-- Movie -->
-				<div class="movie last">
-					<div class="movie-image">
-						<a href="#"><span class="play"><span class="name">ANGELS &amp; DEMONS</span></span><img src="/Movie-Rental/images/movie12.jpg" alt="movie" /></a>
-					</div>	
-					<div class="rating">
-						<p>RATING</p>
-						<div class="stars">
-							<div class="stars-in">
-								
-							</div>
-						</div>
-						<span class="comments">12</span>
-					</div>
-				</div>
-				<!-- end Movie -->
-				<div class="cl">&nbsp;</div>
-			</div>
-			<!-- end Box -->
+                    for (int i = 0; i < result.size(); i++) {
+                        int countcolumn=6;
+            %>
+                <!-- Box -->
+                <div class="box">
+                        <div class="head">
+                                <h2></h2>
+                                <p class="text-right"><a href="#"></a></p>
+                        </div>
+                     <% for(;countcolumn > 0 && i<result.size();i++,countcolumn--){
+                         
+                          HashMap<String,String>curr=(HashMap<String,String>)result.get(i);
+                         
+                     %>
+                        <!-- Movie -->
+                        <div class="movie">
+                                <div class="movie-image">
+                                    <a href="#">
+                                        <span class="play"><span class="name"><%= curr.get("name")%></span>
+                                          
+                                        </span><img src=<%= curr.get("img")%> alt="movie" /></a>
+                                </div>
+                                <div class="rating">
+                                        <p>RATING</p>
+                                        <span ><%=" : "+curr.get("rate")%></span>
+                                        <span >
+                                            <form action="/Movie-Rental/ShowMovie">
+                                                <input type="text" name="id" value="<%= curr.get("id")%>" style="display: none;">
+                                                <input type="submit" value="show" style="width: 50px;">
+                                            </form>
+                                        </span>
+                                </div>
+                        </div>
+                        <!-- end Movie -->
+                        <% }%>
+                    
+                        <div class="cl">&nbsp;</div>
+                </div>
+                <!-- end Box -->
+
+
+
+                <%i--;}%>
 			
-			<!-- Box -->
-			<div class="box">
-				<div class="head">
-					<h2>MOST COMMENTED</h2>
-					<p class="text-right"><a href="#">See all</a></p>
-				</div>
-
-				<!-- Movie -->
-				<div class="movie">
-					<div class="movie-image">
-						<a href="#"><span class="play"><span class="name">HOUSE</span></span><img src="/Movie-Rental/images/movie13.jpg" alt="movie" /></a>
-					</div>
-					<div class="rating">
-						<p>RATING</p>
-						<div class="stars">
-							<div class="stars-in">
-								
-							</div>
-						</div>
-						<span class="comments">12</span>
-					</div>
-				</div>
-				<!-- end Movie -->
-				
-				<!-- Movie -->
-				<div class="movie">
-					<div class="movie-image">
-						<a href="#"><span class="play"><span class="name">VACANCY</span></span><img src="/Movie-Rental/images/movie14.jpg" alt="movie" /></a>
-					</div>	
-					<div class="rating">
-						<p>RATING</p>
-						<div class="stars">
-							<div class="stars-in">
-								
-							</div>
-						</div>
-						<span class="comments">12</span>
-					</div>
-				</div>
-				<!-- end Movie -->
-				
-				<!-- Movie -->
-				<div class="movie">
-					<div class="movie-image">
-						<a href="#"><span class="play"><span class="name">MIRRORS</span></span><img src="/Movie-Rental/images/movie15.jpg" alt="movie" /></a>
-					</div>	
-					<div class="rating">
-						<p>RATING</p>
-						<div class="stars">
-							<div class="stars-in">
-								
-							</div>
-						</div>
-						<span class="comments">12</span>
-					</div>
-				</div>
-				<!-- end Movie -->
-				
-				<!-- Movie -->
-				<div class="movie">
-					<div class="movie-image">
-						<a href="#"><span class="play"><span class="name">THE KINGDOM</span></span><img src="/Movie-Rental/images/movie16.jpg" alt="movie" /></a>
-					</div>	
-					<div class="rating">
-						<p>RATING</p>
-						<div class="stars">
-							<div class="stars-in">
-								
-							</div>
-						</div>
-						<span class="comments">12</span>
-					</div>
-				</div>
-				<!-- end Movie -->
-				
-				<!-- Movie -->
-				<div class="movie">
-					<div class="movie-image">
-						<a href="#"><span class="play"><span class="name">MOTIVES</span></span><img src="/Movie-Rental/images/movie17.jpg" alt="movie" /></a>
-					</div>	
-					<div class="rating">
-						<p>RATING</p>
-						<div class="stars">
-							<div class="stars-in">
-								
-							</div>
-						</div>
-						<span class="comments">12</span>
-					</div>
-				</div>
-				<!-- end Movie -->
-				
-				<!-- Movie -->
- 				<div class="movie last">
- 					<div class="movie-image">
-						<a href="#"><span class="play"><span class="name">THE PRESTIGE</span></span><img src="/Movie-Rental/images/movie18.jpg" alt="movie" /></a>
-					</div>	
-					<div class="rating">
-						<p>RATING</p>
-						<div class="stars">
-							<div class="stars-in">
-								
-							</div>
-						</div>
-						<span class="comments">12</span>
-					</div>
-				</div>
-				<!-- end Movie -->
-				<div class="cl">&nbsp;</div>
-			</div>
-			<!-- end Box -->
+			
+			
 			
 		</div>
 		<!-- end Content -->
@@ -540,4 +256,7 @@
 		}
 	</script>
 </body>
+    
+    
+    
 </html>

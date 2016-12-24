@@ -209,7 +209,7 @@ public class MovieModel {
             while(res.next())
             {
                 HashMap<String,String>curr=new HashMap<String,String>();
-                
+                curr.put("id", res.getString("id"));
                 curr.put("name",res.getString(2));
                 curr.put("rate",res.getString(6));
                 curr.put("img",res.getString(7));
