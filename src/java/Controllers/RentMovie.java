@@ -28,7 +28,7 @@ public class RentMovie extends HttpServlet {
         SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
         
         int userId = (int) session.getAttribute("userId");
-        int movieId = (int) session.getAttribute("movieId");
+        int movieId = Integer.parseInt(request.getParameter("movieId"));
         int rentPeriod = Integer.parseInt(request.getParameter("rentPeriod"));
         java.util.Date utilDate = new java.util.Date();
         Date startDate = new Date(utilDate.getTime());
