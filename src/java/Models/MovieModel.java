@@ -151,7 +151,7 @@ public class MovieModel {
     public ArrayList<HashMap<String,String> > returnMovies()
     {  
        ArrayList< HashMap<String,String> >result=new ArrayList<HashMap<String,String> >();
-       Connection connection = DBC.getActiveConnection();
+       Connection connection =  DBC.getActiveConnection();
        
        try {
            if(queryMovie.equals(""))
@@ -168,12 +168,14 @@ public class MovieModel {
                 curr.put("rate",res.getString(6));
                 curr.put("img",res.getString(7));
                 result.add(curr);
-                DBC.closeConnection();
+              
             }
+             DBC.closeConnection();
         } catch (SQLException ex) {
             Logger.getLogger(MovieModel.class.getName()).log(Level.SEVERE, null, ex);
         
         }
+       
          DBC.closeConnection();
         queryMovie="";
         return result;
