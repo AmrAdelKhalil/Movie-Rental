@@ -16,29 +16,80 @@
 <div id="shell">
 	<!-- Header -->
 	<div id="header">
-            <h1 id="logo"><a href="/Movie-Rental/Views/index.jsp">Movie Hunter</a></h1>
-                    <div class="social">
+		<h1 id="logo"><a href="/Movie-Rental/Views/index.jsp">Movie Hunter</a></h1>
+		<!-- Registeration -->
+                <% 
+                    HttpSession currentSession =request.getSession(true);
+                    if(currentSession.getAttribute("userId") == null){
+                %>
+		<div id="registeration">
+			<ul>
+				<li><button onclick="document.getElementById('login').style.display='block'" >Login</button></li>
+				<div id="login" class="modal">  
+				  <form class="modal-content animate" action="../Login" method="GET">
+				    <div class="container">
+				      <label><b>Username</b></label>
+				      <input type="text" placeholder="Enter Email" name="email" required>
 
-                            <br>
-                            <a class="user-data" href="#"> Amr Alaa</a>
-                            <a class="user-data" href="#"> Settings</a>
-                            <a class="user-data" href="#"> Logout</a>
+				      <label><b>Password</b></label>
+				      <input type="password" placeholder="Enter Password" name="password" required>
+				        
+				      <button type="submit">Login</button>
+				      <input type="checkbox" checked="checked"> Remember me
+				    </div>
 
+				    <div class="container" style="background-color:#f1f1f1">
+				      <button type="button" onclick="document.getElementById('login').style.display='none'" class="cancelbtn">Cancel</button>
+				      <span class="psw"><a href="#">Forgot password?</a></span>
+				    </div>
+				  </form>
+				</div>
+			    <li><button onclick="document.getElementById('signup').style.display='block'">Register</button></li>
+			    <div id="signup" class="modal">
+			    	<form class="modal-content animate" action="../SignUp">
+			    		<dir class="container">
+			    			<label><b>Username</b></label>
+						    <input type="text" placeholder="Username" name="name" required>
 
-            </div>
+						    <label><b>E-Mail</b></label>
+						    <input type="text" placeholder="E-Mail" name="email" required>
 
-            <!-- Navigation -->
-            <div id="navigation">
-            </div>
-            <!-- end Navigation -->
+						    <label><b>Password</b></label>
+						    <input type="password" placeholder="Password" name="password" required>
+						    
+						    <label><b>Confirm Password</b></label>
+						    <input type="password" placeholder="Confirm Password" name="password" required>
+						    
+						    <label><b>Credit Card</b></label>
+						    <input type="text" placeholder="Credit Card" name="credit" required>
 
-            <!-- Sub-menu -->
-            <div id="sub-navigation">
-                <div id="search">
-                </div>
-            </div>
-            <!-- end Sub-Menu -->
+						    <div class="container" style="background-color:#f1f1f1">
+						    <button type="submit">Sign Up</button>
+						    	<button type="button" onclick="document.getElementById('signup').style.display='none'" class="cancelbtn">Cancel</button>
+						    	
+						    </div>
+			    		</dir>
+			    	</form>
+			    </div>
+			</ul>
+		</div>
+		<%} else { %>
+                    <div id="registeration">
+			
+				<br>
+                                <a class="user-data" href="/Movie-Rental/ShowSettings?id=<%=request.getSession().getAttribute("userId") %>"> <%=currentSession.getAttribute("name") %></a>
+                                <a class="user-data" href="/Movie-Rental/ShowSettings?id=<%=request.getSession().getAttribute("userId") %>"> Settings</a>
+				<a class="user-data" href="/Movie-Rental/logout"> Logout</a>	
+		</div>
+                <% }%>
 
+		<!-- Sub-menu -->
+		<div id="sub-navigation">
+			<div id="search">
+					</div>
+		</div>
+		<!-- end Sub-Menu -->
+		
 	</div>
 	<!-- end Header -->
 
@@ -69,5 +120,19 @@
 	</div>
 </div>
 <script src="/Movie-Rental/assets/angular.js"></script>
+<script>
+		var modal1 = document.getElementById('login');
+		var modal2 = document.getElementById('signup');
+
+		window.onclick = function(event) {
+
+		    if (event.target == modal1) {
+		        modal1.style.display = "none";
+		    }
+		    if(event.target == modal2){
+		    	modal2.style.display = "none";
+		    }
+		}
+	</script>
 </body>
 </html>

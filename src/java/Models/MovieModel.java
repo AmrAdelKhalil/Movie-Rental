@@ -27,7 +27,7 @@ public class MovieModel {
         String name="", description="", img_url="", duration="", renting_price_per_day="", category="", year="", quality="";
         double rate_sum = 0.0, rate = 0.0, rate_count = 0.0;
         boolean isRent = true, currentRent= false;
-        Date endDate; 
+        Date endDate,startDate; 
         Connection con = DBC.getActiveConnection();
         String query="Select * from movie where id=?";
         try {
@@ -59,6 +59,7 @@ public class MovieModel {
             
             if(row.next()){
                 endDate = row.getDate("endDate");
+                startDate = row.getDate("startDate");
                 java.util.Date utilDate = new java.util.Date();
                 Date currentDate = new Date(utilDate.getTime());
                 if (currentDate.getTime() > endDate.getTime()){
@@ -69,6 +70,8 @@ public class MovieModel {
                     }
                 }else{
                     currentRent = true;
+                    movie.put("startDate", String.valueOf(startDate));
+                    movie.put("endDate", String.valueOf(endDate));
                 }
             }
         }else{
