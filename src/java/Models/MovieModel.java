@@ -63,8 +63,9 @@ public class MovieModel {
         return null;
     }
     
-    public void addMovie(HashMap<String,String>values) throws SQLException{
-         Connection connection= DBC.getActiveConnection();
+    public void addMovie(HashMap<String,String>values) {
+       try{
+        Connection connection= DBC.getActiveConnection();
             
         String query="insert into movie (name,description,rate_sum,rate_count,rate,img_url,duration,"+
                 "renting_price_per_day,category,year,quality) values(?,?,0,0,0,?,?,?,?,?,?)";            
@@ -86,8 +87,13 @@ public class MovieModel {
         movieID=res.getInt(1);
         
         DBC.closeConnection();
-    }
-    
+    }catch (SQLException ex) {
+            Logger.getLogger(MovieModel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        DBC.closeConnection();
+        
+ }
     public void addMovieStaff(HashMap<String,String>movieStaff,int number) 
     {   
         try{
