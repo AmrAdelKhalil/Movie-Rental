@@ -32,6 +32,7 @@ public class SignUp extends HttpServlet {
         
         UserModel user = new UserModel();
         user.signUp(name, email, password, credit);
+        user.login(email, password);
         
         response.sendRedirect("Views/newjsp.jsp");
     }

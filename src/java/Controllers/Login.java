@@ -26,11 +26,12 @@ public class Login extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String email = request.getParameter("email");
         String password = request.getParameter("password");
-        HttpSession session =request.getSession(true);
+        HttpSession session = request.getSession(true);
         
         UserModel user = new UserModel();
         HashMap<String, String> map = user.login(email, password);
         
+        session.setAttribute("userId", Integer.parseInt(map.get("userId")));
         session.setAttribute("name", map.get("name"));
         session.setAttribute("credit", map.get("credit"));
         session.setAttribute("email", email);

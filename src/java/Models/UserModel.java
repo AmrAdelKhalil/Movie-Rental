@@ -22,7 +22,7 @@ public class UserModel {
         HashMap<String, String> user = new HashMap<>();
         
         Connection con = DBC.getActiveConnection();
-        String query = "select * from User where `email` = ? and `password` = ?;";
+        String query = "select * from user where `email` = ? and `password` = ?;";
         try {
             PreparedStatement p = con.prepareStatement(query);
             p.setString(1, email);
@@ -30,6 +30,7 @@ public class UserModel {
             
             ResultSet row = p.executeQuery();
             if (row.next()){
+                user.put("userId", String.valueOf(row.getInt("id")));
                 user.put("name", row.getString("name"));
                 user.put("email", row.getString("email"));
                 user.put("password", row.getString("password"));
@@ -49,7 +50,7 @@ public class UserModel {
     
     public boolean signUp(String name, String email, String password, String creditCard){
         Connection con = DBC.getActiveConnection();
-        String query = "insert into User(name, email, password, creditCard) values(?, ?, ?, ?);";
+        String query = "insert into user(name, email, password, creditCard) values(?, ?, ?, ?);";
         try {
 
             PreparedStatement p = con.prepareStatement(query);
