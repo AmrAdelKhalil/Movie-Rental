@@ -54,7 +54,7 @@ h1#logo a { float:left; width:239px; height:49px; background:url('/Movie-Rental/
 #main { border-bottom:1px dashed #413e3e; }
 #content {  }
 
-.box { width:980px; border-bottom:1px dashed #413e3e; padding-bottom:21px; }
+.box { width:1000px; border-bottom:1px dashed #413e3e; padding-bottom:21px; }
 
 .box .head { width:980px; padding-top:14px; padding-bottom:11px; }
 .box .head h2 { float:left; display:inline; }
