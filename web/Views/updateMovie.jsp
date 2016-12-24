@@ -70,6 +70,8 @@
                 <input type="text" name="movieName" placeholder="Movie Name" value= <%=values.get("name")%> >
                 <input type="text" name="category" placeholder="Category" value=<%= values.get("category")%> >
                 <input type="text" name="description" placeholder="Description for Movie" value=<%= values.get("description")%> >
+                <input type="text" name="imgUrl" placeholder="Image URL" value=<%= values.get("imgUrl")%> required>
+
                 <input type="text" name="duration" placeholder="Duration in min" value=<%= values.get("duration")%> >
                 <input type="text" name="price" placeholder="Price Per Day" value=<%= values.get("price")%> >
                 <input type="text" name="year" placeholder="year of release" value=<%= values.get("year")%> style="width:25%; display:inline-block;">
