@@ -48,9 +48,13 @@ public class UserModel {
         return null;
     }
     
-    public boolean signUp(String name, String email, String password, String creditCard){
+    public HashMap<String, String> signUp(String name, String email, String password, String creditCard){
         Connection con = DBC.getActiveConnection();
+        HashMap<String, String> user = new HashMap<>();
+        
         String query = "insert into user(name, email, password, creditCard) values(?, ?, ?, ?);";
+        String lastId = "SELECT LAST_INSERT_ID()";
+        
         try {
 
             PreparedStatement p = con.prepareStatement(query);
@@ -59,15 +63,24 @@ public class UserModel {
             p.setString(3, password);
             p.setString(4, creditCard);
             p.executeUpdate();
+            
+            p = con.prepareStatement(lastId);
+            ResultSet res = p.executeQuery();
+            res.next();
+            user.put("userId", String.valueOf(res.getInt(1)));
+            user.put("name", name);
+            user.put("email", email);
+            user.put("password", password);
+            user.put("credit", creditCard);
             p.close();
             DBC.closeConnection();
-            return true;
+            return user;
             
         } catch (SQLException ex) {
             Logger.getLogger(UserModel.class.getName()).log(Level.SEVERE, null, ex);
         }
         DBC.closeConnection();
-        return false;
+        return null;
         
     }
     
