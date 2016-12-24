@@ -81,7 +81,7 @@
 				<br>
                                 <a class="user-data" href="#"> <%=currentSession.getAttribute("name") %></a>
                                 <a class="user-data" href="/Movie-Rental/ShowSettings?id=<%=request.getSession().getAttribute("userId") %>"> Settings</a>
-				<a class="user-data" href="#"> Logout</a>	
+				<a class="user-data" href="/Movie-Rental/logout"> Logout</a>	
 		</div>
                 <% }%>
 
@@ -148,7 +148,9 @@
                                       <input type="hidden" name="totalPrice" value="<%= movie.get("renting_price_per_day") %>">
                                       <input class="rent" type="text" name="rentPeriod">
                                       <input type="submit" value="rent">
+                                           
                                       </form>
+                                      
                                       <% } 
                                        else if (!currentRent) {   
                                       %>
@@ -159,6 +161,16 @@
                                       <input type="submit" value="extend renting">
                                       </form>
                                      <% } %>
+                                     <% if( request.getSession().getAttribute("isAdmin") != null ){ %>
+                                     <form action="/Movie-Rental/Views/updateMovie.jsp" method="post">
+                                         <input type="hidden" value=<%=movie.get("id")%> name="movieId">
+                                         <input type="submit" name="" value="updateMovie"></form>
+                             
+                                    <form action="/Movie-Rental/Views/UpdateStaff.jsp" method="post">
+                                         <input type="hidden" value=<%=movie.get("id")%> name="movieId">
+                                         <input type="submit" name="" value="updateStaff"></form>
+                                         
+                                     <%}%>
                                 </div>
 				</div>
 				<!-- end Movie -->
