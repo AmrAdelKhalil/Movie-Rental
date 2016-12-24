@@ -100,7 +100,7 @@
                                        else if (!currentRent) {   
                                       %>
                                       <form action="ExtendRentingMovie" >
-                                      <input type="submit" name="rent" value="rent">		                          <input type="submit" name="rent" value="rent">
+                                      <input type="submit" name="rent" value="extend renting">		                          <input type="submit" name="rent" value="rent">
                                       </form>
                                      <% } %>
                                 </div>
