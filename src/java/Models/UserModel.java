@@ -23,22 +23,18 @@ public class UserModel {
         
         Connection con = DBC.getActiveConnection();
         String query = "select * from User where `email` = ? and `password` = ?;";
-        //System.out.println(query);
         try {
             PreparedStatement p = con.prepareStatement(query);
             p.setString(1, email);
             p.setString(2, password);
             
             ResultSet row = p.executeQuery();
-            //System.out.println("after execute");
             if (row.next()){
-                System.out.println("Models.UserModel.login()");
                 user.put("name", row.getString("name"));
                 user.put("email", row.getString("email"));
                 user.put("password", row.getString("password"));
                 user.put("credit", row.getString("creditCard"));
                 return user;
-                
             }
             row.close();
             p.close();
@@ -47,16 +43,15 @@ public class UserModel {
         } catch (SQLException ex) {
             Logger.getLogger(UserModel.class.getName()).log(Level.SEVERE, null, ex);
         }
+        DBC.closeConnection();
         return null;
     }
     
     public boolean signUp(String name, String email, String password, String creditCard){
         Connection con = DBC.getActiveConnection();
-//        System.out.println("---------------------------");
         String query = "insert into User(name, email, password, creditCard) values(?, ?, ?, ?);";
         try {
-//            System.out.println("---------------------------");
-//            System.out.println(con.isClosed());
+
             PreparedStatement p = con.prepareStatement(query);
             p.setString(1, name);
             p.setString(2, email);
@@ -70,6 +65,7 @@ public class UserModel {
         } catch (SQLException ex) {
             Logger.getLogger(UserModel.class.getName()).log(Level.SEVERE, null, ex);
         }
+        DBC.closeConnection();
         return false;
         
     }
