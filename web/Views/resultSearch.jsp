@@ -149,7 +149,7 @@
                          
                      %>
                         <!-- Movie -->
-                        
+
                             <input type="hidden" name="id" value=<%= curr.get("id")%>>
                             <div class="movie">
                                     <div class="movie-image">

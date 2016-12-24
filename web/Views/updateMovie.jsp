@@ -53,7 +53,6 @@
                 <input type="text" name="category" placeholder="Category" value=<%= values.get("category")%> >
                 <input type="text" name="description" placeholder="Description for Movie" value=<%= values.get("description")%> >
                 <input type="text" name="imgUrl" placeholder="Image URL" value=<%= values.get("imgUrl")%> required>
-                 
                 <input type="text" name="duration" placeholder="Duration in min" value=<%= values.get("duration")%> >
                 <input type="text" name="price" placeholder="Price Per Day" value=<%= values.get("price")%> >
                 <input type="text" name="year" placeholder="year of release" value=<%= values.get("year")%> style="width:25%; display:inline-block;">
@@ -73,14 +72,14 @@
                     
                      <li ng-repeat="i in total(currNumber) track by $index">
  >
-                        <input type="text" name="memberName{{i}}" placeholder="Member Name" value=<%=values.get("name"+new MovieModel().currStaff.toString())%>>
+                        <input type="text" name="memberName{{i}}" placeholder="Member Name" value=<%=values.get("name")%>>
                         <input type="text" name="role{{i}}" placeholder="Role" value=""  >
                         <label>------------------------------------------------------------------------------------</label>
                        
                     </li>
                    
                 </ul>
-                 <%new MovieModel().currStaff=0;%>
+                
                 <input type="submit" name="submit" value="Update Movie" style="width:10%;">
             </form>
 	</div>

@@ -49,6 +49,7 @@ public class MovieModel {
                 quality = row.getString("quality");
             }
             
+            if (userId != -1){
             query="Select * from movie_user_rent where idUser=? and idMovie=?";
             p = (PreparedStatement) con.prepareStatement(query);
             p.setInt(1, userId);
@@ -70,6 +71,10 @@ public class MovieModel {
                     currentRent = true;
                 }
             }
+        }else{
+            isRent = false;
+            currentRent = true;
+        }
             
             movie.put("name", name);
             movie.put("description", description);
