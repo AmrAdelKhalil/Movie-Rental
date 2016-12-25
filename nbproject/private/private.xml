@@ -2,14 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/home/amr/Desktop/Movie-Rental/nbproject/project.properties</file>
-            <file>file:/home/amr/Desktop/Movie-Rental/nbproject/private/private.xml</file>
-            <file>file:/home/amr/Desktop/Movie-Rental/src/java/Controllers/RentMovie.java</file>
-            <file>file:/home/amr/Desktop/Movie-Rental/nbproject/private/private.properties</file>
-            <file>file:/home/amr/Desktop/Movie-Rental/web/Views/index.jsp</file>
-            <file>file:/home/amr/Desktop/Movie-Rental/web/Views/ShowMovie.jsp</file>
-            <file>file:/home/amr/Desktop/Movie-Rental/src/java/Controllers/ShowMovie.java</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>
