@@ -29,14 +29,14 @@
 			<ul>
 				<li><button onclick="document.getElementById('login').style.display='block'" >Login</button></li>
 				<div id="login" class="modal">  
-				  <form class="modal-content animate" action="../Login" method="POST">
+				  <form id="signin" class="modal-content animate" method="POST">
 				    <div class="container">
-                                        <label><b>Username</b></label>
+                                        <label><b>Email</b></label>
                                         <input type="text" placeholder="Enter Email" name="email" required>
 
                                         <label><b>Password</b></label>
                                         <input type="password" placeholder="Enter Password" name="password" required>
-				        
+                                        <div id="invalidLogin" style="color:red; display: none;">Invalid Email/Password</div>
                                         <button type="submit">Login</button>
                                         <input type="checkbox"> Remember me
                                         <br>
@@ -273,6 +273,22 @@
 <!-- end Shell -->
     <script>
         $(document).ready(function(){
+            
+            $('#signin').submit(function(e) {
+                e.preventDefault();     //prevent click
+                
+                $.ajax({
+                   type: "POST",
+                   url: '../Login',
+                   data: $(this).serialize(),
+                   success: function() {
+                       window.location = 'index.jsp';
+                   },
+                   error : function(){
+                       $("#invalidLogin").show();
+                   }
+               });
+             });
             
             $("#admin").click(function(){
                 if($("#admin").is(':checked')){
