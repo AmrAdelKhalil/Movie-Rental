@@ -127,11 +127,11 @@
 
                                     <label > New Password:  </label>
                                     <input type="password" name="newPassword" placeholder="" >
-
-                                    <label > Credit Card:  </label>
-                                    <input type="text" name="creditCard" value="<%=user.get("creditCard")%>" >
-                                    <br>
-
+                                    <% if(request.getSession().getAttribute("isAdmin") == null){ %>
+                                        <label > Credit Card:  </label>
+                                        <input type="text" name="creditCard" value="<%=user.get("creditCard")%>" >
+                                        <br>
+                                    <%}%>
                                     <input type="submit" name="submit" value="Update Info">
                                 </form>
 				

@@ -120,10 +120,11 @@
 				
 				<label > Email:  <%= user.get("email") %></label>
 				<br>
-				
-				<label > Credit Card:  <%= user.get("creditCard") %></label>
-				<br>
-				<br>
+				<%if(request.getSession().getAttribute("isAdmin") == null){%>
+                                    <label > Credit Card:  <%= user.get("creditCard") %></label>
+                                    <br>
+                                    <br>
+                                <%}%>
                                 <form action="/Movie-Rental/beforeUpdateSettings" method="post">
                                     <input type="text" name="id" value="<%= user.get("id") %>" style="display: none;"/>
                                     <input type="submit" name="submit" value="Update Info">
