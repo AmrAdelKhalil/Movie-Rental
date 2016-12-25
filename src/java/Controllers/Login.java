@@ -48,11 +48,6 @@ public class Login extends HttpServlet {
         
             
         }
-        
-        
-        
-        response.sendRedirect("Views/newjsp.jsp");
-        
     }
 
     
