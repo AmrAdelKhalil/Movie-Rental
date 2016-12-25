@@ -147,7 +147,7 @@
                                       <input type="hidden" name="id" value="<%= movie.get("id") %>">
                                       <input type="hidden" name="totalPrice" value="<%= movie.get("renting_price_per_day") %>">
                                       <input class="rent" type="text" name="rentPeriod">
-                                      <input type="submit" value="rent">
+                                      <input class="movieBtn" type="submit" value="rent">
                                            
                                       </form>
                                       
@@ -158,7 +158,7 @@
                                       <input type="hidden" name="id" value="<%= movie.get("id") %>">
                                       <input type="hidden" name="totalPrice" value="<%= movie.get("renting_price_per_day") %>">
                                       <input class="rent" type="text" name="rentPeriod">
-                                      <input type="submit" value="extend renting">
+                                      <input class="movieBtn" type="submit" value="extend renting">
                                       </form>
                                       <% } else if (currentRent && movie.get("startDate") != null) {%>
                                       <h2> You are renting this movie from </h2>
@@ -169,11 +169,11 @@
                                      <% if( request.getSession().getAttribute("isAdmin") != null ){ %>
                                      <form action="/Movie-Rental/Views/updateMovie.jsp" method="post">
                                          <input type="hidden" value=<%=movie.get("id")%> name="movieId">
-                                         <input type="submit" name="" value="updateMovie"></form>
+                                         <input class="movieBtn movieBtnShift" type="submit" name="" value="Update Movie"></form>
                              
                                     <form action="/Movie-Rental/Views/UpdateStaff.jsp" method="post">
                                          <input type="hidden" value=<%=movie.get("id")%> name="movieId">
-                                         <input type="submit" name="" value="updateStaff"></form>
+                                         <input class="movieBtn movieBtnShift" type="submit" name="" value="Update Staff"></form>
                                          
                                      <%}%>
                                 </div>
