@@ -88,7 +88,7 @@ public class UserModel {
         
         HashMap<String,String> user = new HashMap<>();
         String name="", email="", creditCard="", password="";        
-        
+        double balance = 0.0;
         Connection con = DBC.getActiveConnection();
         String query="Select * from user where id=?";
         try {
@@ -103,6 +103,7 @@ public class UserModel {
                 email = row.getString("email");
                 creditCard = row.getString("creditCard");
                 password = row.getString("password");
+                balance = row.getDouble("balance");
             }
             
 
@@ -112,6 +113,7 @@ public class UserModel {
                 user.put("creditCard", creditCard);
                 user.put("id", String.valueOf(id));
                 user.put("password", password);
+                user.put("balance", String.valueOf(balance));
             }else{
                 user.put("Message","User not found");
             }
