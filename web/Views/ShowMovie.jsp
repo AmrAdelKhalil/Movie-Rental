@@ -160,8 +160,12 @@
                                       <input class="movieBtn" type="submit" value="Rent">
                                            
                                       </form>
+                                      <% if (request.getAttribute("rented") != null ) { %>
                                       
-                                      <% } 
+                                      <h2> you don't have balance to rent this period </h2>
+                                      
+
+                                      <% } }
                                        else if (!currentRent  && request.getSession().getAttribute("isAdmin") == null) {   
                                       %>
                                       <form action="/Movie-Rental/ExtendRentingMovie" >
@@ -170,7 +174,13 @@
                                       <input class="rent" type="text" name="rentPeriod">
                                       <input class="movieBtn" type="submit" value="extend renting">
                                       </form>
-                                      <% } else if (currentRent && movie.get("startDate") != null && request.getSession().getAttribute("isAdmin") == null) {%>
+                                       <% if (request.getAttribute("rented") != null ) { %>
+                                      
+                                      <h2> you don't have balance to rent this period </h2>
+                                      
+
+                                      <% } }else if (currentRent && movie.get("startDate") != null && request.getSession().getAttribute("isAdmin") == null) {%>
+
                                       <h2> You are renting this movie from </h2>
                                       <h2> <%= movie.get("startDate")%> to </h2>
                                       <h2> <%= movie.get("endDate")%> </h2>

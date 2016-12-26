@@ -154,6 +154,35 @@ public class UserModel {
         return false;
     }
     
+    public boolean hasBalance(float balance, int userId){
+         float currBalance=0;        
+        
+        Connection con = DBC.getActiveConnection();
+        String query="Select * from user where id=?";
+        try {
+            PreparedStatement p = (PreparedStatement) con.prepareStatement(query);
+            p.setInt(1, userId);
+            
+            ResultSet row = p.executeQuery();
+            
+
+            if(row.next()){
+                currBalance = row.getFloat("balance");
+            }
+            
+             DBC.closeConnection();
+            if(balance > currBalance)
+                return false;
+            return true;
+           
+        } catch (SQLException ex) {
+            Logger.getLogger(UserModel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        DBC.closeConnection();
+        return false;
+    }
+    
     public boolean rentMovie(int userId, int movieId, Date startDate, Date endDate, float totalPrice){
         Connection con = DBC.getActiveConnection();
         String query="insert into movie_user_rent (idUser, idMovie, total_price, startDate, endDate) values (?, ?, ?, ?, ?);";

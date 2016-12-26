@@ -27,13 +27,19 @@ public class ExtendRentingMovie extends HttpServlet {
         int userId = (int) session.getAttribute("userId");
         int movieId = Integer.parseInt(request.getParameter("id"));
         int extendedPeriod = Integer.parseInt(request.getParameter("rentPeriod"));
-        float extendedPrice = Float.parseFloat(request.getParameter("totalPrice"));
+        float extendedPrice = Float.parseFloat(request.getParameter("totalPrice"))*extendedPeriod;
         
         UserModel user = new UserModel();
-        user.extendRentingMovie(userId, movieId, extendedPeriod, extendedPrice);
-        
-        ShowMovie show = new ShowMovie();
-        show.processRequest(request, response);
+         if(user.hasBalance(extendedPrice, userId)){
+            user.extendRentingMovie(userId, movieId, extendedPeriod, extendedPrice);
+            ShowMovie show = new ShowMovie();
+            request.setAttribute("rented", null);
+            show.processRequest(request, response);
+         }else{
+            ShowMovie show = new ShowMovie();
+            request.setAttribute("rented", false);
+            show.processRequest(request, response);
+         }
     }
 
     
