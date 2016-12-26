@@ -216,21 +216,21 @@
                         <!-- Movie -->
                         <div class="movie">
                                 <div class="movie-image">
-                                    <a href="#">
-                                        <span class="play"><span class="name"><%= curr.get("name")%></span>
-                                          
-                                        </span><img src=<%= curr.get("img")%> alt="movie" /></a>
+                                     <form  action="/Movie-Rental/ShowMovie" method="post">
+                                         <input type="text" name="id" value="<%= curr.get("id")%>" style="display: none;">
+                                         <button type="submit" >
+                                            <span class="play">
+                                                 <span class="name"><%= curr.get("name")%></span>
+                                            </span>
+                                            <img src=<%= curr.get("img")%> alt="movie" />
+                                         </button>
+                                    </form>
+
                                 </div>
                                 <div class="rating">
-                                        <p>RATING</p>
-                                        <span ><%=" : "+curr.get("rate")%></span>
-                                        <span >
-                                            <form action="/Movie-Rental/ShowMovie">
-                                                <input type="text" name="id" value="<%= curr.get("id")%>" style="display: none;">
-                                                <input type="submit" value="show" style="width: 50px;">
-                                            </form>
-                                        </span>
-                                </div>
+                                    <p>RATING</p>
+                                    <span ><%=" : "+curr.get("rate")%></span>
+                                 </div>
                         </div>
                         <!-- end Movie -->
                         <% }%>
