@@ -7,12 +7,22 @@ package Models;
 
 import DBConnection.DBC;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 
 /**
  *
@@ -147,5 +157,112 @@ public class AdminModel {
         
         DBC.closeConnection();
         return false;
+    }
+    
+    public HashMap<String, HashMap<String, String> > getLateUsers(int movieId){
+        
+        java.util.Date utilDate = new java.util.Date();
+        Date todayDate = new Date(utilDate.getTime());
+        System.out.println(todayDate);
+        HashMap<String, String> lateUsers = new HashMap<>();
+        
+        Connection con = DBC.getActiveConnection();
+        
+        String query = "select * from movie_user_rent where endDate < ? and idMovie = ?;";
+        
+        try {
+            PreparedStatement p = (PreparedStatement) con.prepareStatement(query);
+            p.setDate(1, todayDate);
+            p.setInt(2, movieId);
+            System.out.println(p);
+            ResultSet res = p.executeQuery();
+            
+            ArrayList<Integer> users = new ArrayList<>();
+            ArrayList<Integer> filtered_user = new ArrayList<>();
+            //get late users ids for this movie
+            while(res.next()){
+                users.add(res.getInt("idUser"));
+            }
+            System.out.println(users.size());
+            query = "select * from late_users where idUser = ? and idMovie = ?;";
+            for(int i=0 ; i < users.size(); i++){
+                p = (PreparedStatement) con.prepareStatement(query);
+                p.setInt(1, users.get(i));
+                p.setInt(2, movieId);
+                res = p.executeQuery();
+                if(!(res.next())){
+                    filtered_user.add(users.get(i));
+                }
+            }
+            
+            HashMap<String, HashMap<String, String> > not_ack_users = new HashMap<>();
+            UserModel user_model = new UserModel();
+            for(int i=0 ; i < filtered_user.size(); i++){
+                not_ack_users.put(String.valueOf(i), user_model.showSettings(filtered_user.get(i)));
+            }
+            
+            
+            DBC.closeConnection();
+        
+            return not_ack_users;
+        } catch (SQLException ex) {
+            Logger.getLogger(UserModel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        DBC.closeConnection();
+        
+        
+        return null;
+    }
+    
+    public void sendMail(int userId, int movieId, int adminId){
+        
+        UserModel user_model = new UserModel();
+        HashMap<String, String> user = user_model.showSettings(userId);
+        MovieModel movie_model = new MovieModel();
+        HashMap<String, String> movie = movie_model.showMovie(movieId, -1);
+        AdminModel admin_model = new AdminModel();
+        HashMap<String, String> admin = admin_model.showSettings(adminId);
+
+        Properties props = new Properties();
+        props.put("mail.smtp.auth", "true"); /// set autintication = true
+        props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.smtp.host", "smtp.gmail.com"); /// this is STMP server address
+        props.put("mail.smtp.port", "587"); /// port for STMP server 
+
+        Session session = Session.getInstance(props,
+                new javax.mail.Authenticator() {
+                        protected PasswordAuthentication getPasswordAuthentication() {
+                                return new PasswordAuthentication("fake2wy2wy@gmail.com","fake12321");
+                        }
+                });
+
+        try {
+
+                Message message = new MimeMessage(session);
+                message.setFrom(new InternetAddress("fake2wy2wy@gmail.com"));
+                message.setRecipients(Message.RecipientType.TO,
+                                InternetAddress.parse(user.get("email")));
+                message.setSubject("Late for "+movie.get("name"));
+                message.setText("Dear "+user.get("name")+",\n you are late for paying this movie.\nThanks,\n"+admin.get("name")+"\n"+"\n");
+
+                Transport.send(message);
+
+        } catch (MessagingException e) {
+                throw new RuntimeException(e);
+        }
+
+        Connection con = DBC.getActiveConnection();
+        String query = "insert into late_users (idUser,idAdmin,idMovie)values(?,?,?);";
+        try {
+            PreparedStatement p = (PreparedStatement) con.prepareStatement(query);
+            p.setInt(1, userId);
+            p.setInt(2, adminId);
+            p.setInt(3, movieId);
+            p.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(AdminModel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }
 }
