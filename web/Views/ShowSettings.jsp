@@ -122,6 +122,8 @@
 				<label > Email:  <%= user.get("email") %></label>
 				<br>
 				<%if(request.getSession().getAttribute("isAdmin") == null){%>
+                                    <label > Balance:  $<%= user.get("balance") %></label>
+                                    <br>
                                     <label > Credit Card:  <%= user.get("creditCard") %></label>
                                     <br>
                                     <br>
