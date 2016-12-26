@@ -9,6 +9,7 @@
 	<title>Free CSS template by ChocoTemplates.com</title>
 	<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
 	<link rel="stylesheet" href="/Movie-Rental/assets/css/style.css"  media="all" />
+        <link rel="shortcut icon" href="/Movie-Rental/images/Babasse-Old-School-Bobines-video.ico"/>
 	<script src="/Movie-Rental/assets/angular.min.js"></script>
 </head>
 <body>

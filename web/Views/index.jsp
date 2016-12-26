@@ -8,7 +8,7 @@
 	<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
 	<link rel="stylesheet" href="/Movie-Rental/assets/css/Home.css" type="text/css" media="all" />
 	<link rel="stylesheet" href="/Movie-Rental/assets/css/style.css"  media="all" />
-            
+        <link rel="shortcut icon" href="/Movie-Rental/images/Babasse-Old-School-Bobines-video.ico"/>
 	<script type="text/javascript" src="/Movie-Rental/assets/js/jquery-1.4.2.min.js"></script>
         <script type="text/javascript" src="/Movie-Rental/assets/js/jquery-3.1.1.min.js"></script>
 	<script type="text/javascript" src="/Movie-Rental/assets/js/jquery-func.js"></script>
