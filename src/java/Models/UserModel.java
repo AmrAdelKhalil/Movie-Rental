@@ -183,6 +183,49 @@ public class UserModel {
         return false;
     }
     
+    public float getBalance(int userId, Connection con){
+         float currBalance=0;        
+        
+        String query="Select * from user where id=?";
+        try {
+            PreparedStatement p = (PreparedStatement) con.prepareStatement(query);
+            p.setInt(1, userId);
+            
+            ResultSet row = p.executeQuery();
+            
+
+            if(row.next()){
+                currBalance = row.getFloat("balance");
+            }
+            
+           return currBalance;
+           
+        } catch (SQLException ex) {
+            Logger.getLogger(UserModel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return 0;
+    }
+    
+    public boolean reduceBalance(int userId, float balance){
+        Connection con = DBC.getActiveConnection();
+        String query="update user set balance= ? where id = ? ;";
+        try {
+            PreparedStatement p = (PreparedStatement) con.prepareStatement(query);
+            p.setFloat(1, getBalance(userId,con)-balance);
+            p.setInt(2, userId);
+            p.executeUpdate();
+            DBC.closeConnection();
+        
+            return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(UserModel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        DBC.closeConnection();
+        return false;
+    }
+    
     public boolean rentMovie(int userId, int movieId, Date startDate, Date endDate, float totalPrice){
         Connection con = DBC.getActiveConnection();
         String query="insert into movie_user_rent (idUser, idMovie, total_price, startDate, endDate) values (?, ?, ?, ?, ?);";

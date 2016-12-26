@@ -47,6 +47,7 @@ public class RentMovie extends HttpServlet {
         UserModel user = new UserModel();
         if(user.hasBalance(totalPrice, userId)){
             user.rentMovie(userId, movieId, startDate, endDate, totalPrice);
+            user.reduceBalance(userId, totalPrice);
             ShowMovie show = new ShowMovie();
             request.setAttribute("rented", null);
             show.processRequest(request, response);
