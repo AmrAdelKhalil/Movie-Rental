@@ -15,6 +15,7 @@
 	<!--[if IE 6]>
 		<link rel="stylesheet" href="css/ie6.css" type="text/css" media="all" />
 	<![endif]-->
+        <link rel="shortcut icon" href="/Movie-Rental/images/Babasse-Old-School-Bobines-video.ico"/>
 	<script type="text/javascript" src="/Movie-Rental/assets/js/jquery-1.4.2.min.js"></script>
 	<script type="text/javascript" src="/Movie-Rental/assets/js/jquery-func.js"></script>
 </head>
