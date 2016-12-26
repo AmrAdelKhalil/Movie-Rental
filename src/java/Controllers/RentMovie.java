@@ -10,6 +10,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.scene.control.Alert;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -30,7 +31,8 @@ public class RentMovie extends HttpServlet {
         int userId = (int) session.getAttribute("userId");
         int movieId = Integer.parseInt(request.getParameter("id"));
         int rentPeriod = Integer.parseInt(request.getParameter("rentPeriod"));
-        float totalPrice = Float.parseFloat(request.getParameter("totalPrice"));
+        float totalPrice = Float.parseFloat(request.getParameter("totalPrice"))*rentPeriod;
+        
         java.util.Date utilDate = new java.util.Date();
         Date startDate = new Date(utilDate.getTime());
         
@@ -43,10 +45,18 @@ public class RentMovie extends HttpServlet {
         
         
         UserModel user = new UserModel();
-        user.rentMovie(userId, movieId, startDate, endDate, totalPrice);
+        if(user.hasBalance(totalPrice, userId)){
+            user.rentMovie(userId, movieId, startDate, endDate, totalPrice);
+            ShowMovie show = new ShowMovie();
+            request.setAttribute("rented", null);
+            show.processRequest(request, response);
+        }else{
+            ShowMovie show = new ShowMovie();
+            request.setAttribute("rented", false);
+            show.processRequest(request, response);
+        }
         
-        ShowMovie show = new ShowMovie();
-        show.processRequest(request, response);
+        
         
     }
 
