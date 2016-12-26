@@ -297,3 +297,30 @@ a.user-data:hover{
     border-radius: 5px;
     transition-duration: 0.7s;
 }
+
+.box .head h1{
+    font-family: Arial, Helvetica, Sans-Serif;
+    font-size: 48px;
+    margin-top: 18px;
+}
+
+.lateUsers{
+    margin-left: 10%;
+}
+
+.lateUsers .detailsLateUsers{
+    margin-top: 7px;
+    width: 100%;
+}
+
+.lateUsers .detailsLateUsers form ul li{
+    font-family: Arial, Helvetica, Sans-Serif;
+    font-size: 24px;
+    display: inline;
+    margin-right: 15px;
+}
+.lateUsers .detailsLateUsers form ul li span{
+    font-family: Arial, Helvetica, Sans-Serif;
+    font-size: 20px;
+}
+

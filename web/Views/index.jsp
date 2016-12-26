@@ -8,7 +8,7 @@
 	<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
 	<link rel="stylesheet" href="/Movie-Rental/assets/css/Home.css" type="text/css" media="all" />
 	<link rel="stylesheet" href="/Movie-Rental/assets/css/style.css"  media="all" />
-            
+        <link rel="shortcut icon" href="/Movie-Rental/images/Babasse-Old-School-Bobines-video.ico"/>
 	<script type="text/javascript" src="/Movie-Rental/assets/js/jquery-1.4.2.min.js"></script>
         <script type="text/javascript" src="/Movie-Rental/assets/js/jquery-3.1.1.min.js"></script>
 	<script type="text/javascript" src="/Movie-Rental/assets/js/jquery-func.js"></script>
@@ -29,14 +29,14 @@
 			<ul>
 				<li><button onclick="document.getElementById('login').style.display='block'" >Login</button></li>
 				<div id="login" class="modal">  
-				  <form class="modal-content animate" action="../Login" method="POST">
+				  <form id="signin" class="modal-content animate" method="POST">
 				    <div class="container">
-                                        <label><b>Username</b></label>
-                                        <input type="text" placeholder="Enter Email" name="email" required>
+                                        <label><b>Email</b></label>
+                                        <input type="email" placeholder="Enter Email" name="email" required>
 
                                         <label><b>Password</b></label>
                                         <input type="password" placeholder="Enter Password" name="password" required>
-				        
+                                        <div id="invalidLogin" style="color:red; display: none;">Invalid Email/Password</div>
                                         <button type="submit">Login</button>
                                         <input type="checkbox"> Remember me
                                         <br>
@@ -51,13 +51,13 @@
 				</div>
 			    <li><button onclick="document.getElementById('signup').style.display='block'">Register</button></li>
 			    <div id="signup" class="modal">
-			    	<form class="modal-content animate" action="../SignUp">
+                                <form class="modal-content animate" action="../SignUp" method="POST">
 			    		<dir class="container">
 			    			<label><b>Username</b></label>
 						    <input type="text" placeholder="Username" name="name" required>
 
 						    <label><b>E-Mail</b></label>
-						    <input type="text" placeholder="E-Mail" name="email" required>
+						    <input type="email" placeholder="E-Mail" name="email" required>
 
 						    <label><b>Password</b></label>
 						    <input id="password" type="password" placeholder="Password" name="password" required>
@@ -216,21 +216,21 @@
                         <!-- Movie -->
                         <div class="movie">
                                 <div class="movie-image">
-                                    <a href="#">
-                                        <span class="play"><span class="name"><%= curr.get("name")%></span>
-                                          
-                                        </span><img src=<%= curr.get("img")%> alt="movie" /></a>
+                                     <form  action="/Movie-Rental/ShowMovie" method="GET">
+                                         <input type="text" name="id" value="<%= curr.get("id")%>" style="display: none;">
+                                         <button type="submit" >
+                                            <span class="play">
+                                                 <span class="name"><%= curr.get("name")%></span>
+                                            </span>
+                                            <img src=<%= curr.get("img")%> alt="movie" />
+                                         </button>
+                                    </form>
+
                                 </div>
                                 <div class="rating">
-                                        <p>RATING</p>
-                                        <span ><%=" : "+curr.get("rate")%></span>
-                                        <span >
-                                            <form action="/Movie-Rental/ShowMovie">
-                                                <input type="text" name="id" value="<%= curr.get("id")%>" style="display: none;">
-                                                <input type="submit" value="show" style="width: 50px;">
-                                            </form>
-                                        </span>
-                                </div>
+                                    <p>RATING</p>
+                                    <span ><%=" : "+curr.get("rate")%></span>
+                                 </div>
                         </div>
                         <!-- end Movie -->
                         <% }%>
@@ -255,32 +255,39 @@
 
 	<!-- Footer -->
 	<div id="footer">
-		<p>
-			<a href="#">HOME</a> <span>|</span>
-			<a href="#">NEWS</a> <span>|</span>
-			<a href="#">IN THEATERS</a> <span>|</span>
-			<a href="#">COMING SOON </a> <span>|</span>
-			<a href="#">LATERS TRAILERS</a> <span>|</span>
-			<a href="#">TOP RATED TRAILERS</a> <span>|</span>
-			<a href="#">MOST COMMENTED TRAILERS</a> <span>|</span>
-			<a href="#">ADVERTISE</a> <span>|</span>
-			<a href="#">CONTACT </a>
-		</p>
-		<p> &copy; 2009 Movie Hunter, LLC. All Rights Reserved.  Designed by <a href="http://chocotemplates.com" target="_blank" title="The Sweetest CSS Templates WorldWide">ChocoTemplates.com</a></p>
-	</div>
+		<p> &copy; 2016 Movie Hunter, LLC. All Rights Reserved.  Designed by GHOSTS TEAM CS_IS</p>
+        </div>
 	<!-- end Footer -->
 </div>
 <!-- end Shell -->
     <script>
         $(document).ready(function(){
             
+            $('#signin').submit(function(e) {
+                e.preventDefault();     //prevent click
+                
+                $.ajax({
+                   type: "POST",
+                   url: '../Login',
+                   data: $(this).serialize(),
+                   success: function() {
+                       window.location = 'index.jsp';
+                   },
+                   error : function(){
+                       $("#invalidLogin").show();
+                   }
+               });
+             });
+            
             $("#admin").click(function(){
                 if($("#admin").is(':checked')){
                     $("#credit").html("<label><b>Activation Code</b></label>");
+                    $("#creditin").val("");
                     $("#creditin").attr("placeholder", "Activation Code");
                 }
                 else{
                     $("#credit").html("<label><b>Credit Card</b></label>");
+                    $("#creditin").val("");
                     $("#creditin").attr("placeholder", "Credit Card");
                     $("#signupbtn").prop('disabled', false);
                     $("#wrongcode").hide();
@@ -290,7 +297,7 @@
             $("#confirm_password").keyup(function(){
                 var pass1 = $("#password").val();
                 var pass2 = $("#confirm_password").val();
-                if(pass1 !== pass2){
+                if(pass1 !== pass2 && pass2.length >= pass1.length){
                     $("#wrongpass").show();
                     $("#signupbtn").prop('disabled', true);
                 }
@@ -309,7 +316,7 @@
                    $("#wrongcode").hide();
                }
                else {
-                   if($("#admin").is(':checked')){
+                   if($("#admin").is(':checked') && code.length >= 4){
                         $("#wrongcode").show();
                         $("#signupbtn").prop('disabled', true);
                     }

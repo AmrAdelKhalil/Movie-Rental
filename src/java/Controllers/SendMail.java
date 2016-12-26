@@ -1,10 +1,8 @@
 package Controllers;
 
 import Models.AdminModel;
-import Models.UserModel;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.HashMap;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,33 +10,31 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet(name = "beforeUpdateSettings", urlPatterns = {"/beforeUpdateSettings"})
-public class beforeUpdateSettings extends HttpServlet {
+@WebServlet(name = "SendMail", urlPatterns = {"/SendMail"})
+public class SendMail extends HttpServlet {
 
-   
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        HashMap<String, String> user = null;
+        int userId = Integer.parseInt(request.getParameter("userId"));
+        int movieId = Integer.parseInt(request.getParameter("movieId"));
+        int adminId = Integer.parseInt(String.valueOf(request.getSession().getAttribute("userId")));
+        AdminModel admin_model = new AdminModel();
+        admin_model.sendMail(userId, movieId, adminId);
         
-        if(request.getSession().getAttribute("isAdmin") == null){
-           user = new UserModel().showSettings(Integer.parseInt(request.getParameter("id")));
-        }else{ 
-           user = new AdminModel().showSettings(Integer.parseInt(request.getParameter("id")));
-        }
-        request.setAttribute("user", user);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/Views/UpdateSettings.jsp");
-        dispatcher.include(request, response);
+        response.setContentType("text/html");
+        request.setAttribute("movieId", movieId);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("listlateusers");
+        dispatcher.forward(request, response);
     }
 
-    
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }
 
-   
+ 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

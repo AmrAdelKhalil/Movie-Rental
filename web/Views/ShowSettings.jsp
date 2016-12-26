@@ -15,6 +15,7 @@
 	<!--[if IE 6]>
 		<link rel="stylesheet" href="css/ie6.css" type="text/css" media="all" />
 	<![endif]-->
+        <link rel="shortcut icon" href="/Movie-Rental/images/Babasse-Old-School-Bobines-video.ico"/>
 	<script type="text/javascript" src="/Movie-Rental/assets/js/jquery-1.4.2.min.js"></script>
 	<script type="text/javascript" src="/Movie-Rental/assets/js/jquery-func.js"></script>
 </head>
@@ -120,10 +121,13 @@
 				
 				<label > Email:  <%= user.get("email") %></label>
 				<br>
-				
-				<label > Credit Card:  <%= user.get("creditCard") %></label>
-				<br>
-				<br>
+				<%if(request.getSession().getAttribute("isAdmin") == null){%>
+                                    <label > Balance:  $<%= user.get("balance") %></label>
+                                    <br>
+                                    <label > Credit Card:  <%= user.get("creditCard") %></label>
+                                    <br>
+                                    <br>
+                                <%}%>
                                 <form action="/Movie-Rental/beforeUpdateSettings" method="post">
                                     <input type="text" name="id" value="<%= user.get("id") %>" style="display: none;"/>
                                     <input type="submit" name="submit" value="Update Info">
@@ -142,19 +146,8 @@
 
 	<!-- Footer -->
 	<div id="footer">
-		<p>
-			<a href="#">HOME</a> <span>|</span>
-			<a href="#">NEWS</a> <span>|</span>
-			<a href="#">IN THEATERS</a> <span>|</span>
-			<a href="#">COMING SOON </a> <span>|</span>
-			<a href="#">LATERS TRAILERS</a> <span>|</span>
-			<a href="#">TOP RATED TRAILERS</a> <span>|</span>
-			<a href="#">MOST COMMENTED TRAILERS</a> <span>|</span>
-			<a href="#">ADVERTISE</a> <span>|</span>
-			<a href="#">CONTACT </a>
-		</p>
-		<p> &copy; 2009 Movie Hunter, LLC. All Rights Reserved.  Designed by <a href="http://chocotemplates.com" target="_blank" title="The Sweetest CSS Templates WorldWide">ChocoTemplates.com</a></p>
-	</div>
+		<p> &copy; 2016 Movie Hunter, LLC. All Rights Reserved.  Designed by GHOSTS TEAM CS_IS</p>
+        </div>
 	<!-- end Footer -->
 </div>
 <!-- end Shell -->
