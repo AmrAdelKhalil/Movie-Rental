@@ -32,7 +32,7 @@
 				  <form id="signin" class="modal-content animate" method="POST">
 				    <div class="container">
                                         <label><b>Email</b></label>
-                                        <input type="text" placeholder="Enter Email" name="email" required>
+                                        <input type="email" placeholder="Enter Email" name="email" required>
 
                                         <label><b>Password</b></label>
                                         <input type="password" placeholder="Enter Password" name="password" required>
@@ -51,13 +51,13 @@
 				</div>
 			    <li><button onclick="document.getElementById('signup').style.display='block'">Register</button></li>
 			    <div id="signup" class="modal">
-			    	<form class="modal-content animate" action="../SignUp">
+                                <form class="modal-content animate" action="../SignUp" method="POST">
 			    		<dir class="container">
 			    			<label><b>Username</b></label>
 						    <input type="text" placeholder="Username" name="name" required>
 
 						    <label><b>E-Mail</b></label>
-						    <input type="text" placeholder="E-Mail" name="email" required>
+						    <input type="email" placeholder="E-Mail" name="email" required>
 
 						    <label><b>Password</b></label>
 						    <input id="password" type="password" placeholder="Password" name="password" required>
@@ -216,7 +216,7 @@
                         <!-- Movie -->
                         <div class="movie">
                                 <div class="movie-image">
-                                     <form  action="/Movie-Rental/ShowMovie" method="post">
+                                     <form  action="/Movie-Rental/ShowMovie" method="GET">
                                          <input type="text" name="id" value="<%= curr.get("id")%>" style="display: none;">
                                          <button type="submit" >
                                             <span class="play">
@@ -293,10 +293,12 @@
             $("#admin").click(function(){
                 if($("#admin").is(':checked')){
                     $("#credit").html("<label><b>Activation Code</b></label>");
+                    $("#creditin").val("");
                     $("#creditin").attr("placeholder", "Activation Code");
                 }
                 else{
                     $("#credit").html("<label><b>Credit Card</b></label>");
+                    $("#creditin").val("");
                     $("#creditin").attr("placeholder", "Credit Card");
                     $("#signupbtn").prop('disabled', false);
                     $("#wrongcode").hide();
@@ -306,7 +308,7 @@
             $("#confirm_password").keyup(function(){
                 var pass1 = $("#password").val();
                 var pass2 = $("#confirm_password").val();
-                if(pass1 !== pass2){
+                if(pass1 !== pass2 && pass2.length >= pass1.length){
                     $("#wrongpass").show();
                     $("#signupbtn").prop('disabled', true);
                 }
@@ -325,7 +327,7 @@
                    $("#wrongcode").hide();
                }
                else {
-                   if($("#admin").is(':checked')){
+                   if($("#admin").is(':checked') && code.length >= 4){
                         $("#wrongcode").show();
                         $("#signupbtn").prop('disabled', true);
                     }

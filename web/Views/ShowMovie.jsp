@@ -11,6 +11,7 @@
 		<link rel="stylesheet" href="css/ie6.css" type="text/css" media="all" />
 	<![endif]-->
 	<script type="text/javascript" src="/Movie-Rental/assets/js/jquery-1.4.2.min.js"></script>
+        <script type="text/javascript" src="/Movie-Rental/assets/js/jquery-3.1.1.min.js"></script>
 	<script type="text/javascript" src="/Movie-Rental/assets/js/jquery-func.js"></script>
 </head>
 <body>
@@ -28,16 +29,18 @@
 			<ul>
 				<li><button onclick="document.getElementById('login').style.display='block'" >Login</button></li>
 				<div id="login" class="modal">  
-				  <form class="modal-content animate" action="../Login" method="GET">
+				  <form id="signin" class="modal-content animate" method="POST">
 				    <div class="container">
-				      <label><b>Username</b></label>
-				      <input type="text" placeholder="Enter Email" name="email" required>
+                                        <label><b>Email</b></label>
+                                        <input type="email" placeholder="Enter Email" name="email" required>
 
-				      <label><b>Password</b></label>
-				      <input type="password" placeholder="Enter Password" name="password" required>
-				        
-				      <button type="submit">Login</button>
-				      <input type="checkbox" checked="checked"> Remember me
+                                        <label><b>Password</b></label>
+                                        <input type="password" placeholder="Enter Password" name="password" required>
+                                        <div id="invalidLogin" style="color:red; display: none;">Invalid Email/Password</div>
+                                        <button type="submit">Login</button>
+                                        <input type="checkbox"> Remember me
+                                        <br>
+                                        <input type="checkbox" name="isAdmin"> Login as admin
 				    </div>
 
 				    <div class="container" style="background-color:#f1f1f1">
@@ -48,25 +51,30 @@
 				</div>
 			    <li><button onclick="document.getElementById('signup').style.display='block'">Register</button></li>
 			    <div id="signup" class="modal">
-			    	<form class="modal-content animate" action="../SignUp">
+                                <form class="modal-content animate" action="SignUp" method="POST">
 			    		<dir class="container">
 			    			<label><b>Username</b></label>
 						    <input type="text" placeholder="Username" name="name" required>
 
-						    <label><b>E-Mail</b></label>
-						    <input type="text" placeholder="E-Mail" name="email" required>
+						    <label><b>Email</b></label>
+						    <input type="email" placeholder="Email" name="email" required>
 
 						    <label><b>Password</b></label>
-						    <input type="password" placeholder="Password" name="password" required>
+						    <input id="password" type="password" placeholder="Password" name="password" required>
 						    
 						    <label><b>Confirm Password</b></label>
-						    <input type="password" placeholder="Confirm Password" name="password" required>
+						    <div id="wrongpass" style="color: red; display: none;">Password does not match!!</div>
+                                                    <input id="confirm_password" type="password" placeholder="Confirm Password" name="password" required>
 						    
-						    <label><b>Credit Card</b></label>
-						    <input type="text" placeholder="Credit Card" name="credit" required>
+						    <label id="credit"><b>Credit Card</b></label>
+                                                    <div id="wrongcode" style="color: red; display: none;">Wrong Activation Code! </div>
+						    <input id="creditin" type="text" placeholder="Credit Card" name="credit" required>
+                                                    <br>
+                                                        
+                                                    <input id="admin" type="checkbox" name="isAdmin"> Register as admin
 
 						    <div class="container" style="background-color:#f1f1f1">
-						    <button type="submit">Sign Up</button>
+						    <button id="signupbtn" type="submit">Sign Up</button>
 						    	<button type="button" onclick="document.getElementById('signup').style.display='none'" class="cancelbtn">Cancel</button>
 						    	
 						    </div>
@@ -241,6 +249,69 @@
 	<!-- end Footer -->
 </div>
 <!-- end Shell -->
+    <script>
+        $(document).ready(function(){
+            
+            $('#signin').submit(function(e) {
+                e.preventDefault();     //prevent click
+                
+                $.ajax({
+                   type: "POST",
+                   url: 'Login',
+                   data: $(this).serialize(),
+                   success: function() {
+                       window.location = window.location.href;
+                   },
+                   error : function(){
+                       $("#invalidLogin").show();
+                   }
+               });
+             });
+            
+            $("#admin").click(function(){
+                if($("#admin").is(':checked')){
+                    $("#credit").html("<label><b>Activation Code</b></label>");
+                    $("#creditin").attr("placeholder", "Activation Code");
+                }
+                else{
+                    $("#credit").html("<label><b>Credit Card</b></label>");
+                    $("#creditin").attr("placeholder", "Credit Card");
+                    $("#signupbtn").prop('disabled', false);
+                    $("#wrongcode").hide();
+                }
+            });
+            
+            $("#confirm_password").keyup(function(){
+                var pass1 = $("#password").val();
+                var pass2 = $("#confirm_password").val();
+                if(pass1 !== pass2){
+                    $("#wrongpass").show();
+                    $("#signupbtn").prop('disabled', true);
+                }
+                else{
+                    $("#wrongpass").hide();
+                    $("#signupbtn").prop('disabled', false);
+                }
+            });
+            
+            
+            $("#creditin").keyup(function(){
+               var code = $(this).val();
+               
+               if(code == "0000" && $("#admin").is(':checked')){
+                   $("#signupbtn").prop('disabled', false);
+                   $("#wrongcode").hide();
+               }
+               else {
+                   if($("#admin").is(':checked')){
+                        $("#wrongcode").show();
+                        $("#signupbtn").prop('disabled', true);
+                    }
+               }
+            }); 
+        });
+        
+    </script>
 <script>
 		var modal1 = document.getElementById('login');
 		var modal2 = document.getElementById('signup');

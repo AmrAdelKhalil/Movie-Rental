@@ -109,7 +109,7 @@ h1#logo a { float:left; width:239px; height:49px; background:url('/Movie-Rental/
     width: 100%;
     margin-bottom: 10px;
 }
-#registeration input[type=text], input[type=password] {
+#registeration input[type=text], input[type=password], input[type=email] {
     width: 100%;
     padding: 12px 20px;
     margin: 8px 0;
