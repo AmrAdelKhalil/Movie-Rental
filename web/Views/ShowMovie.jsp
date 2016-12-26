@@ -129,10 +129,10 @@
                                     <!--<p>Spider Man</p>-->
                                     <p> <% out.print(movie.get("name")); %> </p>
                                     <ul>
-                                        <li>category: <% out.print(movie.get("category")); %></li>
-                                        <li>rate: <% out.print(movie.get("rate")); %></li>
-                                        <li>renting price: $<% out.print(movie.get("renting_price_per_day")); %> per/day</li>
-                                        <li>duration: 
+                                        <li>Category: <% out.print(movie.get("category")); %></li>
+                                        <li>Rate: <% out.print(movie.get("rate")); %></li>
+                                        <li>Renting price: $<% out.print(movie.get("renting_price_per_day")); %> per/day</li>
+                                        <li>Duration: 
                                             <%  
                                                 Double minutes = Double.parseDouble(movie.get("duration"));
                                                 int minutesPerHour = 60;
@@ -157,7 +157,7 @@
                                       <input type="hidden" name="id" value="<%= movie.get("id") %>">
                                       <input type="hidden" name="totalPrice" value="<%= movie.get("renting_price_per_day") %>">
                                       <input class="rent" type="text" name="rentPeriod">
-                                      <input class="movieBtn" type="submit" value="rent">
+                                      <input class="movieBtn" type="submit" value="Rent">
                                            
                                       </form>
                                       

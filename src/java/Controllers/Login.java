@@ -46,7 +46,6 @@ public class Login extends HttpServlet {
             session.setAttribute("userId", Integer.parseInt(map.get("userId")));
             session.setAttribute("name", map.get("name"));
         
-            
         }
     }
 
