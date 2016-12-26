@@ -1,16 +1,16 @@
+<%@page import="Models.MovieModel"%>
 <%@page import="java.util.Map"%>
 <%@page import="java.util.HashMap"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html lang="en-US" xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 <% 
-    HashMap<String, String> movie = (HashMap<String, String>)request.getAttribute("movie"); 
-    HashMap<String, String> staff = (HashMap<String, String>)request.getAttribute("staff");
+    HashMap<String, String> movie = (HashMap<String, String>) request.getAttribute("movie"); 
 %>
 <head>
-	<title><% out.print(movie.get("name")); %></title>
+	<title><% out.print(movie.get("name")); %> </title>
 	<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
-	<link rel="stylesheet" href="/Movie-Rental/assets/css/ShowMovie.css" type="text/css" media="all" />
+	<link rel="stylesheet" href="/Movie-Rental/assets/css/listlateusers.css" type="text/css" media="all" />
 	<!--[if IE 6]>
 		<link rel="stylesheet" href="css/ie6.css" type="text/css" media="all" />
 	<![endif]-->
@@ -116,83 +116,46 @@
 			<!-- Box -->
 			<div class="box">
 				<div class="head">
+                                    <h1><%= movie.get("name")%> late users</h1>
 				</div>
                                  
-				<!-- Movie -->
-				<div class="movie">
-					<div class="movie-image">
-						<a href="#"><img src="<%= movie.get("img_url") %>" alt="movie" /></a>
+                                <div class="lateUsers">
+				<%
+            
+                                    HashMap<String, HashMap<String, String> > users = (HashMap<String, HashMap<String, String> > )request.getAttribute("users");
+                                    HashMap<String, String> single_user=null;
+                                    for (Map.Entry<String, HashMap<String,String> > entry : users.entrySet())
+                                    {
+                                         single_user = entry.getValue();
+                                %>
+                                    <div class="detailsLateUsers">
+                                        <form action="/Movie-Rental/SendMail" method="post">
+
+                                                <input type="hidden" value=<%=single_user.get("id")%> name="userId">
+                                                <input type="hidden" value=<%=movie.get("id")%> name="movieId">
+                                                    <ul>
+                                                        <li>
+                                                            <%=(Integer.parseInt(entry.getKey())+1)%>-
+                                                        </li>
+                                                        <li>
+                                                            Name: <span><%=single_user.get("name")%></span>
+                                                        </li>
+                                                        <li>
+                                                            Email: <span><%=single_user.get("email")%></span>
+                                                        </li>
+                                                        <li>
+                                                            <input class="movieBtn movieBtnShift" type="submit" name="" value="send mail">
+                                                        </li>
+                                                    </ul>
+                                               
+
+                                        </form>
+                                    </div>
+                                                        
+                                <%
+                                    }
+                                %>
                                 </div>
-                                <!--/Movie-Rental/images/movie2.jpg-->
-                                
-                                <div class="movie-details">
-                                    <!--<p>Spider Man</p>-->
-                                    <p> <% out.print(movie.get("name")); %> </p>
-                                    <ul>
-                                        <li>Category: <% out.print(movie.get("category")); %></li>
-                                        <li>Rate: <% out.print(movie.get("rate")); %></li>
-                                        <li>Renting price: $<% out.print(movie.get("renting_price_per_day")); %> per/day</li>
-                                        <li>Duration: 
-                                            <%  
-                                                Double minutes = Double.parseDouble(movie.get("duration"));
-                                                int minutesPerHour = 60;
-                                                int hours = (int)(minutes/60);
-                                                out.print( hours+"h ");
-                                                minutes %= 60;
-                                                int integerMinutes = minutes.intValue();
-                                                out.print(integerMinutes+"minutes");
-                                             %>
-                                        </li>
-                                    </ul>
-                                    
-                                      <%
-                                          
-                                          
-                                          boolean currentRent = Boolean.parseBoolean(movie.get("currentRent"));
-                                          boolean isRent = Boolean.parseBoolean(movie.get("isRent"));
-                                           
-                                          if(!currentRent && isRent && request.getSession().getAttribute("isAdmin") == null) {
-                                      %>
-                                      <form action="/Movie-Rental/RentMovie" >
-                                      <input type="hidden" name="id" value="<%= movie.get("id") %>">
-                                      <input type="hidden" name="totalPrice" value="<%= movie.get("renting_price_per_day") %>">
-                                      <input class="rent" type="text" name="rentPeriod">
-                                      <input class="movieBtn" type="submit" value="Rent">
-                                           
-                                      </form>
-                                      
-                                      <% } 
-                                       else if (!currentRent  && request.getSession().getAttribute("isAdmin") == null) {   
-                                      %>
-                                      <form action="/Movie-Rental/ExtendRentingMovie" >
-                                      <input type="hidden" name="id" value="<%= movie.get("id") %>">
-                                      <input type="hidden" name="totalPrice" value="<%= movie.get("renting_price_per_day") %>">
-                                      <input class="rent" type="text" name="rentPeriod">
-                                      <input class="movieBtn" type="submit" value="extend renting">
-                                      </form>
-                                      <% } else if (currentRent && movie.get("startDate") != null && request.getSession().getAttribute("isAdmin") == null) {%>
-                                      <h2> You are renting this movie from </h2>
-                                      <h2> <%= movie.get("startDate")%> to </h2>
-                                      <h2> <%= movie.get("endDate")%> </h2>
-                                      
-                                      <% } %>
-                                     <% if( request.getSession().getAttribute("isAdmin") != null ){ %>
-                                        <form action="/Movie-Rental/Views/updateMovie.jsp" method="post">
-                                            <input type="hidden" value=<%=movie.get("id")%> name="movieId">
-                                            <input class="movieBtn movieBtnShift" type="submit" name="" value="Update Movie"></form>
-                             
-                                        <form action="/Movie-Rental/Views/UpdateStaff.jsp" method="post">
-                                             <input type="hidden" value=<%=movie.get("id")%> name="movieId">
-                                             <input class="movieBtn movieBtnShift" type="submit" name="" value="Update Staff"></form>
-                                    
-                                        <form action="/Movie-Rental/listlateusers" method="post">
-                                            <input type="hidden" value=<%=movie.get("id")%> name="movieId">
-                                            <input class="movieBtn movieBtnShift" type="submit" name="" value="late users"></form>
-                                         
-                                     <%}%>
-                                </div>
-				</div>
-				<!-- end Movie -->
 					<div class="cl">&nbsp;</div>
 			</div>
 			<!-- end Box -->
@@ -201,46 +164,14 @@
 		</div>
 		<!-- end Content -->
 
-		<!-- NEWS -->
-		<div id="news">
-			<div class="head">
-			</div>
-			
-			<div class="content">
-				<h4>Description</h4>
-				<p><% out.print(movie.get("description")); %></p>
-
-			</div>
-		</div>
-		<!-- end NEWS -->
 		
-		<!-- Coming -->
-		<div id="coming">
-			<div class="head">
-			</div>
-			<div class="content">
-			    <div class="actors">
-                                <h4>Actors</h4>
-                                <%
-                                    
-                                    for(Map.Entry<String, String> e : staff.entrySet()){
-                                        out.print("<h3>"+e.getKey()+":</h3><br>");
-                                        out.print("<p> &nbsp; "+e.getValue()+"</p><br>");
-                                    }
-                                %>
-			    </div>
-			</div>
-			<div class="cl">&nbsp;</div>			
-		</div>
-		<!-- end Coming -->
-		<div class="cl">&nbsp;</div>
 	</div>
 	<!-- end Main -->
 
 	<!-- Footer -->
 	<div id="footer">
 		<p> &copy; 2016 Movie Hunter, LLC. All Rights Reserved.  Designed by GHOSTS TEAM CS_IS</p>
-	</div>
+        </div>
 	<!-- end Footer -->
 </div>
 <!-- end Shell -->
@@ -323,3 +254,5 @@
 	</script>
 </body>
 </html>
+
+
