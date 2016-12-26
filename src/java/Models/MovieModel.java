@@ -16,7 +16,11 @@ public class MovieModel {
     static int movieID=0;
    
     HashMap<String,String>currDataMovie=new  HashMap<String,String>();
+    
+    ArrayList<Integer>actrosId=new ArrayList();
+    
     static public String queryMovie="";
+    
     public MovieModel(){
         
     }
@@ -170,14 +174,18 @@ public class MovieModel {
        
          DBC.closeConnection();
     }
+    
     public void seqQuerySearch(HashMap<String,String>values){
         
         String name="",quality="",category="",rating="",order="";
-        boolean prev=false;
-        
+        boolean prev=false,isActor=false;
+        String Movie=" movie where ",
+               allTables="movie,movie_staff,staff_member where movie.id=movie_staff.idMovie and "+
+                          "movie_staff.idStaff=staff_member.id and staff_member.";
         if(values.get("name").equals("")==false)
         {
             name="name like '%"+values.get("name")+"%' ";
+            isActor=hasActor(values.get("name"));
             prev=true;
         }
         
@@ -200,10 +208,32 @@ public class MovieModel {
         if(values.get("order_by").equals("all")==false)
             order=" order by "+values.get("order_by")+(values.get("order_by").equals("name")?"":" DESC");
         
-        queryMovie="select * from movie where "+name+quality+category+rating+order;
-    
+        queryMovie="select * from " +(isActor?allTables:Movie)+name+quality+category+rating+order;
+        
     }
-    
+    public boolean hasActor(String name)
+    {   
+         Connection connection =  DBC.getActiveConnection();
+         try{
+            queryMovie="select * from staff_member where name='"+name+"'";
+
+            PreparedStatement stmt=connection.prepareStatement(queryMovie);
+            ResultSet res=stmt.executeQuery();
+             while(res.next()){
+                 DBC.closeConnection();
+                 queryMovie="";
+                 return true;
+             }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(MovieModel.class.getName()).log(Level.SEVERE, null, ex);
+        
+        }
+       
+        DBC.closeConnection();
+        queryMovie="";
+        return false;
+    }
     public ArrayList<HashMap<String,String> > returnMovies()
     {  
        ArrayList< HashMap<String,String> >result=new ArrayList<HashMap<String,String> >();
@@ -212,8 +242,9 @@ public class MovieModel {
        try {
            if(queryMovie.equals(""))
                 queryMovie="select * from movie order by year desc";
-            PreparedStatement stmt=connection.prepareStatement(queryMovie);
-            ResultSet res=stmt.executeQuery();
+            
+           PreparedStatement stmt=connection.prepareStatement(queryMovie);
+           ResultSet res=stmt.executeQuery();
           
             
             while(res.next())

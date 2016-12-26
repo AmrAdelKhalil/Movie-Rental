@@ -45,12 +45,7 @@ public class SignUp extends HttpServlet {
             
         }
         
-        
-        
-        
-        
-        
-        response.sendRedirect("Views/newjsp.jsp");
+        response.sendRedirect("Views/index.jsp");
     }
 
     
