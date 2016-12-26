@@ -1,5 +1,6 @@
 package Controllers;
 
+import Models.AdminModel;
 import Models.UserModel;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -17,8 +18,14 @@ public class beforeUpdateSettings extends HttpServlet {
    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HashMap<String, String> user = new UserModel().showSettings(Integer.parseInt(request.getParameter("id")));
         
+        HashMap<String, String> user = null;
+        
+        if(request.getSession().getAttribute("isAdmin") == null){
+           user = new UserModel().showSettings(Integer.parseInt(request.getParameter("id")));
+        }else{ 
+           user = new AdminModel().showSettings(Integer.parseInt(request.getParameter("id")));
+        }
         request.setAttribute("user", user);
         RequestDispatcher dispatcher = request.getRequestDispatcher("/Views/UpdateSettings.jsp");
         dispatcher.include(request, response);
